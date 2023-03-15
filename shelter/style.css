@@ -1,0 +1,108 @@
+@font-face {
+    font-family: Arial;
+    src: url(fonts/ARIAL.TTF);
+}
+
+@font-face {
+    font-family: Georgia;
+    src: url(fonts/georgia.ttf);
+}
+
+body {
+    max-width: 1280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin:auto;
+}
+
+header {
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(to right, #5B483A, #262425);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_container {
+    width: 1200px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 60px;
+    padding-left: 17px;
+}
+
+.logo_title {
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 110%;
+    letter-spacing: 0.06em;
+    color: #F1CDB3;
+    margin: 0;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo_subtitle {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: 0.1em;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.navigation {
+    width: 443px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav_item {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 160%;
+    text-decoration: none;
+    color: #CDCDCD;
+    margin-top: 3px;
+    border-bottom: 3px solid rgba(241, 205, 179, .0);
+    transition: 0.4s;
+}
+
+#active {
+    border-bottom: 3px solid rgba(241, 205, 179, 1);
+    color: #FAFAFA;
+    margin-top: 3px;
+}
+
+.nav_item:hover {
+    border-bottom: 3px solid rgba(241, 205, 179, 1);
+    color: #FAFAFA;
+    margin-top: 3px;
+    transition: 0.4s;
+}
+
+main {
+    width: 100%;
+    margin: 0;
+}
+
+.not_only {
+    width: 100%;
+    height: 788px;
+    background: linear-gradient(to right, #5B483A, #262425);
+}
