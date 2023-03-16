@@ -81,16 +81,14 @@ header {
     transition: 0.4s;
 }
 
-#active {
+.active {
     border-bottom: 3px solid rgba(241, 205, 179, 1);
     color: #FAFAFA;
     margin-top: 3px;
 }
 
 .nav_item:hover {
-    border-bottom: 3px solid rgba(241, 205, 179, 1);
     color: #FAFAFA;
-    margin-top: 3px;
     transition: 0.4s;
 }
 
@@ -141,7 +139,7 @@ h1 {
     margin: 42px 0px;
 }
 
-button {
+.button_primary {
     box-sizing: border-box;
     border: 0;
     background: #F1CDB3;
@@ -154,6 +152,13 @@ button {
     line-height: 130%;
     letter-spacing: 0.06em;
     color: #292929;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.button_primary:hover {
+    background: #FDDCC4;
+    transition: 0.4s;
 }
 
 .about {
@@ -200,4 +205,106 @@ h2 {
     line-height: 160%;
     color: #4C4C4C;
     margin: 0;
+}
+
+.pets {
+    width: 100%;
+    height: 877px;
+    background: #F6F6F6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pets_container {
+    width: 93.75%;
+    height: 79.48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+pre {
+    font-family: 'Georgia';
+    margin: 0;
+}
+
+.slider {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding-bottom: 30px;
+    background: #FAFAFA;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.center {
+    margin: 0 3%;
+}
+
+.card:hover {
+    background: #FFFFFF;
+    transition: 0.4s;
+}
+
+h3 {
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    letter-spacing: 0.06em;
+    color: #545454;
+    margin: 0;
+}
+
+.button_secondary {
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 100px;
+    border: 2px solid rgb(241, 205, 179, 1);
+    padding: 13px 43px;
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 130%;
+    letter-spacing: 0.06em;
+    color: #292929;
+    background: inherit;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.arrow_right:hover,
+.arrow_left:hover,
+.button_secondary:hover {
+    background: #FDDCC4;
+    border: 2px solid rgb(241, 205, 179, 0);
+    transition: 0.4s;
+}
+
+.arrow_right,
+.arrow_left {
+    width: 48px;
+    height: 48px;
+    border: 2px solid rgb(241, 205, 179, 1);
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.4s;
 }
