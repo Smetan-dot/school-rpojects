@@ -22,16 +22,14 @@ header {
     background: linear-gradient(to right, #5B483A, #262425);
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 .header_container {
-    width: 1200px;
+    width: 93.75%;
     height: 60px;
     display: flex;
     justify-content: space-between;
     padding-top: 60px;
-    padding-left: 17px;
 }
 
 .logo_title {
@@ -105,4 +103,55 @@ main {
     width: 100%;
     height: 788px;
     background: linear-gradient(to right, #5B483A, #262425);
+    display: flex;
+    justify-content: center;
+}
+
+.not_only_container {
+    width: 93.75%;
+    height: 728px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 60px;
+}
+
+.content_start_screen {
+    width: 38.34%;
+    padding-bottom: 80px;
+}
+
+h1 {
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 130%;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.text_start_screen {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 160%;
+    color: #CDCDCD;
+    margin: 42px 0px;
+}
+
+button {
+    box-sizing: border-box;
+    border: 0;
+    background: #F1CDB3;
+    border-radius: 100px;
+    padding: 15px 45px;
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 130%;
+    letter-spacing: 0.06em;
+    color: #292929;
 }
