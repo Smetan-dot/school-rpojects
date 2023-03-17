@@ -360,3 +360,59 @@ h3 {
 .help_icons {
     width: 60px;
 }
+
+.donation {
+    width: 100%;
+    height: 462px;
+    background: #F6F6F6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.donation_container {
+    width: 71.49%;
+    height: 61.04%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.donation_content {
+    width: 41.53%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+h4 {
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 110%;
+    letter-spacing: 0.06em;
+    color: #545454;
+    margin: 0;
+}
+
+.credit_card {
+    width: 83.94%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background: #F1CDB3;
+    border-radius: 9px;
+}
+
+.donation_information {
+    font-family: 'Arial';
+    font-style: italic;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    color: #B2B2B2;
+    margin: 0;
+}
