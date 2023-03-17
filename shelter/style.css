@@ -8,6 +8,10 @@
     src: url(fonts/georgia.ttf);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     max-width: 1280px;
     display: flex;
@@ -48,6 +52,7 @@ header {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    text-decoration: none;
 }
 
 .logo_subtitle {
@@ -62,7 +67,7 @@ header {
 }
 
 .navigation {
-    width: 443px;
+    width: 37.17%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -103,20 +108,25 @@ main {
     background: linear-gradient(to right, #5B483A, #262425);
     display: flex;
     justify-content: center;
+    align-items: flex-end;
 }
 
 .not_only_container {
     width: 93.75%;
-    height: 728px;
+    height: 92.39%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 60px;
 }
 
 .content_start_screen {
     width: 38.34%;
+    height: 44.23%;
     padding-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items:flex-start ;
 }
 
 h1 {
@@ -136,7 +146,7 @@ h1 {
     font-size: 15px;
     line-height: 160%;
     color: #CDCDCD;
-    margin: 42px 0px;
+    margin: 0;
 }
 
 .button_primary {
@@ -151,6 +161,7 @@ h1 {
     font-size: 17px;
     line-height: 130%;
     letter-spacing: 0.06em;
+    text-decoration: none;
     color: #292929;
     cursor: pointer;
     transition: 0.4s;
@@ -256,6 +267,12 @@ pre {
 
 .card:hover {
     background: #FFFFFF;
+    transition: 0.4s;
+}
+
+.card:hover .button_secondary {
+    background: #FDDCC4;
+    border: 2px solid rgb(241, 205, 179, 0);
     transition: 0.4s;
 }
 
@@ -405,6 +422,13 @@ h4 {
     padding: 10px 15px;
     background: #F1CDB3;
     border-radius: 9px;
+    text-decoration: none;
+    transition: 0.4s;
+}
+
+.credit_card:hover {
+    background: #FDDCC4;
+    transition: 0.4s;
 }
 
 .donation_information {
@@ -458,6 +482,7 @@ footer {
     display: flex;
     align-items: center;
     gap: 20px;
+    text-decoration: none;
 }
 
 .h2_on_dark {
