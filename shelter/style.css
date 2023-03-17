@@ -6,7 +6,7 @@
 @font-face {
     font-family: Georgia;
     src: url(fonts/georgia.ttf);
-}
+} 
 
 html {
     scroll-behavior: smooth;
@@ -26,6 +26,12 @@ header {
     background: linear-gradient(to right, #5B483A, #262425);
     display: flex;
     justify-content: center;
+    align-items: flex-end;
+}
+
+.on_white {
+    background: #FFFFFF;
+    align-items: center;
 }
 
 .header_container {
@@ -33,7 +39,6 @@ header {
     height: 60px;
     display: flex;
     justify-content: space-between;
-    padding-top: 60px;
 }
 
 .logo_title {
@@ -44,6 +49,17 @@ header {
     line-height: 110%;
     letter-spacing: 0.06em;
     color: #F1CDB3;
+    margin: 0;
+}
+
+.logo_title_on_white {
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 110%;
+    letter-spacing: 0.06em;
+    color: #545454;
     margin: 0;
 }
 
@@ -63,6 +79,17 @@ header {
     line-height: 15px;
     letter-spacing: 0.1em;
     color: #FFFFFF;
+    margin: 0;
+}
+
+.logo_subtitle_on_white {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: 0.1em;
+    color: #292929;
     margin: 0;
 }
 
@@ -86,14 +113,38 @@ header {
     transition: 0.4s;
 }
 
+.nav_item_on_white {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 160%;
+    text-decoration: none;
+    color: #545454;
+    margin-top: 3px;
+    border-bottom: 3px solid rgba(241, 205, 179, .0);
+    transition: 0.4s;
+}
+
 .active {
     border-bottom: 3px solid rgba(241, 205, 179, 1);
     color: #FAFAFA;
     margin-top: 3px;
 }
 
+.active_on_white {
+    border-bottom: 3px solid rgba(241, 205, 179, 1);
+    color: #292929;
+    margin-top: 3px;
+}
+
 .nav_item:hover {
     color: #FAFAFA;
+    transition: 0.4s;
+}
+
+.nav_item_on_white:hover {
+    color: #292929;
     transition: 0.4s;
 }
 
@@ -221,6 +272,15 @@ h2 {
 .pets {
     width: 100%;
     height: 877px;
+    background: #F6F6F6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.our_pets {
+    width: 100%;
+    height: 1342px;
     background: #F6F6F6;
     display: flex;
     justify-content: center;
