@@ -416,3 +416,54 @@ h4 {
     color: #B2B2B2;
     margin: 0;
 }
+
+footer {
+    width: 100%;
+    height: 350px;
+    background: linear-gradient(to right, #5B483A, #262425);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.footer_container {
+    width: 93.75%;
+    height: 88.57%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.contacts {
+    width: 23.2%;
+    height: 75.48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 16px;
+}
+
+.locations {
+    width: 25.17%;
+    height: 75.48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 16px;
+}
+
+.mail,
+.phone,
+.location_boston,
+.location_london {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.h2_on_dark {
+    color: #FFFFFF;
+}
+
+.h3_on_dark {
+    color: #F1CDB3;
+}
