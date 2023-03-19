@@ -297,6 +297,16 @@ h2 {
     padding-bottom: 20px;
 }
 
+.our_pets_container {
+    width: 93.75%;
+    height: 86.59%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
 pre {
     font-family: 'Georgia';
     margin: 0;
@@ -307,6 +317,21 @@ pre {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.slider_pets {
+    width: 100%;
+    height: 80.04%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.paginator {
+    width: 28.34%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .card {
@@ -321,15 +346,29 @@ pre {
     transition: 0.4s;
 }
 
+.card_pets {
+    height: 46.77%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    background: #FAFAFA;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
 .center {
     margin: 0 3%;
 }
 
+.card_pets:hover,
 .card:hover {
     background: #FFFFFF;
     transition: 0.4s;
 }
 
+.card_pets:hover .button_secondary,
 .card:hover .button_secondary {
     background: #FDDCC4;
     border: 2px solid rgb(241, 205, 179, 0);
@@ -365,6 +404,7 @@ h3 {
     transition: 0.4s;
 }
 
+.paginator_button:hover,
 .arrow_right:hover,
 .arrow_left:hover,
 .button_secondary:hover {
@@ -373,6 +413,7 @@ h3 {
     transition: 0.4s;
 }
 
+.paginator_button,
 .arrow_right,
 .arrow_left {
     width: 48px;
@@ -384,6 +425,23 @@ h3 {
     align-items: center;
     cursor: pointer;
     transition: 0.4s;
+}
+
+.inactive {
+    border: 2px solid #CDCDCD;
+    color: #CDCDCD;
+    cursor: default;
+}
+
+.inactive:hover {
+    border: 2px solid #CDCDCD;
+    color: #CDCDCD;
+    cursor: default;
+    background: inherit;
+}
+
+.current {
+    background: #F1CDB3;
 }
 
 .help {
@@ -504,7 +562,7 @@ h4 {
 footer {
     width: 100%;
     height: 350px;
-    background: linear-gradient(to right, #5B483A, #262425);
+    background: url("icons/footer-gradient-background.svg"), linear-gradient(to right, #5B483A, #262425);
     display: flex;
     justify-content: center;
     align-items: flex-end;
