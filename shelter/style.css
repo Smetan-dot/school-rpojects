@@ -23,7 +23,7 @@ body {
 header {
     width: 100%;
     height: 120px;
-    background: linear-gradient(to right, #5B483A, #262425);
+    background: url("icons/start-screen-gradient-background.svg"), linear-gradient(to right, #5B483A, #262425);
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -130,12 +130,14 @@ header {
     border-bottom: 3px solid rgba(241, 205, 179, 1);
     color: #FAFAFA;
     margin-top: 3px;
+    cursor: default;
 }
 
 .active_on_white {
     border-bottom: 3px solid rgba(241, 205, 179, 1);
     color: #292929;
     margin-top: 3px;
+    cursor: default;
 }
 
 .nav_item:hover {
@@ -156,7 +158,7 @@ main {
 .not_only {
     width: 100%;
     height: 788px;
-    background: linear-gradient(to right, #5B483A, #262425);
+    background: url("icons/start-screen-gradient-background.svg"), linear-gradient(to right, #5B483A, #262425);
     display: flex;
     justify-content: center;
     align-items: flex-end;
