@@ -250,6 +250,7 @@ h1 {
     justify-content: space-between;
 }
 
+pre,
 h2 {
     font-family: 'Georgia';
     font-style: normal;
@@ -307,11 +308,6 @@ h2 {
     justify-content: space-between;
     align-items: center;
     padding-bottom: 20px;
-}
-
-pre {
-    font-family: 'Georgia';
-    margin: 0;
 }
 
 .slider {
