@@ -710,4 +710,19 @@ footer {
         width: 170px;
         height: 113px;
     }
+
+    .donation {
+        height: 783px;
+    }
+
+    .donation_container {
+        height: 603px;
+        max-width: 708px;
+        flex-direction: column-reverse;
+    }
+
+    .donation_content {
+        height: 282px;
+        width: 53.68%;
+    }
 }
