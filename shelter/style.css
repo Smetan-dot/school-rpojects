@@ -471,6 +471,10 @@ h3 {
     align-items: center;
 }
 
+.list {
+    display: none;
+}
+
 .list1 {
     width: 100%;
     display: flex;
@@ -679,5 +683,31 @@ footer {
 
     .center {
         margin: 0 0 0 4%;
+    }
+
+    .help {
+        height: 779px;
+    }
+
+    .help_container {
+        height: 599px;
+    }
+
+    .list_container {
+        display: none;
+    }
+
+    .list {
+        height: 449px;
+        max-width: 630px;
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 60px;
+        row-gap: 55px;
+    }
+
+    .list_item {
+        width: 170px;
+        height: 113px;
     }
 }
