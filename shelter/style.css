@@ -641,7 +641,24 @@ footer {
     }
 
     #big_dog {
-        max-width: 569px;
+        width: 80.37%;
         align-self: flex-end;
+    }
+
+    .about {
+        height: 1048px;
+        align-items: center;
+    }
+
+    .about_container {
+        height: 868px;
+        width: 56%;
+        max-width: 708px;
+        flex-direction: column-reverse;
+        gap: 9.22%;
+    }
+
+    .about_content {
+        width: 100%;
     }
 }
