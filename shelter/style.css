@@ -857,4 +857,42 @@ footer {
     #big_dog {
         width: 86.67%;
     }
+
+    .about {
+        height: 974px;
+    }
+
+    .about_container {
+        height: 890px;
+        width: 93.75%;
+        max-width: 93.75%;
+        padding-bottom: 0;
+        gap: 0;
+        justify-content: space-between;
+    }
+
+    .about_content {
+        height: 496px;
+        align-items: center;
+    }
+
+    #about_pets {
+        width: 86.67%;
+    }
+
+    h2 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 25px;
+        line-height: 130%;
+        text-align: center;
+        letter-spacing: 0.06em;
+        color: #545454;
+    }
+
+    .text_about {
+        width: 90%;
+        text-align: justify;
+    }
 }
