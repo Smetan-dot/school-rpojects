@@ -880,6 +880,7 @@ footer {
         width: 86.67%;
     }
 
+    pre,
     h2 {
         font-family: 'Georgia';
         font-style: normal;
@@ -894,5 +895,30 @@ footer {
     .text_about {
         width: 90%;
         text-align: justify;
+    }
+
+    .pets {
+        height: 791px;
+    }
+
+    .pets_container {
+        height: 707px;
+        padding-bottom: 0;
+    }
+
+    .slider {
+        height: 507px;
+        max-width: 90%;
+        flex-wrap: wrap;
+        row-gap: 20px;
+        justify-content: space-around;
+    }
+
+    #pet_1 {
+        order: -1;
+    }
+
+    .center {
+        display: none;
     }
 }
