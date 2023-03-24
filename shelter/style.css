@@ -38,7 +38,7 @@ header {
 }
 
 .header_container {
-    width: 100%;
+    width: 93.75%;
     max-width: 1200px;
     height: 60px;
     display: flex;
@@ -104,6 +104,10 @@ header {
     align-items: center;
 }
 
+.burger_menu {
+    display: none;
+}
+
 .nav_item {
     font-family: 'Arial';
     font-style: normal;
@@ -161,7 +165,7 @@ main {
 }
 
 .not_only_container {
-    width: 100%;
+    width: 93.75%;
     max-width: 1200px;
     height: 80.18%;
     display: flex;
@@ -231,7 +235,7 @@ h1 {
 }
 
 .about_container {
-    width: 100%;
+    width: 93.75%;
     max-width: 1200px;
     display: flex;
     justify-content: center;
@@ -289,7 +293,7 @@ h2 {
 }
 
 .pets_container {
-    width: 100%;
+    width: 93.75%;
     max-width: 1200px;
     height: 79.48%;
     display: flex;
@@ -455,7 +459,7 @@ h3 {
 }
 
 .help_container {
-    width: 100%;
+    width: 93.75%;
     max-width: 1200px;
     height: 70.54%;
     display: flex;
@@ -512,7 +516,7 @@ h3 {
 }
 
 .donation_container {
-    width: 100%;
+    width: 93.75%;
     max-width: 915px;
     height: 61.04%;
     display: flex;
@@ -577,7 +581,7 @@ footer {
 }
 
 .footer_container {
-    width: 100%;
+    width: 93.75%;
     max-width: 1200px;
     height: 88.57%;
     display: flex;
@@ -620,7 +624,7 @@ footer {
     color: #F1CDB3;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1050px) {
     header {
         height: 1165px;
         gap: 60px;
@@ -788,5 +792,69 @@ footer {
 
     #footer_puppy {
         margin: auto;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .burger_menu {
+        width: 30px;
+        height: 22px;
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+    .line {
+        border: 1px solid #F1CDB3;
+    }
+
+    .navigation {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    header {
+        height: 823px;
+    }
+
+    .header_container {
+        max-width: 87.5%;
+    }
+
+    .navigation {
+        display: none;
+    }
+
+    .not_only_container {
+        height: 673px;
+        max-width: 93.75%;
+    }
+
+    .content_start_screen {
+        height: 296px;
+        width: 100%;
+        align-items: center;
+    }
+
+    h1 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 25px;
+        line-height: 130%;
+        letter-spacing: 0.06em;
+        color: #FFFFFF;
+        text-align: center;
+    }
+
+    .text_start_screen {
+        text-align: center;
+    }
+
+    #big_dog {
+        width: 86.67%;
     }
 }
