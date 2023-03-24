@@ -917,6 +917,17 @@ footer {
         justify-content: space-around;
     }
 
+    .card h3 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 23px;
+        text-align: center;
+        letter-spacing: 0.06em;
+        color: #545454;
+    }
+
     #pet_1 {
         order: -1;
     }
@@ -960,5 +971,91 @@ footer {
         text-align: center;
         letter-spacing: 0.06em;
         color: #545454;
+    }
+
+    .donation {
+        height: 542px;
+    }
+
+    .donation_container {
+        max-width: 93.75%;
+        height: 458px;
+        padding-bottom: 0;
+    }
+
+    .donation_content {
+        width: 100%;
+        height: 281px;
+        text-align: justify;
+        align-items: center;
+    }
+
+    h4 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 160%;
+        letter-spacing: 0;
+        color: #545454;
+    }
+
+    .donation_information {
+        max-width: 93.34%;
+    }
+
+    .donation_information br {
+        display: none;
+    }
+
+    #donation_dog {
+        width: 86.67%;
+    }
+
+    footer {
+        height: 809px;
+    }
+
+    .footer_container {
+        height: 779px;
+        max-width: 93.75%;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        row-gap: 40px;
+    }
+
+    #footer_puppy {
+        width: 86.67%;
+    }
+
+    .contacts {
+        height: 208px;
+        width: 100%;
+        align-items: center;
+    }
+
+    .locations {
+        height: 222px;
+        width: 100%;
+    }
+
+    .contacts h3,
+    .locations h3 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 115%;
+        letter-spacing: 0.06em;
+        color: #F1CDB3;
+    }
+
+    .locations .h2_on_dark {
+        width: 98%;
+        align-self: center;
+    }
+
+    .h3_on_dark {
+        text-align: start;
     }
 }
