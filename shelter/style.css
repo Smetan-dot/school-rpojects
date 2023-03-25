@@ -818,7 +818,77 @@ footer {
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 721px) {
+    .center {
+        display: none;
+    }
+
+    .slider {
+        justify-content: space-around;
+    }
+
+    h3 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 110%;
+        text-align: center;
+        letter-spacing: 0.06em;
+        color: #545454;
+    }
+}
+
+@media screen and (max-width: 671px) {
+    .help {
+        height: 745px;
+    }
+
+    .help_container {
+        max-width: 90.625%;
+        height: 661px;
+        padding-bottom: 0;
+    }
+
+    .list {
+        height: 555px;
+        width: 100%;
+        column-gap: 30px;
+        row-gap: 30px;
+    }
+
+    .list_item {
+        width: 44.83%;
+        height: 87px;
+    }
+
+    .help_icons {
+        width: 50px;
+    }
+
+    #donation_dog {
+        max-width: 470px;
+    }
+}
+
+@media screen and (max-width: 578px) {
+    .donation_content {
+        width: 61%;
+    }
+
+    h2 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 25px;
+        line-height: 130%;
+        text-align: center;
+        letter-spacing: 0.06em;
+        color: #545454;
+    }
+}
+
+@media screen and (max-width: 510px) {
     header {
         height: 823px;
     }
@@ -883,18 +953,6 @@ footer {
         width: 86.67%;
     }
 
-    pre,
-    h2 {
-        font-family: 'Georgia';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 25px;
-        line-height: 130%;
-        text-align: center;
-        letter-spacing: 0.06em;
-        color: #545454;
-    }
-
     .text_about {
         width: 90%;
         text-align: justify;
@@ -930,47 +988,11 @@ footer {
 
     #pet_1 {
         order: -1;
+        margin: 0 13% 0 13%;
     }
 
     .center {
         display: none;
-    }
-
-    .help {
-        height: 745px;
-    }
-
-    .help_container {
-        max-width: 90.625%;
-        height: 661px;
-        padding-bottom: 0;
-    }
-
-    .list {
-        height: 555px;
-        width: 100%;
-        column-gap: 30px;
-        row-gap: 30px;
-    }
-
-    .list_item {
-        width: 130px;
-        height: 87px;
-    }
-
-    .help_icons {
-        width: 50px;
-    }
-
-    h3 {
-        font-family: 'Georgia';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 15px;
-        line-height: 110%;
-        text-align: center;
-        letter-spacing: 0.06em;
-        color: #545454;
     }
 
     .donation {
@@ -1010,6 +1032,10 @@ footer {
 
     #donation_dog {
         width: 86.67%;
+    }
+
+    .credit_card {
+        max-width: 281px;
     }
 
     footer {
