@@ -307,7 +307,7 @@ h2 {
 }
 
 .our_pets_container {
-    width: 100%;
+    width: 93.75%;
     max-width: 1200px;
     height: 86.59%;
     display: flex;
@@ -627,6 +627,13 @@ footer {
     color: #F1CDB3;
 }
 
+@media screen and (max-width: 1151px) {
+    #pet_7,
+    #pet_8 {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 1050px) {
     header {
         height: 1165px;
@@ -715,8 +722,6 @@ footer {
         height: 435px;
     }
 
-    #pet_7,
-    #pet_8,
     #pet_3 {
         display: none;
     }
@@ -823,6 +828,19 @@ footer {
 }
 
 @media screen and (max-width: 721px) {
+    .credit_card h3 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 110%;
+        text-align: center;
+        letter-spacing: 0.06em;
+        color: #545454;
+    }
+}
+
+@media screen and (max-width: 715px) {
     .center {
         display: none;
     }
@@ -840,6 +858,48 @@ footer {
         text-align: center;
         letter-spacing: 0.06em;
         color: #545454;
+    }
+}
+
+@media screen and (max-width: 703px) {
+    .our_pets {
+        height: 1649px;
+    }
+
+    .our_pets_container {
+        height: 1565px;
+        max-width: 93.75%;
+        padding-bottom: 0;
+    }
+
+    .slider_pets {
+        height: 1365px;
+        max-width: 90%;
+        row-gap: 30px;
+        justify-content: center;
+        padding-bottom: 0;
+    }
+
+    .card_pets h3 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 23px;
+        text-align: center;
+        letter-spacing: 0.06em;
+        color: #545454;
+    }
+
+    #pet_4,
+    #pet_5,
+    #pet_6 {
+        display: none;
+    }
+
+    .paginator {
+        width: 100%;
+        justify-content: space-around;
     }
 }
 
@@ -933,6 +993,7 @@ footer {
 
     #big_dog {
         width: 86.67%;
+        max-width: 300px;
     }
 
     .about {
@@ -955,6 +1016,7 @@ footer {
 
     #about_pets {
         width: 86.67%;
+        max-width: 360px;
     }
 
     .text_about {
