@@ -21,6 +21,11 @@
                 <a class="nav_item" href="#help_shelter"> Help the shelter </a>
                 <a class="nav_item" href="#contacts"> Contacts </a>
             </nav>
+            <div class="burger_menu">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </div>
         </div>
         <div class="not_only_container">
             <div class="content_start_screen">
@@ -30,13 +35,13 @@
                 than anybody else in the world, you will see! </p>
                 <a href="#our_friends" class="button_primary" > Make a friend </a>
             </div>
-            <img src="icons/start-screen-puppy.svg" alt="big_dog">
+            <img id="big_dog" src="icons/start-screen-puppy.svg" alt="big_dog">
         </div>
     </header>
     <main>
         <section class="about">
             <div class="about_container">
-                <img src="icons/about-pets.svg" alt="about_pets">
+                <img id="about_pets" src="icons/about-pets.svg" alt="about_pets">
                 <div class="about_content">
                     <h2> About the shelter <br> “Cozy House” </h2>
                     <p class="text_about"> Currently we have 121 dogs and 342 cats on our hands and statistics show that
@@ -52,12 +57,12 @@
         </section>
         <section class="pets" id="our_friends">
             <div class="pets_container">
-                <h2 class="text_center"> Our friends who<br> are looking for a house </h2>
+                <h2 class="text_center"> Our friends who <br> are looking for a house </h2>
                 <div class="slider">
                     <div class="arrow_left">
                         <img src="icons/arrow_left.svg" alt="arrow_left">
                     </div>
-                    <div class="card">
+                    <div id="pet_1" class="card">
                         <img src="icons/pets-katrine.svg" alt="katrine">
                         <h3> Katrine </h3>
                         <button class="button_secondary"> Learn more </button>
@@ -67,7 +72,7 @@
                         <h3> Jennifer </h3>
                         <button class="button_secondary"> Learn more </button>
                     </div>
-                    <div class="card">
+                    <div id="pet_3" class="card">
                         <img src="icons/pets-woody.svg" alt="woody">
                         <h3> Woody </h3>
                         <button class="button_secondary"> Learn more </button>
@@ -82,6 +87,44 @@
         <section class="help" id="help_shelter">
             <div class="help_container">
                 <h2 class="text_center"> How you can help <br> our shelter</h2>
+                <div class="list">
+                    <div class="list_item">
+                        <img class="help_icons" src="icons/icon-pet-food.svg" alt="pet_food">
+                        <h3> Pet food </h3>
+                    </div>
+                    <div class="list_item">
+                        <img class="help_icons" src="icons/icon-transportation.svg" alt="transportation">
+                        <h3> Transportation </h3>
+                    </div>
+                    <div class="list_item">
+                        <img class="help_icons" src="icons/icon-toys.svg" alt="toys">
+                        <h3> Toys </h3>
+                    </div>
+                    <div class="list_item">
+                        <img class="help_icons" src="icons/icon-bowls-and-cups.svg" alt="bowls_and_cups">
+                        <h3> Bowls and cups </h3>
+                    </div>
+                    <div class="list_item">
+                        <img class="help_icons" src="icons/icon-shampoos.svg" alt="shampoos">
+                        <h3> Shampoos </h3>
+                    </div>
+                    <div class="list_item">
+                        <img class="help_icons" src="icons/icon-vitamins.svg" alt="vitamins">
+                        <h3> Vitamins </h3>
+                    </div>
+                    <div class="list_item">
+                        <img class="help_icons" src="icons/icon-medicines.svg" alt="medicines">
+                        <h3> Medicines </h3>
+                    </div>
+                    <div class="list_item">
+                        <img class="help_icons" src="icons/icon-collars-leashes.svg" alt="collars/leashes">
+                        <h3> Collars / leashes </h3>
+                    </div>
+                    <div class="list_item">
+                        <img class="help_icons" src="icons/icon-sleeping-area.svg" alt="sleeping_areas">
+                        <h3> Sleeping areas </h3>
+                    </div>
+                </div>
                 <div class="list_container">
                     <div class="list1">
                         <div class="list_item">
@@ -128,7 +171,7 @@
         </section>
         <section class="donation">
             <div class="donation_container">
-                <img src="icons/donation-dog.svg" alt="donation-dog">
+                <img id="donation_dog" src="icons/donation-dog.svg" alt="donation-dog">
                 <div class="donation_content">
                     <h2> You can also <br> make a donation </h2>
                     <h4> Name of the bank / Type of bank account </h4>
@@ -168,7 +211,7 @@
                     <h3 class="h3_on_dark"> 18 South Park, London  </h3>
                 </a>
             </div>
-            <img src="icons/footer-puppy.svg" alt="footer-puppy">
+            <img id="footer_puppy" src="icons/footer-puppy.svg" alt="footer-puppy">
         </div>
     </footer>
 </body>

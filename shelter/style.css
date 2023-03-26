@@ -22,7 +22,7 @@ body {
 header {
     width: 100%;
     height: 908px;
-    background: url("icons/start-screen-gradient-background.svg");
+    background: url("icons/start-screen-background.svg");
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -38,7 +38,7 @@ header {
 }
 
 .header_container {
-    width: 100%;
+    width: 93.75%;
     max-width: 1200px;
     height: 60px;
     display: flex;
@@ -98,10 +98,14 @@ header {
 }
 
 .navigation {
-    width: 37%;
+    width: 443px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.burger_menu {
+    display: none;
 }
 
 .nav_item {
@@ -161,7 +165,7 @@ main {
 }
 
 .not_only_container {
-    width: 100%;
+    width: 93.75%;
     max-width: 1200px;
     height: 80.18%;
     display: flex;
@@ -231,7 +235,7 @@ h1 {
 }
 
 .about_container {
-    width: 100%;
+    width: 93.75%;
     max-width: 1200px;
     display: flex;
     justify-content: center;
@@ -292,7 +296,7 @@ h2 {
 }
 
 .pets_container {
-    width: 100%;
+    width: 93.75%;
     max-width: 1200px;
     height: 79.48%;
     display: flex;
@@ -303,7 +307,7 @@ h2 {
 }
 
 .our_pets_container {
-    width: 100%;
+    width: 93.75%;
     max-width: 1200px;
     height: 86.59%;
     display: flex;
@@ -458,7 +462,7 @@ h3 {
 }
 
 .help_container {
-    width: 100%;
+    width: 93.75%;
     max-width: 1200px;
     height: 70.54%;
     display: flex;
@@ -475,6 +479,10 @@ h3 {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+.list {
+    display: none;
 }
 
 .list1 {
@@ -511,7 +519,7 @@ h3 {
 }
 
 .donation_container {
-    width: 100%;
+    width: 93.75%;
     max-width: 915px;
     height: 61.04%;
     display: flex;
@@ -568,7 +576,7 @@ h4 {
 footer {
     width: 100%;
     height: 350px;
-    background: url("icons/footer-gradient-background.svg");
+    background: url("icons/footer-background.svg");
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -576,7 +584,7 @@ footer {
 }
 
 .footer_container {
-    width: 100%;
+    width: 93.75%;
     max-width: 1200px;
     height: 88.57%;
     display: flex;
@@ -617,4 +625,555 @@ footer {
 
 .h3_on_dark {
     color: #F1CDB3;
+}
+
+@media screen and (max-width: 1151px) {
+    #pet_7,
+    #pet_8 {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    header {
+        height: 1165px;
+        gap: 60px;
+        justify-content: space-between;
+    }
+
+    .header_container {
+        max-width: 708px;
+        margin-top: 30px;
+    }
+
+    header.on_white .header_container{
+        margin-top: 0;
+    }
+
+    .not_only_container {
+        max-width: 708px;
+        height: 1015px;
+        flex-direction: column;
+    }
+
+    .content_start_screen {
+        width: 64.98%;
+        height: 322px;
+        gap: 42px;
+        padding-bottom: 0;
+    }
+
+    .button_primary {
+        align-self: center;
+    }
+
+    #big_dog {
+        width: 80.37%;
+        align-self: flex-end;
+    }
+
+    .about {
+        height: 1048px;
+        align-items: center;
+    }
+
+    .about_container {
+        height: 868px;
+        width: 56%;
+        max-width: 708px;
+        flex-direction: column-reverse;
+        gap: 9.22%;
+    }
+
+    .about_content {
+        width: 100%;
+    }
+
+    .pets {
+        height: 877px;
+    }
+
+    .our_pets {
+        height: 1733px;
+    }
+
+    .pets_container {
+        height: 697px;
+        max-width: 708px;
+    }
+
+    .our_pets_container {
+        height: 1603px;
+        max-width: 708px;
+    }
+
+    .our_pets_container pre {
+        padding-top: 25px;
+    }
+
+    .slider_pets {
+        height: 1365px;
+        width: 81.93%;
+        row-gap: 30px;
+        padding-bottom: 10px;
+    }
+
+    .card_pets {
+        height: 435px;
+    }
+
+    #pet_3 {
+        display: none;
+    }
+
+    .paginator {
+        width: 48.03%;
+    }
+
+    .center {
+        margin: 0 0 0 4%;
+    }
+
+    .help {
+        height: 779px;
+    }
+
+    .help_container {
+        height: 599px;
+    }
+
+    .list_container {
+        display: none;
+    }
+
+    .list {
+        height: 449px;
+        max-width: 630px;
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 60px;
+        row-gap: 55px;
+    }
+
+    .list_item {
+        width: 170px;
+        height: 113px;
+    }
+
+    .donation {
+        height: 783px;
+    }
+
+    .donation_container {
+        height: 603px;
+        max-width: 708px;
+        flex-direction: column-reverse;
+    }
+
+    .donation_content {
+        height: 282px;
+        width: 53.68%;
+    }
+
+    footer {
+        height: 639px;
+    }
+
+    .footer_container {
+        height: 609px;
+        max-width: 640px;
+        flex-wrap: wrap;
+        row-gap: 65px;
+    }
+
+    .contacts {
+        height: 234px;
+        width: 44%;
+        padding-top: 0;
+    }
+
+    .locations {
+        height: 234px;
+        width: 47%;
+        padding-top: 0;
+    }
+
+    #footer_puppy {
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .burger_menu {
+        width: 30px;
+        height: 22px;
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+    .line {
+        border: 1px solid #F1CDB3;
+    }
+
+    .on_white .header_container .burger_menu .line {
+        border: 1px solid #000000;
+    }
+
+    .navigation {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 721px) {
+    .credit_card h3 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 110%;
+        text-align: center;
+        letter-spacing: 0.06em;
+        color: #545454;
+    }
+}
+
+@media screen and (max-width: 715px) {
+    .center {
+        display: none;
+    }
+
+    .slider {
+        justify-content: space-around;
+    }
+
+    h3 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 110%;
+        text-align: center;
+        letter-spacing: 0.06em;
+        color: #545454;
+    }
+}
+
+@media screen and (max-width: 703px) {
+    .our_pets {
+        height: 1649px;
+    }
+
+    .our_pets_container {
+        height: 1565px;
+        max-width: 93.75%;
+        padding-bottom: 0;
+    }
+
+    .slider_pets {
+        height: 1365px;
+        max-width: 90%;
+        row-gap: 30px;
+        justify-content: center;
+        padding-bottom: 0;
+    }
+
+    .card_pets h3 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 23px;
+        text-align: center;
+        letter-spacing: 0.06em;
+        color: #545454;
+    }
+
+    #pet_4,
+    #pet_5,
+    #pet_6 {
+        display: none;
+    }
+
+    .paginator {
+        width: 100%;
+        justify-content: space-around;
+    }
+}
+
+@media screen and (max-width: 671px) {
+    .help {
+        height: 745px;
+    }
+
+    .help_container {
+        max-width: 90.625%;
+        height: 661px;
+        padding-bottom: 0;
+    }
+
+    .list {
+        height: 555px;
+        width: 100%;
+        column-gap: 30px;
+        row-gap: 30px;
+    }
+
+    .list_item {
+        width: 44.83%;
+        height: 87px;
+    }
+
+    .help_icons {
+        width: 50px;
+    }
+
+    #donation_dog {
+        max-width: 470px;
+    }
+}
+
+@media screen and (max-width: 578px) {
+    .donation_content {
+        width: 61%;
+    }
+
+    h2 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 25px;
+        line-height: 130%;
+        text-align: center;
+        letter-spacing: 0.06em;
+        color: #545454;
+    }
+}
+
+@media screen and (max-width: 510px) {
+    header {
+        height: 823px;
+    }
+
+    .header_container {
+        max-width: 87.5%;
+    }
+
+    .navigation {
+        display: none;
+    }
+
+    .not_only_container {
+        height: 673px;
+        max-width: 93.75%;
+    }
+
+    .content_start_screen {
+        height: 296px;
+        width: 100%;
+        align-items: center;
+    }
+
+    h1 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 25px;
+        line-height: 130%;
+        letter-spacing: 0.06em;
+        color: #FFFFFF;
+        text-align: center;
+    }
+
+    .text_start_screen {
+        text-align: center;
+    }
+
+    #big_dog {
+        width: 86.67%;
+        max-width: 300px;
+    }
+
+    .about {
+        height: 974px;
+    }
+
+    .about_container {
+        height: 890px;
+        width: 93.75%;
+        max-width: 93.75%;
+        padding-bottom: 0;
+        gap: 0;
+        justify-content: space-between;
+    }
+
+    .about_content {
+        height: 496px;
+        align-items: center;
+    }
+
+    #about_pets {
+        width: 86.67%;
+        max-width: 360px;
+    }
+
+    .text_about {
+        width: 90%;
+        text-align: justify;
+    }
+
+    .pets {
+        height: 791px;
+    }
+
+    .our_pets {
+        height: 1649px;
+    }
+
+    .pets_container {
+        height: 707px;
+        padding-bottom: 0;
+    }
+
+    .our_pets_container {
+        height: 1565px;
+        max-width: 93.75%;
+        padding-bottom: 0;
+    }
+
+    .slider {
+        height: 507px;
+        max-width: 90%;
+        flex-wrap: wrap;
+        row-gap: 20px;
+        justify-content: space-around;
+    }
+
+    .slider_pets {
+        height: 1365px;
+        max-width: 90%;
+        row-gap: 30px;
+        justify-content: center;
+        padding-bottom: 0;
+    }
+
+    .card_pets h3,
+    .card h3 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 23px;
+        text-align: center;
+        letter-spacing: 0.06em;
+        color: #545454;
+    }
+
+    #pet_1 {
+        order: -1;
+        margin: 0 13% 0 13%;
+    }
+
+    #pet_4,
+    #pet_5,
+    #pet_6,
+    .center {
+        display: none;
+    }
+
+    .paginator {
+        width: 100%;
+    }
+
+    .donation {
+        height: 542px;
+    }
+
+    .donation_container {
+        max-width: 93.75%;
+        height: 458px;
+        padding-bottom: 0;
+    }
+
+    .donation_content {
+        width: 100%;
+        height: 281px;
+        text-align: justify;
+        align-items: center;
+    }
+
+    h4 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 160%;
+        letter-spacing: 0;
+        color: #545454;
+    }
+
+    .donation_information {
+        max-width: 93.34%;
+    }
+
+    .donation_information br {
+        display: none;
+    }
+
+    #donation_dog {
+        width: 86.67%;
+    }
+
+    .credit_card {
+        max-width: 281px;
+    }
+
+    footer {
+        height: 809px;
+    }
+
+    .footer_container {
+        height: 779px;
+        max-width: 93.75%;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        row-gap: 40px;
+    }
+
+    #footer_puppy {
+        width: 86.67%;
+    }
+
+    .contacts {
+        height: 208px;
+        width: 100%;
+        align-items: center;
+    }
+
+    .locations {
+        height: 222px;
+        width: 100%;
+    }
+
+    .contacts h3,
+    .locations h3 {
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 115%;
+        letter-spacing: 0.06em;
+        color: #F1CDB3;
+    }
+
+    .locations .h2_on_dark {
+        width: 98%;
+        align-self: center;
+    }
+
+    .h3_on_dark {
+        text-align: start;
+    }
 }
