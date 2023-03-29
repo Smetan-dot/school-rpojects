@@ -73,18 +73,11 @@ async function workPaginator () {
 
     let numberCards;
     let allPages;
-    if(window.innerWidth >= 1152) {
-        numberCards = 8;
-        allPages = 6;
-    }    
-    if(window.innerWidth >= 704 && window.innerWidth < 1152) {
-        numberCards = 6;
-        allPages = 8;
-    }    
-    if(window.innerWidth < 704) {
-        numberCards = 3;
-        allPages = 16;
-    }    
+    if(window.innerWidth >= 1152) numberCards = 8;
+    if(window.innerWidth >= 704 && window.innerWidth < 1152) numberCards = 6;   
+    if(window.innerWidth < 704) numberCards = 3;
+
+    allPages = Math.ceil(mixData.length / numberCards);
 
     let currentPage = 1;
     
@@ -115,15 +108,15 @@ async function workPaginator () {
             prev.classList.remove('inactive');
             toStart.classList.remove('inactive');
         }
-        if(currentPage === 6 && numberCards === 8) {
+        if(currentPage === allPages && numberCards === 8) {
             next.classList.add('inactive');
             toEnd.classList.add('inactive');
         }
-        if(currentPage === 8 && numberCards === 6) {
+        if(currentPage === allPages && numberCards === 6) {
             next.classList.add('inactive');
             toEnd.classList.add('inactive');
         }
-        if(currentPage === 16 && numberCards === 3) {
+        if(currentPage === allPages && numberCards === 3) {
             next.classList.add('inactive');
             toEnd.classList.add('inactive');
         }
@@ -139,15 +132,15 @@ async function workPaginator () {
             prev.classList.add('inactive');
             toStart.classList.add('inactive');
         }
-        if(currentPage < 6 && numberCards === 8) {
+        if(currentPage < allPages && numberCards === 8) {
             next.classList.remove('inactive');
             toEnd.classList.remove('inactive');
         }
-        if(currentPage < 8 && numberCards === 6) {
+        if(currentPage < allPages && numberCards === 6) {
             next.classList.remove('inactive');
             toEnd.classList.remove('inactive');
         }
-        if(currentPage < 16 && numberCards === 3) {
+        if(currentPage < allPages && numberCards === 3) {
             next.classList.remove('inactive');
             toEnd.classList.remove('inactive');
         }
@@ -156,9 +149,9 @@ async function workPaginator () {
     toEnd.addEventListener('click', function() {
         container.innerHTML = '';
 
-        if(numberCards === 8) currentPage = 6;
-        if(numberCards === 6) currentPage = 8;
-        if(numberCards === 3) currentPage = 16;
+        if(numberCards === 8) currentPage = allPages;
+        if(numberCards === 6) currentPage = allPages;
+        if(numberCards === 3) currentPage = allPages;
 
         displayPets(mixData, currentPage, numberCards);
         page.textContent = `${currentPage}`;
