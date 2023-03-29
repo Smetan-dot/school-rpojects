@@ -2,7 +2,6 @@ const burgerMenu = document.querySelector('.burger_menu');
 const navigation = document.querySelector('.navigation');
 const navItems = document.querySelectorAll('.nav_item');
 const body = document.querySelector('body');
-const header = document.querySelector('header');
 const lines = document.querySelectorAll('.line');
 burgerMenu.addEventListener('click', function() {
     burgerMenu.classList.toggle('on');

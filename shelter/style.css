@@ -435,6 +435,7 @@ h3 {
 .inactive {
     border: 2px solid #CDCDCD;
     cursor: default;
+    pointer-events: none;
 }
 
 .paginator_button.inactive h3 {
@@ -449,6 +450,7 @@ h3 {
 }
 
 .current {
+    cursor: auto;
     background: #F1CDB3;
 }
 
