@@ -48,14 +48,15 @@ const next = document.getElementById('next');
 const toEnd = document.getElementById('double_next');
 const prev = document.getElementById('prev');
 const toStart = document.getElementById('double_prev');
+const modalBackground = document.querySelector('.modal_background');
 
 function shuffleArray (arr) {
-    const  arr1 = arr.slice(0, 8).sort(()=>Math.random() - 0.5);
-    const  arr2 = arr.slice(8, 16).sort(()=>Math.random() - 0.5);
-    const  arr3 = arr.slice(16, 24).sort(()=>Math.random() - 0.5);
-    const  arr4 = arr.slice(24, 32).sort(()=>Math.random() - 0.5);
-    const  arr5 = arr.slice(32, 40).sort(()=>Math.random() - 0.5);
-    const  arr6 = arr.slice(40, 48).sort(()=>Math.random() - 0.5);
+    const  arr1 = arr.slice().sort(()=>Math.random() - 0.5);
+    const  arr2 = arr.slice().sort(()=>Math.random() - 0.5);
+    const  arr3 = arr.slice().sort(()=>Math.random() - 0.5);
+    const  arr4 = arr.slice().sort(()=>Math.random() - 0.5);
+    const  arr5 = arr.slice().sort(()=>Math.random() - 0.5);
+    const  arr6 = arr.slice().sort(()=>Math.random() - 0.5);
     const newArr = arr1.concat(arr2, arr3, arr4, arr5, arr6);
     return newArr; // shuffle array 
 }
@@ -93,10 +94,43 @@ async function workPaginator () {
                                  <h3>${element.name}</h3>
                                  <button class="button_secondary"> Learn more </button>`;
             container.append(petCard);
-        }) 
+        }) // display pet-cards depending window width
+
+        const cardIndexes = document.querySelectorAll('.card_pets');
+        const name = document.getElementById('name');
+        const type = document.getElementById('type');
+        const description = document.getElementById('description');
+        const age = document.getElementById('age');
+        const inoculations = document.getElementById('inoculations');
+        const diseases = document.getElementById('diseases');
+        const parasites = document.getElementById('parasites');
+        const modalPet = document.getElementById('modal_pet');
+    
+        cardIndexes.forEach((element, index) => {
+            element.addEventListener('click', function() {
+                modalBackground.classList.add('top');
+                body.classList.add('close');
+                modalPet.src = `${array[(page -1) * count + index].img}`;
+                name.textContent = `${array[(page -1) * count + index].name}`;
+                type.textContent = `${array[(page -1) * count + index].type}` + ' - ' + `${array[(page -1) * count + index].breed}`;
+                description.textContent = `${array[(page -1) * count + index].description}`;
+                age.textContent = `${array[(page -1) * count + index].age}`;
+                inoculations.textContent = `${array[(page -1) * count + index].inoculations}`;
+                diseases.textContent = `${array[(page -1) * count + index].diseases}`;
+                parasites.textContent = `${array[(page -1) * count + index].parasites}`;
+            })
+        })    // calling a modal window at click on any pet-card
+
+            modalBackground.addEventListener('click', function(e) { 
+                const target = e.target;
+                if (!target.closest('.modal_window')) { 
+                    modalBackground.classList.remove('top');
+                    body.classList.remove('close');
+                }
+            })   // close modal-window on click outside
     } 
 
-    displayPets(mixData, currentPage, numberCards); // display pet-cards depending window width
+    displayPets(mixData, currentPage, numberCards);
 
     next.addEventListener('click', function() {
         container.innerHTML = '';
