@@ -469,13 +469,14 @@ h3 {
     z-index: -100;
     opacity: 0;
     transition: 0.4s;
+    background: rgba(41, 41, 41, 0.6);
 }
 
 .modal {
     position: fixed;
     display: flex;
     flex-direction: column;
-    top: calc(50% - 304px);
+    top: calc(50% - 302px);
     left: calc(50% - 476px);
     width: 952px;
     height: 552px;
@@ -495,7 +496,6 @@ h3 {
     margin: auto;
     display: flex;
     justify-content: space-between;
-    box-shadow: 100vh 100vw 100vh 100vw rgba(41, 41, 41, 0.6);
 }
 
 .modal_content {
@@ -834,6 +834,37 @@ footer {
         margin: 0 0 0 4%;
     }
 
+    .modal {
+        width: 682px;
+        height: 402px;
+        left: calc(50% - 341px);
+        top: calc(50% - 227px);
+    }
+
+    #modal_pet {
+        width: 350px;
+    }
+
+    .modal_window {
+        width: 630px;
+        height: 350px;
+    }
+
+    .modal_content {
+        width: 260px;
+        height: 303px;
+        margin: 10px 9px 0 0;
+    }
+
+    .modal_content h4 {
+        font-size: 13px;
+        padding: 15px 0;
+    }
+
+    .modal_content ul {
+        font-size: 13px;
+    }
+
     .help {
         height: 779px;
     }
@@ -912,13 +943,13 @@ footer {
         flex-direction: column;
         justify-content: space-between;
         cursor: pointer;
-        transition: 0.4s;
+        transition: 0.8s;
         z-index: 100;
     }
 
     .on {
         transform: rotate(90deg);
-        transition: 0.4s;
+        transition: 0.8s;
     }
 
     .line {
@@ -940,11 +971,13 @@ footer {
         justify-content: center;
         gap: 40px;
         z-index: 10;
-        transition: 0.4s;
+        transition: 0.8s;
+        opacity: 0;
     }
 
     .visible {
         right: 0;
+        opacity: 1;
         z-index: 50;
         box-shadow: 0 0 0 100vw rgba(41, 41, 41, 0.6);
     }
@@ -970,6 +1003,43 @@ footer {
 
     .stop_scrolling {
         overflow-y: hidden;
+    }
+
+    .modal {
+        width: 270px;
+        height: 393px;
+        left: calc(50% - 135px);
+        top: calc(50% - 223px);
+    }
+
+    #modal_pet {
+        display: none;
+    }
+
+    .modal_window {
+        width: 240px;
+        height: 341px;
+    }
+
+    .modal_content {
+        width: 220px;
+        height: 321px;
+        margin: auto;
+    }
+
+    .modal_content h2 {
+        font-size: 35px;
+        text-align: center;
+    }
+
+    .modal_content h3 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .modal_content h4 {
+        padding: 10px 0;
+        text-align: justify;
     }
 }
 
@@ -1248,6 +1318,14 @@ footer {
         height: 281px;
         text-align: justify;
         align-items: center;
+    }
+
+    .modal_content h4 {
+        font-size: 13px;
+        line-height: 110%;
+        letter-spacing: 0.06em;
+        padding: 10px 0;
+        text-align: justify;
     }
 
     h4 {
