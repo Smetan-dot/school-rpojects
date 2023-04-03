@@ -29,11 +29,10 @@ navItems.forEach((element) => {
 
 const arrowRight = document.querySelector('.arrow_right');
 const arrowLeft = document.querySelector('.arrow_left');
-const slides = document.querySelectorAll('.slider_wrapper');
 const wrapper = document.querySelector('.wrapper');
 const leftSlide = document.getElementById('left');
 const rightSlide = document.getElementById('right');
-let currentSlide = document.getElementById('current');
+const currentSlide = document.getElementById('current');
 
 async function getPets () {
     const pets = 'pets.json';
@@ -42,15 +41,17 @@ async function getPets () {
     return data;
 }   // get info-cards from json
 
-function displayPets(array) {
-  array.forEach((element, index) => {
+async function displayPets() {
+  const petsData = await getPets(); // giving data
+  let  mixData = petsData.slice().sort(()=>Math.random() - 0.5); // shuffle data
+  mixData.forEach((element, index) => {
     if(index < 3) {
       const petCard = document.createElement('div');
       petCard.classList.add('card');
       petCard.innerHTML = `<img src=${element.img} alt="pet"/>
                            <h3>${element.name}</h3>
                            <button class="button_secondary"> Learn more </button>`;
-      slides[1].append(petCard);
+      currentSlide.append(petCard);
     }
     if(index >= 3 && index < 6) {
       const petCard = document.createElement('div');
@@ -58,7 +59,7 @@ function displayPets(array) {
       petCard.innerHTML = `<img src=${element.img} alt="pet"/>
                            <h3>${element.name}</h3>
                            <button class="button_secondary"> Learn more </button>`;
-      slides[2].append(petCard);
+      rightSlide.append(petCard);
     }
     if(index >= 5 && index <= 8) {
       const petCard = document.createElement('div');
@@ -66,56 +67,123 @@ function displayPets(array) {
       petCard.innerHTML = `<img src=${element.img} alt="pet"/>
                            <h3>${element.name}</h3>
                            <button class="button_secondary"> Learn more </button>`;
-      slides[0].append(petCard);
+      leftSlide.append(petCard);
     }  
   })
+} // generate start-position
+
+async function getNewSlide(slide) {
+    const petsData = await getPets();
+    let mixData = petsData.slice().sort(()=>Math.random() - 0.5);
+    let count = 0;
+    mixData.forEach((element) => {
+      let allChildren = currentSlide.childNodes;
+      if(element.name !== allChildren[0].childNodes[2].innerHTML && 
+         element.name !== allChildren[1].childNodes[2].innerHTML && 
+         element.name !== allChildren[2].childNodes[2].innerHTML && 
+         count < 3) {
+      
+            const petCard = document.createElement('div');
+            petCard.classList.add('card');
+            petCard.innerHTML = `<img src=${element.img} alt="pet"/>
+                                 <h3>${element.name}</h3>
+                                 <button class="button_secondary"> Learn more </button>`;
+            slide.append(petCard);
+            count++;
+      } 
+    })
+    return slide; // generate new slide-block with no-repeat cards
 }
 
-function getNewSlide(array, slide) {
-    let mixData = array.slice().sort(()=>Math.random() - 0.5);
-    const sliceData = mixData.slice(0, 3);
-    sliceData.forEach((element) => {
-      const petCard = document.createElement('div');
-      petCard.classList.add('card');
-      petCard.innerHTML = `<img src=${element.img} alt="pet"/>
-                           <h3>${element.name}</h3>
-                           <button class="button_secondary"> Learn more </button>`;
-      slide.append(petCard);
-    })
-    return slide;
-}
+displayPets();
 
 async function workSlider() {
-    const petsData = await getPets();
-    let  mixData = petsData.slice().sort(()=>Math.random() - 0.5);
-
-    displayPets(mixData);
-
     wrapper.addEventListener("animationend", function(animationEvent) {
         let newSlide;
 
         if (animationEvent.animationName === "move-left") {
             wrapper.classList.remove('transition_left');
+            rightSlide.innerHTML = currentSlide.innerHTML;
             currentSlide.innerHTML = leftSlide.innerHTML;
             newSlide = leftSlide;
         }
         else {
             wrapper.classList.remove('transition_right');
+            leftSlide.innerHTML = currentSlide.innerHTML;
             currentSlide.innerHTML = rightSlide.innerHTML;
             newSlide = rightSlide;
         }
 
         newSlide.innerHTML = '';
-        newSlide = getNewSlide(mixData, newSlide);
+        newSlide = getNewSlide(newSlide);
+    })  // searching animationend and give block-content to other slide
+
+    const modalBackground = document.querySelector('.modal_background');
+    const name = document.getElementById('name');
+    const type = document.getElementById('type');
+    const description = document.getElementById('description');
+    const age = document.getElementById('age');
+    const inoculations = document.getElementById('inoculations');
+    const diseases = document.getElementById('diseases');
+    const parasites = document.getElementById('parasites');
+    const modalPet = document.getElementById('modal_pet');
+
+    currentSlide.addEventListener('click', async function(e) {
+      const petsData = await getPets();
+      target = e.target;
+      if(target.className === 'card') {
+          modalBackground.classList.add('top');
+          body.classList.add('close');
+
+          petsData.forEach((dataEl) => {
+            if(dataEl.name === target.childNodes[2].innerHTML) {
+              modalPet.src = `${dataEl.img}`;
+              name.textContent = `${dataEl.name}`;
+              type.textContent = `${dataEl.type}` + ' - ' + `${dataEl.breed}`;
+              description.textContent = `${dataEl.description}`;
+              age.textContent = `${dataEl.age}`;
+              inoculations.textContent = `${dataEl.inoculations}`;
+              diseases.textContent = `${dataEl.diseases}`;
+              parasites.textContent = `${dataEl.parasites}`;
+            }
+          })
+        } // listener for 1-st level children
+
+        if(target.closest('img') || target.closest('h3') || target.closest('button')) {
+          modalBackground.classList.add('top');
+          body.classList.add('close');
+          let parent = target.parentNode;
+
+          petsData.forEach((dataEl) => {
+            if(dataEl.name === parent.childNodes[2].innerHTML) {
+              modalPet.src = `${dataEl.img}`;
+              name.textContent = `${dataEl.name}`;
+              type.textContent = `${dataEl.type}` + ' - ' + `${dataEl.breed}`;
+              description.textContent = `${dataEl.description}`;
+              age.textContent = `${dataEl.age}`;
+              inoculations.textContent = `${dataEl.inoculations}`;
+              diseases.textContent = `${dataEl.diseases}`;
+              parasites.textContent = `${dataEl.parasites}`;
+            }
+          })
+        } // listener for 2-nd level children
+    }) // main event listener for cards at wrapper
+    
+    modalBackground.addEventListener('click', function(e) { 
+      const target = e.target;
+      if (!target.closest('.modal_window')) { 
+          modalBackground.classList.remove('top');
+          body.classList.remove('close');
+      }
+    }) // close modal-window on click outside
+
+    arrowRight.addEventListener('click', function() {
+      wrapper.classList.add('transition_right');
     })
-}
+  
+    arrowLeft.addEventListener('click', function() {
+      wrapper.classList.add('transition_left');
+    }) // button's instructions
+} //main function
 
 workSlider();
-
-arrowRight.addEventListener('click', function() {
-    wrapper.classList.add('transition_right')
-})
-
-arrowLeft.addEventListener('click', function() {
-    wrapper.classList.add('transition_left')
-})

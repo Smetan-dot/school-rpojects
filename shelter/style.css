@@ -370,24 +370,6 @@ h2 {
     animation-duration: 1s;
   }
 
-.right {
-    position: absolute;
-    transform: translateX(2000px);
-}
-
-.double_right {
-    transform: translateX(4000px);
-}
-
-.left {
-    position: absolute;
-    transform: translateX(-2000px);
-}
-
-.double_left {
-    transform: translateX(-4000px);
-}
-
 .slider_pets {
     width: 100%;
     height: 80.04%;
