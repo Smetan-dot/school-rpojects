@@ -214,13 +214,13 @@ function workSlider() {
       }
     }) // close modal-window on click outside
 
-    arrowRight.addEventListener('click', function() {
-      wrapper.classList.add('transition_right');
-    })
-  
     arrowLeft.addEventListener('click', function() {
       wrapper.classList.add('transition_left');
-    }) // button's instructions
+    })
+
+    arrowRight.addEventListener('click', function() {
+      wrapper.classList.add('transition_right');
+    })  // button's instructions
 } //main function
 
 workSlider();

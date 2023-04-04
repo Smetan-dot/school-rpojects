@@ -362,7 +362,7 @@ h2 {
   
 @keyframes move-left {
     from {left: -990px;}
-    to {left: 0px;}
+    to {left: 0;}
   }
   
   .transition_left {
@@ -407,10 +407,6 @@ h2 {
     border-radius: 9px;
     cursor: pointer;
     transition: 0.4s;
-}
-
-.center {
-    margin: 0 3%;
 }
 
 .card_pets:hover,
@@ -810,13 +806,6 @@ footer {
       }
 }
 
-@media screen and (max-width: 1151px) {
-    #pet_7,
-    #pet_8 {
-        display: none;
-    }
-}
-
 @media screen and (max-width: 1050px) {
     header {
         height: 1165px;
@@ -887,10 +876,6 @@ footer {
 
     .paginator {
         width: 48.03%;
-    }
-
-    .center {
-        margin: 0 0 0 4%;
     }
 
     .modal {
@@ -1285,10 +1270,6 @@ footer {
 
     .header_container {
         max-width: 87.5%;
-    }
-
-    .navigation {
-        display: none;
     }
 
     .not_only_container {
