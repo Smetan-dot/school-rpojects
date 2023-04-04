@@ -707,7 +707,7 @@ footer {
         max-width: 708px;
     }
 
-    .our_pets_container pre {
+    .our_pets_container .text_center {
         padding-top: 25px;
     }
 
