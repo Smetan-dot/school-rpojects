@@ -41,47 +41,50 @@ async function getPets () {
     return data;
 }   // get info-cards from json
 
-async function displayPets() {
+async function displayPets(number) {
   const petsData = await getPets(); // giving data
   let  mixData = petsData.slice().sort(()=>Math.random() - 0.5); // shuffle data
   mixData.forEach((element, index) => {
-    if(index < 3) {
-      const petCard = document.createElement('div');
-      petCard.classList.add('card');
-      petCard.innerHTML = `<img src=${element.img} alt="pet"/>
-                           <h3>${element.name}</h3>
-                           <button class="button_secondary"> Learn more </button>`;
-      currentSlide.append(petCard);
+    if(index < number) {
+        const petCard = document.createElement('div');
+        petCard.classList.add('card');
+        petCard.innerHTML = `<img src=${element.img} alt="pet"/>
+                             <h3>${element.name}</h3>
+                             <button class="button_secondary"> Learn more </button>`;
+        currentSlide.append(petCard);
     }
-    if(index >= 3 && index < 6) {
-      const petCard = document.createElement('div');
-      petCard.classList.add('card');
-      petCard.innerHTML = `<img src=${element.img} alt="pet"/>
-                           <h3>${element.name}</h3>
-                           <button class="button_secondary"> Learn more </button>`;
-      rightSlide.append(petCard);
+    if(index >= number && index < number * 2) {
+        const petCard = document.createElement('div');
+        petCard.classList.add('card');
+        petCard.innerHTML = `<img src=${element.img} alt="pet"/>
+                             <h3>${element.name}</h3>
+                             <button class="button_secondary"> Learn more </button>`;
+        rightSlide.append(petCard);
     }
-    if(index >= 5 && index <= 8) {
-      const petCard = document.createElement('div');
-      petCard.classList.add('card');
-      petCard.innerHTML = `<img src=${element.img} alt="pet"/>
-                           <h3>${element.name}</h3>
-                           <button class="button_secondary"> Learn more </button>`;
-      leftSlide.append(petCard);
+    if(number === 1 && index >= number * 2 && index < number * 3 ||
+       number === 2 && index >= number * 2 && index < number * 3 ||
+       number === 3 && index >= number * 2 - 1 && index <= number * 2 + 1) {
+        const petCard = document.createElement('div');
+        petCard.classList.add('card');
+        petCard.innerHTML = `<img src=${element.img} alt="pet"/>
+                             <h3>${element.name}</h3>
+                             <button class="button_secondary"> Learn more </button>`;
+        leftSlide.append(petCard);
     }  
   })
 } // generate start-position
 
-async function getNewSlide(slide) {
+async function getNewSlide(slide, number) {
     const petsData = await getPets();
     let mixData = petsData.slice().sort(()=>Math.random() - 0.5);
     let count = 0;
     mixData.forEach((element) => {
-      let allChildren = currentSlide.childNodes;
-      if(element.name !== allChildren[0].childNodes[2].innerHTML && 
-         element.name !== allChildren[1].childNodes[2].innerHTML && 
-         element.name !== allChildren[2].childNodes[2].innerHTML && 
-         count < 3) {
+      if(number === 3) {
+        let allChildren = currentSlide.childNodes;
+        if(element.name !== allChildren[0].childNodes[2].innerHTML && 
+          element.name !== allChildren[1].childNodes[2].innerHTML && 
+          element.name !== allChildren[2].childNodes[2].innerHTML && 
+          count < number) {
       
             const petCard = document.createElement('div');
             petCard.classList.add('card');
@@ -90,14 +93,48 @@ async function getNewSlide(slide) {
                                  <button class="button_secondary"> Learn more </button>`;
             slide.append(petCard);
             count++;
-      } 
+        } 
+      }
+      if(number === 2) {
+        let allChildren = currentSlide.childNodes;
+        if(element.name !== allChildren[0].childNodes[2].innerHTML && 
+          element.name !== allChildren[1].childNodes[2].innerHTML && 
+          count < number) {
+      
+            const petCard = document.createElement('div');
+            petCard.classList.add('card');
+            petCard.innerHTML = `<img src=${element.img} alt="pet"/>
+                                 <h3>${element.name}</h3>
+                                 <button class="button_secondary"> Learn more </button>`;
+            slide.append(petCard);
+            count++;
+        } 
+      }
+      if(number === 1) {
+        let allChildren = currentSlide.childNodes;
+        if(element.name !== allChildren[0].childNodes[2].innerHTML &&  
+          count < number) {
+      
+            const petCard = document.createElement('div');
+            petCard.classList.add('card');
+            petCard.innerHTML = `<img src=${element.img} alt="pet"/>
+                                 <h3>${element.name}</h3>
+                                 <button class="button_secondary"> Learn more </button>`;
+            slide.append(petCard);
+            count++;
+        } 
+      }
     })
     return slide; // generate new slide-block with no-repeat cards
 }
 
-displayPets();
+function workSlider() {
+  let numberCards;
+  if(window.innerWidth >= 1184) numberCards = 3;
+  if(window.innerWidth >= 749 && window.innerWidth < 1184) numberCards = 2;   
+  if(window.innerWidth < 749) numberCards = 1;
+  displayPets(numberCards);
 
-async function workSlider() {
     wrapper.addEventListener("animationend", function(animationEvent) {
         let newSlide;
 
@@ -115,7 +152,7 @@ async function workSlider() {
         }
 
         newSlide.innerHTML = '';
-        newSlide = getNewSlide(newSlide);
+        newSlide = getNewSlide(newSlide, numberCards);
     })  // searching animationend and give block-content to other slide
 
     const modalBackground = document.querySelector('.modal_background');
