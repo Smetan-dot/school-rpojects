@@ -42,7 +42,7 @@ async function getPets () {
 }   // get info-cards from json
 
 async function displayPets(number) {
-  const petsData = await getPets(); // giving data
+  const petsData = await getPets()// giving data
   let  mixData = petsData.slice().sort(()=>Math.random() - 0.5); // shuffle data
   mixData.forEach((element, index) => {
     if(index < number) {
@@ -144,7 +144,7 @@ function workSlider() {
             currentSlide.innerHTML = leftSlide.innerHTML;
             newSlide = leftSlide;
         }
-        else {
+        if(animationEvent.animationName === "move-right") {
             wrapper.classList.remove('transition_right');
             leftSlide.innerHTML = currentSlide.innerHTML;
             currentSlide.innerHTML = rightSlide.innerHTML;
