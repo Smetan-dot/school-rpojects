@@ -1340,6 +1340,9 @@ footer {
         max-width: 93.75%;
         padding-bottom: 0;
     }
+    .our_pets_container .text_center {
+        padding-top: 0;
+    }
 
     .slider_pets {
         height: 1365px;
