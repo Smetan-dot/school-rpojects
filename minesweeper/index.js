@@ -1,4 +1,5 @@
-let fieldSize = 25;
+let fieldSize = 10;
+let numberOfBombs = 20;
 
 function initGame () {
     const wrapper = document.createElement('div');
@@ -67,7 +68,59 @@ function initGame () {
     flagsCounter.appendChild(flag);
 
     generateField(fieldSize);
-}
+
+    const tiles = [...document.querySelector('.field').children];
+    const bombsOnField = [...Array(Math.pow(fieldSize, 2)).keys()]
+        .sort(() => Math.random() - 0.5)
+        .slice(0, numberOfBombs); // generate bombs position
+    
+    function checkCoord(row, column) {
+        if(row < fieldSize && row >= 0 && column < fieldSize && column >= 0) return true;
+        else return false;
+    }
+    
+    function checkBomb(row, column) {
+        if(checkCoord(row, column) === false) return false;
+        const index = row * fieldSize + column;
+        if(bombsOnField.includes(index)) return true;
+        else return false;
+    }
+
+    function getNumber(row, column) {
+        let count = 0;
+        for(let i = -1; i <= 1; i++) {
+            for(let j = -1; j <= 1; j++) {
+                if(checkBomb(row + j, column + i)) count++;
+            }
+        }
+        return count;
+    }
+    
+    function openTile(row, column) {
+        const index = row * fieldSize + column;
+        const tile = tiles[index];
+        if(checkBomb(row, column) === true) {
+            const bomb = document.createElement('img');
+            bomb.src = './assets/icons/bomb_87682.svg';
+            bomb.style.width = '13px';
+            tile.appendChild(bomb);
+            tile.setAttribute("disabled", "disabled");
+            tile.classList.add('open-bomb');
+        }
+        if(checkBomb(row, column) === false) {
+            tile.classList.add('open-tile');
+            tile.setAttribute("disabled", "disabled");
+            tile.textContent = getNumber(row, column);
+        }
+    }
+
+    document.querySelector('.field').addEventListener('click', function(event) {
+        const index = tiles.indexOf(event.target);
+        const column = index % fieldSize;
+        const row = Math.floor(index / fieldSize);
+        openTile(row, column);
+    })
+}    
 
 initGame();
 
@@ -76,7 +129,7 @@ function generateField(size) {
     field.style.width = size * 20 + size * 2 + 'px';
 
     for(let i = 0; i < Math.pow(size, 2); i++) {
-        const tile = document.createElement('div');
+        const tile = document.createElement('button');
         tile.classList.add('tile');
         field.appendChild(tile);
     }
