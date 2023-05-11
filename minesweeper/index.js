@@ -1,5 +1,5 @@
 let fieldSize = 10;
-let numberOfBombs = 20;
+let numberOfBombs = 10;
 
 function initGame () {
     const wrapper = document.createElement('div');
@@ -44,7 +44,7 @@ function initGame () {
     gameHeader.appendChild(bombsCounter);
 
     const bombIcon = document.createElement('img');
-    bombIcon.src = './assets/icons/bomb_87682.svg';
+    bombIcon.src = './assets/icons/bomb_87682.png';
     bombIcon.classList.add('bombs-icon');
     bombsCounter.appendChild(bombIcon);
 
@@ -67,6 +67,17 @@ function initGame () {
     flag.textContent = '0';
     flagsCounter.appendChild(flag);
 
+    function generateField(size) {
+        const field = document.querySelector('.field');
+        field.style.width = size * 20 + size * 2 + 'px';
+    
+        for(let i = 0; i < Math.pow(size, 2); i++) {
+            const tile = document.createElement('button');
+            tile.classList.add('tile');
+            field.appendChild(tile);
+        }
+    }
+
     generateField(fieldSize);
 
     const tiles = [...document.querySelector('.field').children];
@@ -74,13 +85,13 @@ function initGame () {
         .sort(() => Math.random() - 0.5)
         .slice(0, numberOfBombs); // generate bombs position
     
-    function checkCoord(row, column) {
+    function checkCoordValidity(row, column) {
         if(row < fieldSize && row >= 0 && column < fieldSize && column >= 0) return true;
         else return false;
     }
     
     function checkBomb(row, column) {
-        if(checkCoord(row, column) === false) return false;
+        if(checkCoordValidity(row, column) === false) return false;
         const index = row * fieldSize + column;
         if(bombsOnField.includes(index)) return true;
         else return false;
@@ -95,23 +106,56 @@ function initGame () {
         }
         return count;
     }
+
+    let openedTiles = 0;
     
     function openTile(row, column) {
+        if(checkCoordValidity(row, column) === false) return;
         const index = row * fieldSize + column;
         const tile = tiles[index];
+        if(tile.disabled === true) return;
+
+        tile.setAttribute("disabled", "disabled");
+        tile.classList.add('open-tile');
+
         if(checkBomb(row, column) === true) {
             const bomb = document.createElement('img');
-            bomb.src = './assets/icons/bomb_87682.svg';
-            bomb.style.width = '13px';
+            bomb.src = './assets/icons/bomb_87682.png';
+            bomb.style.width = '16px';
             tile.appendChild(bomb);
-            tile.setAttribute("disabled", "disabled");
+            tile.classList.remove('open-tile');
             tile.classList.add('open-bomb');
+            return alert('you loose');
         }
+
         if(checkBomb(row, column) === false) {
-            tile.classList.add('open-tile');
-            tile.setAttribute("disabled", "disabled");
-            tile.textContent = getNumber(row, column);
+            const number = getNumber(row, column);
+            if(number !== 0) {
+                tile.textContent = number;
+            }
+            if(number === 0) {
+                for(let i = -1; i <= 1; i++) {
+                    for(let j = -1; j <= 1; j++) {
+                        openTile(row + j, column + i);
+                    }
+                }
+            }
         }
+
+        openedTiles++;
+        if(openedTiles >= Math.pow(fieldSize, 2) - numberOfBombs) alert('you won!');
+    }
+
+    function setFlag(row, column) {
+        const index = row * fieldSize + column;
+        const tile = tiles[index];
+
+        if(tile.disabled === true) return;
+
+        const flag = document.createElement('img');
+        flag.src = './assets/icons/powerful4x_86978.png';
+        flag.style.width = '16px';
+        tile.appendChild(flag);
     }
 
     document.querySelector('.field').addEventListener('click', function(event) {
@@ -120,17 +164,14 @@ function initGame () {
         const row = Math.floor(index / fieldSize);
         openTile(row, column);
     })
+
+    document.querySelector('.field').addEventListener('contextmenu', function(event) {
+        event.preventDefault();
+        const index = tiles.indexOf(event.target);
+        const column = index % fieldSize;
+        const row = Math.floor(index / fieldSize);
+        setFlag(row, column);
+    })
 }    
 
 initGame();
-
-function generateField(size) {
-    const field = document.querySelector('.field');
-    field.style.width = size * 20 + size * 2 + 'px';
-
-    for(let i = 0; i < Math.pow(size, 2); i++) {
-        const tile = document.createElement('button');
-        tile.classList.add('tile');
-        field.appendChild(tile);
-    }
-}
