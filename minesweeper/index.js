@@ -1,6 +1,7 @@
 let fieldSize = 10;
 let numberOfBombs = 10;
 let usedFlags = 0;
+let madeTurns = 0;
 
 function initGame () {
     const wrapper = document.createElement('div');
@@ -32,7 +33,7 @@ function initGame () {
 
     const turns = document.createElement('span');
     turns.classList.add('turns');
-    turns.textContent = '0';
+    turns.textContent = madeTurns;
     turnsWrapper.appendChild(turns);
 
     const newGame = document.createElement('a');
@@ -109,6 +110,7 @@ function initGame () {
     }
 
     let openedTiles = 0;
+    let interval;
     
     function openTile(row, column) {
         if(checkCoordValidity(row, column) === false) return;
@@ -126,6 +128,7 @@ function initGame () {
             tile.appendChild(bomb);
             tile.classList.remove('open-tile');
             tile.classList.add('open-bomb');
+            clearInterval(interval);
             return alert('you loose');
         }
 
@@ -153,7 +156,10 @@ function initGame () {
 
         openedTiles++;
         if(openedTiles >= Math.pow(fieldSize, 2) - numberOfBombs || 
-            openedTiles === Math.pow(fieldSize, 2) - usedFlags) alert('you won!');
+            openedTiles >= Math.pow(fieldSize, 2) - usedFlags) {
+                clearInterval(interval);
+                alert('you won!');
+        }
     }
 
     function setFlag(row, column) {
@@ -180,11 +186,37 @@ function initGame () {
         }
     }
 
+    function getTimeFromNum(num) {
+        let seconds = parseInt(num);
+        let minutes = parseInt(seconds / 60);
+        seconds -= minutes * 60;
+        const hours = parseInt(minutes / 60);
+        minutes -= hours * 60;
+      
+        if (hours === 0) return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
+        return `${String(hours).padStart(2, 0)}:${minutes}:${String(seconds % 60).padStart(2, 0)}`;
+    }
+
+    function timer() {
+        if(madeTurns === 0) {
+            let num = 0;
+            interval = setInterval(() => {
+                num++;
+                document.querySelector('.time').textContent = getTimeFromNum(num);
+            }, 1000);
+        }
+    }
+
+    document.querySelector('.field').addEventListener('click', timer);
+
     document.querySelector('.field').addEventListener('click', function(event) {
         const index = tiles.indexOf(event.target);
         const column = index % fieldSize;
         const row = Math.floor(index / fieldSize);
         openTile(row, column);
+
+        madeTurns++;
+        document.querySelector('.turns').textContent = madeTurns;
     })
 
     document.querySelector('.field').addEventListener('contextmenu', function(event) {
@@ -193,6 +225,9 @@ function initGame () {
         const column = index % fieldSize;
         const row = Math.floor(index / fieldSize);
         setFlag(row, column);
+
+        madeTurns++;
+        document.querySelector('.turns').textContent = madeTurns;
     })
 }    
 
