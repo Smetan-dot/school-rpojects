@@ -103,3 +103,10 @@ button:disabled {
     border-color: inherit;
     color: inherit;
 }
+
+.right {
+    background-image: url(./assets/icons/powerful4x_86978.png);
+    background-size: 18px;
+    background-repeat: no-repeat;
+    background-position: center;
+}

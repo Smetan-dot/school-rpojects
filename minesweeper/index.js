@@ -1,5 +1,6 @@
 let fieldSize = 10;
 let numberOfBombs = 10;
+let usedFlags = 0;
 
 function initGame () {
     const wrapper = document.createElement('div');
@@ -50,7 +51,7 @@ function initGame () {
 
     const bomb = document.createElement('span');
     bomb.classList.add('bomb');
-    bomb.textContent = '10';
+    bomb.textContent = numberOfBombs;
     bombsCounter.appendChild(bomb);
 
     const flagsCounter = document.createElement('div');
@@ -151,7 +152,8 @@ function initGame () {
         }
 
         openedTiles++;
-        if(openedTiles >= Math.pow(fieldSize, 2) - numberOfBombs) alert('you won!');
+        if(openedTiles >= Math.pow(fieldSize, 2) - numberOfBombs || 
+            openedTiles === Math.pow(fieldSize, 2) - usedFlags) alert('you won!');
     }
 
     function setFlag(row, column) {
@@ -160,10 +162,22 @@ function initGame () {
 
         if(tile.disabled === true) return;
 
-        const flag = document.createElement('img');
-        flag.src = './assets/icons/powerful4x_86978.png';
-        flag.style.width = '16px';
-        tile.appendChild(flag);
+        if(tile.classList.contains('right')) {
+            tile.classList.remove('right');
+
+            usedFlags--;
+            numberOfBombs++;
+            document.querySelector('.flag').textContent = usedFlags;
+            document.querySelector('.bomb').textContent = numberOfBombs;
+        }
+        else {
+            tile.classList.add('right');
+        
+            usedFlags++;
+            numberOfBombs--;
+            document.querySelector('.flag').textContent = usedFlags;
+            document.querySelector('.bomb').textContent = numberOfBombs;
+        }
     }
 
     document.querySelector('.field').addEventListener('click', function(event) {
