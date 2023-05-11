@@ -132,6 +132,14 @@ function initGame () {
             const number = getNumber(row, column);
             if(number !== 0) {
                 tile.textContent = number;
+                if(number === 1) tile.style.color = 'blue';
+                if(number === 2) tile.style.color = 'green';
+                if(number === 3) tile.style.color = 'red';
+                if(number === 4) tile.style.color = 'darkblue';
+                if(number === 5) tile.style.color = 'brown';
+                if(number === 6) tile.style.color = 'aqua';
+                if(number === 7) tile.style.color = 'black';
+                if(number === 8) tile.style.color = 'gold';
             }
             if(number === 0) {
                 for(let i = -1; i <= 1; i++) {
