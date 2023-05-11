@@ -2,6 +2,8 @@ let fieldSize = 10;
 let numberOfBombs = 10;
 let usedFlags = 0;
 let madeTurns = 0;
+let openedTiles = 0;
+let interval;
 
 function initGame () {
     const wrapper = document.createElement('div');
@@ -87,6 +89,18 @@ function initGame () {
         .sort(() => Math.random() - 0.5)
         .slice(0, numberOfBombs); // generate bombs position
     
+    let number = numberOfBombs;
+    function restartGame() {
+        usedFlags = 0;
+        madeTurns = 0;
+        openedTiles = 0;
+        numberOfBombs = number;
+        clearInterval(interval);
+        document.body.innerHTML = '';
+
+        initGame();
+    }
+    
     function checkCoordValidity(row, column) {
         if(row < fieldSize && row >= 0 && column < fieldSize && column >= 0) return true;
         else return false;
@@ -109,8 +123,7 @@ function initGame () {
         return count;
     }
 
-    let openedTiles = 0;
-    let interval;
+    
     
     function openTile(row, column) {
         if(checkCoordValidity(row, column) === false) return;
@@ -180,7 +193,7 @@ function initGame () {
             tile.classList.add('right');
         
             usedFlags++;
-            numberOfBombs--;
+            if(numberOfBombs > 0) numberOfBombs--;
             document.querySelector('.flag').textContent = usedFlags;
             document.querySelector('.bomb').textContent = numberOfBombs;
         }
@@ -229,6 +242,8 @@ function initGame () {
         madeTurns++;
         document.querySelector('.turns').textContent = madeTurns;
     })
+
+    document.querySelector('.new-game').addEventListener('click', restartGame);
 }    
 
 initGame();
