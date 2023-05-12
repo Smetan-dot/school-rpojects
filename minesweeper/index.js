@@ -85,7 +85,7 @@ function initGame () {
     generateField(fieldSize);
 
     const tiles = [...document.querySelector('.field').children];
-    const bombsOnField = [...Array(Math.pow(fieldSize, 2)).keys()]
+    let bombsOnField = [...Array(Math.pow(fieldSize, 2)).keys()]
         .sort(() => Math.random() - 0.5)
         .slice(0, numberOfBombs); // generate bombs position
     
@@ -122,14 +122,12 @@ function initGame () {
         }
         return count;
     }
-
-    
-    
+ 
     function openTile(row, column) {
         if(checkCoordValidity(row, column) === false) return;
         const index = row * fieldSize + column;
         const tile = tiles[index];
-        if(tile.disabled === true) return;
+        if(tile.disabled === true || tile.classList.contains('right')) return;
 
         tile.setAttribute("disabled", "disabled");
         tile.classList.add('open-tile');
@@ -220,7 +218,20 @@ function initGame () {
         }
     }
 
-    document.querySelector('.field').addEventListener('click', timer);
+    function shuffleBombsPosition(event) {
+        const index = tiles.indexOf(event.target);
+        if(bombsOnField.includes(index)) {
+            bombsOnField = [...Array(Math.pow(fieldSize, 2)).keys()]
+            .sort(() => Math.random() - 0.5)
+            .slice(0, numberOfBombs);
+            return shuffleBombsPosition(event);
+        }
+        else return;
+    }
+
+    document.querySelector('.field').addEventListener('click', shuffleBombsPosition, {once: true});
+
+    document.querySelector('.field').addEventListener('click', timer, {once: true});
 
     document.querySelector('.field').addEventListener('click', function(event) {
         const index = tiles.indexOf(event.target);
