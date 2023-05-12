@@ -18,6 +18,10 @@ function initGame () {
     gameField.classList.add('field');
     wrapper.appendChild(gameField);
 
+    const settings = document.createElement('div');
+    settings.classList.add('settings');
+    wrapper.appendChild(settings);
+
     const timeWrapper = document.createElement('div');
     timeWrapper.classList.add('time-wrapper');
     timeWrapper.textContent = 'Time';
@@ -71,6 +75,39 @@ function initGame () {
     flag.textContent = '0';
     flagsCounter.appendChild(flag);
 
+    const difficalty = document.createElement('div');
+    difficalty.classList.add('difficalty');
+    difficalty.textContent = 'Choose field-size';
+    settings.appendChild(difficalty);
+
+    const easy = document.createElement('button');
+    easy.textContent = 'Easy (10x10)';
+    easy.classList.add('difficalty-item');
+    difficalty.appendChild(easy);
+
+    const medium = document.createElement('button');
+    medium.textContent = 'Medium (15x15)';
+    medium.classList.add('difficalty-item');
+    difficalty.appendChild(medium);
+
+    const hard = document.createElement('button');
+    hard.textContent = 'Hard (25x25)';
+    hard.classList.add('difficalty-item');
+    difficalty.appendChild(hard);
+
+    const amountBombs = document.createElement('div');
+    amountBombs.classList.add('amount-bombs');
+    amountBombs.textContent = 'Choose amount of bombs';
+    settings.appendChild(amountBombs);
+
+    const inputBombs = document.createElement('input');
+    inputBombs.type = 'range';
+    inputBombs.min = '10';
+    inputBombs.max = '99';
+    inputBombs.value = numberOfBombs;
+    inputBombs.classList.add('amount-bombs-item');
+    amountBombs.appendChild(inputBombs);
+
     function generateField(size) {
         const field = document.querySelector('.field');
         field.style.width = size * 20 + size * 2 + 'px';
@@ -89,12 +126,11 @@ function initGame () {
         .sort(() => Math.random() - 0.5)
         .slice(0, numberOfBombs); // generate bombs position
     
-    let number = numberOfBombs;
     function restartGame() {
         usedFlags = 0;
         madeTurns = 0;
         openedTiles = 0;
-        numberOfBombs = number;
+        numberOfBombs = document.querySelector('.amount-bombs-item').value;
         clearInterval(interval);
         document.body.innerHTML = '';
 
@@ -255,6 +291,24 @@ function initGame () {
     })
 
     document.querySelector('.new-game').addEventListener('click', restartGame);
+
+    document.querySelectorAll('.difficalty-item')[0].addEventListener('click', function() {
+        fieldSize = 10;
+        restartGame();
+    })
+    document.querySelectorAll('.difficalty-item')[1].addEventListener('click', function() {
+        fieldSize = 15;
+        restartGame();
+    })
+    document.querySelectorAll('.difficalty-item')[2].addEventListener('click', function() {
+        fieldSize = 25;
+        restartGame();
+    })
+
+    document.querySelector('.amount-bombs-item').addEventListener('mouseup', function() {
+        numberOfBombs = document.querySelector('.amount-bombs-item').value;
+        restartGame();
+    })
 }    
 
 initGame();
