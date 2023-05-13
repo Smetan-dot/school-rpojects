@@ -110,7 +110,7 @@ function initGame () {
 
     function generateField(size) {
         const field = document.querySelector('.field');
-        field.style.width = size * 20 + size * 2 + 'px';
+        field.style.width = size * 17 + size * 2 + 'px';
     
         for(let i = 0; i < Math.pow(size, 2); i++) {
             const tile = document.createElement('button');
@@ -171,7 +171,7 @@ function initGame () {
         if(checkBomb(row, column) === true) {
             const bomb = document.createElement('img');
             bomb.src = './assets/icons/bomb_87682.png';
-            bomb.style.width = '16px';
+            bomb.style.width = '14px';
             tile.appendChild(bomb);
             tile.classList.remove('open-tile');
             tile.classList.add('open-bomb');
