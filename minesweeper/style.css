@@ -104,7 +104,7 @@ body {
 }
 
 .right {
-    background-image: url(./assets/icons/powerful4x_86978.png);
+    background-image: url(./assets/icons/free-icon-flag-4908307.png);
     background-size: 17px;
     background-repeat: no-repeat;
     background-position: center;
@@ -140,6 +140,7 @@ body {
     cursor: pointer;
 }
 
+.sound-item:disabled,
 .difficalty-item:disabled,
 .themes-item:disabled {
     cursor: auto;

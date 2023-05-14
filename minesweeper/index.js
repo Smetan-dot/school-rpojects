@@ -73,7 +73,7 @@ function initGame () {
     gameHeader.appendChild(bombsCounter);
 
     const bombIcon = document.createElement('img');
-    bombIcon.src = './assets/icons/bomb_87682.png';
+    bombIcon.src = './assets/icons/free-icon-bomb-8598672.png';
     bombIcon.classList.add('bombs-icon');
     bombsCounter.appendChild(bombIcon);
 
@@ -87,7 +87,7 @@ function initGame () {
     gameHeader.appendChild(flagsCounter);
 
     const flagIcon = document.createElement('img');
-    flagIcon.src = './assets/icons/powerful4x_86978.png';
+    flagIcon.src = './assets/icons/free-icon-flag-4908307.png';
     flagIcon.classList.add('flags-icon');
     flagsCounter.appendChild(flagIcon);
 
@@ -181,6 +181,17 @@ function initGame () {
         }
     }
 
+    function checkSound() {
+        if(sounds === 'on') {
+            soundOn.setAttribute('disabled', 'disabled');
+            soundOff.removeAttribute('disabled', 'disabled');
+        }
+        if(sounds === 'off') {
+            soundOn.removeAttribute('disabled', 'disabled');
+            soundOff.setAttribute('disabled', 'disabled');
+        }
+    }
+
     function checkFieldSize() {
         if(fieldSize === 10) {
             easy.setAttribute('disabled', 'disabled');
@@ -212,6 +223,7 @@ function initGame () {
 
     generateField(fieldSize);
     checkTheme();
+    checkSound();
     checkFieldSize();
 
     const tiles = [...document.querySelector('.field').children];
@@ -263,13 +275,13 @@ function initGame () {
 
         if(checkBomb(row, column) === true) {
             const bomb = document.createElement('img');
-            bomb.src = './assets/icons/bomb_87682.png';
+            bomb.src = './assets/icons/free-icon-bomb-8598672.png';
             bomb.style.width = '14px';
             tile.appendChild(bomb);
             tile.classList.remove('open-tile');
             tile.classList.add('open-bomb');
             clearInterval(interval);
-            loosing.play();
+            if(sounds ==='on') loosing.play();
             return alert('you loose');
         }
 
@@ -300,7 +312,7 @@ function initGame () {
             openedTiles >= Math.pow(fieldSize, 2) - usedFlags) {
                 clearInterval(interval);
                 alert('you won!');
-                winning.play();
+                if(sounds ==='on') winning.play();
         }
     }
 
@@ -331,7 +343,7 @@ function initGame () {
             openedTiles >= Math.pow(fieldSize, 2) - usedFlags) {
                 clearInterval(interval);
                 alert('you won!');
-                winning.play();
+                if(sounds ==='on') winning.play();
         }
     }
 
@@ -380,7 +392,7 @@ function initGame () {
         madeTurns++;
         document.querySelector('.turns').textContent = madeTurns;
 
-        opening.play();
+        if(sounds ==='on') opening.play();
     })
 
     document.querySelector('.field').addEventListener('contextmenu', function(event) {
@@ -390,7 +402,7 @@ function initGame () {
         const row = Math.floor(index / fieldSize);
         setFlag(row, column);
 
-        makeFlag.play();
+        if(sounds ==='on' && !tiles[index].hasAttribute('disabled', 'disabled')) makeFlag.play();
     })
 
     document.querySelector('.new-game').addEventListener('click', restartGame);
@@ -433,6 +445,18 @@ function initGame () {
         dark.setAttribute('disabled', 'disabled');
         light.removeAttribute('disabled', 'disabled');
         theme = 'dark';
+    })
+
+    soundOn.addEventListener('click', function() {
+        soundOn.setAttribute('disabled', 'disabled');
+        soundOff.removeAttribute('disabled', 'disabled');
+        sounds = 'on';
+    })
+
+    soundOff.addEventListener('click', function() {
+        soundOff.setAttribute('disabled', 'disabled');
+        soundOn.removeAttribute('disabled', 'disabled');
+        sounds = 'off';
     })
 }    
 
