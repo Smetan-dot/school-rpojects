@@ -113,7 +113,7 @@ body {
 .settings {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     gap: 5%;
     margin-top: 10px;
 }
@@ -126,6 +126,7 @@ body {
     font-size: 18px;
 }
 
+.sound-item,
 .themes-item,
 .difficalty-item {
     line-height: 20px;
@@ -143,4 +144,15 @@ body {
 .themes-item:disabled {
     cursor: auto;
     opacity: 0.7;
+}
+
+.sound {
+    display: flex;
+    align-items: center;
+    gap: 5%;
+    margin-top: 11px;
+}
+
+.sound-item {
+    width: 60px;
 }

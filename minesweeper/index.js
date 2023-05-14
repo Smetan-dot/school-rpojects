@@ -5,14 +5,24 @@ let madeTurns = 0;
 let openedTiles = 0;
 let interval;
 let theme = localStorage.theme;
+let sounds = localStorage.sounds;
+
+const opening = new Audio('./assets/sounds/69880c1f5e57698.mp3');
+const makeFlag = new Audio('./assets/sounds/mouth_foley_puff_09.mp3');
+const winning = new Audio('./assets/sounds/135d7e644a64b2d.mp3');
+const loosing = new Audio('./assets/sounds/817ae0e83595a08.mp3');
 
 function setLocalStorage() {
     localStorage.setItem('theme', theme);
+    localStorage.setItem('sounds', sounds)
 }
 window.addEventListener('beforeunload', setLocalStorage);
 
 function getLocalStorage() {
     if(localStorage.getItem('theme')) theme = localStorage.theme;
+    else theme = 'light';
+    if(localStorage.getItem('sounds')) sounds = localStorage.sounds;
+    else sounds = 'on';
 }
 window.addEventListener('load', getLocalStorage);
 
@@ -125,6 +135,7 @@ function initGame () {
     settings.appendChild(themes);
 
     const light = document.createElement('button');
+    light.setAttribute('disabled', 'disabled');
     light.classList.add('themes-item');
     light.textContent = 'light';
     themes.appendChild(light);
@@ -133,6 +144,21 @@ function initGame () {
     dark.classList.add('themes-item');
     dark.textContent = 'dark';
     themes.appendChild(dark);
+
+    const sound = document.createElement('div');
+    sound.classList.add('sound');
+    sound.textContent = 'Sounds:';
+    amountBombs.appendChild(sound);
+
+    const soundOn = document.createElement('button');
+    soundOn.classList.add('sound-item');
+    soundOn.textContent = 'On';
+    sound.appendChild(soundOn);
+
+    const soundOff = document.createElement('button');
+    soundOff.classList.add('sound-item');
+    soundOff.textContent = 'Off';
+    sound.appendChild(soundOff);
 
     function checkTheme() {
         if(theme === 'light') {
@@ -243,6 +269,7 @@ function initGame () {
             tile.classList.remove('open-tile');
             tile.classList.add('open-bomb');
             clearInterval(interval);
+            loosing.play();
             return alert('you loose');
         }
 
@@ -273,6 +300,7 @@ function initGame () {
             openedTiles >= Math.pow(fieldSize, 2) - usedFlags) {
                 clearInterval(interval);
                 alert('you won!');
+                winning.play();
         }
     }
 
@@ -303,6 +331,7 @@ function initGame () {
             openedTiles >= Math.pow(fieldSize, 2) - usedFlags) {
                 clearInterval(interval);
                 alert('you won!');
+                winning.play();
         }
     }
 
@@ -350,6 +379,8 @@ function initGame () {
 
         madeTurns++;
         document.querySelector('.turns').textContent = madeTurns;
+
+        opening.play();
     })
 
     document.querySelector('.field').addEventListener('contextmenu', function(event) {
@@ -358,6 +389,8 @@ function initGame () {
         const column = index % fieldSize;
         const row = Math.floor(index / fieldSize);
         setFlag(row, column);
+
+        makeFlag.play();
     })
 
     document.querySelector('.new-game').addEventListener('click', restartGame);
