@@ -4,6 +4,17 @@ let usedFlags = 0;
 let madeTurns = 0;
 let openedTiles = 0;
 let interval;
+let theme = localStorage.theme;
+
+function setLocalStorage() {
+    localStorage.setItem('theme', theme);
+}
+window.addEventListener('beforeunload', setLocalStorage);
+
+function getLocalStorage() {
+    if(localStorage.getItem('theme')) theme = localStorage.theme;
+}
+window.addEventListener('load', getLocalStorage);
 
 function initGame () {
     const wrapper = document.createElement('div');
@@ -108,6 +119,60 @@ function initGame () {
     inputBombs.classList.add('amount-bombs-item');
     amountBombs.appendChild(inputBombs);
 
+    const themes = document.createElement('div');
+    themes.classList.add('themes');
+    themes.textContent = 'Choose a theme';
+    settings.appendChild(themes);
+
+    const light = document.createElement('button');
+    light.classList.add('themes-item');
+    light.textContent = 'light';
+    themes.appendChild(light);
+
+    const dark = document.createElement('button');
+    dark.classList.add('themes-item');
+    dark.textContent = 'dark';
+    themes.appendChild(dark);
+
+    function checkTheme() {
+        if(theme === 'light') {
+            document.body.style.backgroundColor = 'aliceblue';
+            document.body.style.color = 'black';
+            turnsWrapper.style.borderColor = 'black';
+            timeWrapper.style.borderColor = 'black';
+
+            light.setAttribute('disabled', 'disabled');
+            dark.removeAttribute('disabled', 'disabled');
+        }
+        if(theme === 'dark') {
+            document.body.style.backgroundColor = 'dimgray';
+            document.body.style.color = 'white';
+            turnsWrapper.style.borderColor = 'white';
+            timeWrapper.style.borderColor = 'white';
+
+            dark.setAttribute('disabled', 'disabled');
+            light.removeAttribute('disabled', 'disabled');
+        }
+    }
+
+    function checkFieldSize() {
+        if(fieldSize === 10) {
+            easy.setAttribute('disabled', 'disabled');
+            medium.removeAttribute('disabled', 'disabled');
+            hard.removeAttribute('disabled', 'disabled');
+        }
+        if(fieldSize === 15) {
+            easy.removeAttribute('disabled', 'disabled');
+            medium.setAttribute('disabled', 'disabled');
+            hard.removeAttribute('disabled', 'disabled');
+        }
+        if(fieldSize === 25) {
+            easy.removeAttribute('disabled', 'disabled');
+            medium.removeAttribute('disabled', 'disabled');
+            hard.setAttribute('disabled', 'disabled');
+        }
+    }
+
     function generateField(size) {
         const field = document.querySelector('.field');
         field.style.width = size * 17 + size * 2 + 'px';
@@ -120,6 +185,8 @@ function initGame () {
     }
 
     generateField(fieldSize);
+    checkTheme();
+    checkFieldSize();
 
     const tiles = [...document.querySelector('.field').children];
     let bombsOnField = [...Array(Math.pow(fieldSize, 2)).keys()]
@@ -231,6 +298,12 @@ function initGame () {
             document.querySelector('.flag').textContent = usedFlags;
             document.querySelector('.bomb').textContent = numberOfBombs;
         }
+
+        if(openedTiles >= Math.pow(fieldSize, 2) - numberOfBombs || 
+            openedTiles >= Math.pow(fieldSize, 2) - usedFlags) {
+                clearInterval(interval);
+                alert('you won!');
+        }
     }
 
     function getTimeFromNum(num) {
@@ -285,9 +358,6 @@ function initGame () {
         const column = index % fieldSize;
         const row = Math.floor(index / fieldSize);
         setFlag(row, column);
-
-        madeTurns++;
-        document.querySelector('.turns').textContent = madeTurns;
     })
 
     document.querySelector('.new-game').addEventListener('click', restartGame);
@@ -308,6 +378,28 @@ function initGame () {
     document.querySelector('.amount-bombs-item').addEventListener('mouseup', function() {
         numberOfBombs = document.querySelector('.amount-bombs-item').value;
         restartGame();
+    })
+
+    light.addEventListener('click', function() {
+        document.body.style.backgroundColor = 'aliceblue';
+        document.body.style.color = 'black';
+        turnsWrapper.style.borderColor = 'black';
+        timeWrapper.style.borderColor = 'black';
+
+        light.setAttribute('disabled', 'disabled');
+        dark.removeAttribute('disabled', 'disabled');
+        theme = 'light';
+    })
+
+    dark.addEventListener('click', function() {
+        document.body.style.backgroundColor = 'dimgray';
+        document.body.style.color = 'white';
+        turnsWrapper.style.borderColor = 'white';
+        timeWrapper.style.borderColor = 'white';
+
+        dark.setAttribute('disabled', 'disabled');
+        light.removeAttribute('disabled', 'disabled');
+        theme = 'dark';
     })
 }    
 
