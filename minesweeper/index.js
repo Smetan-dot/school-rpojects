@@ -6,6 +6,7 @@ let openedTiles = 0;
 let interval;
 let theme = localStorage.theme;
 let sounds = localStorage.sounds;
+let results = JSON.parse(localStorage.getItem('results'));
 
 const opening = new Audio('./assets/sounds/69880c1f5e57698.mp3');
 const makeFlag = new Audio('./assets/sounds/mouth_foley_puff_09.mp3');
@@ -14,15 +15,15 @@ const loosing = new Audio('./assets/sounds/817ae0e83595a08.mp3');
 
 function setLocalStorage() {
     localStorage.setItem('theme', theme);
-    localStorage.setItem('sounds', sounds)
+    localStorage.setItem('sounds', sounds);
+    localStorage.setItem('results', JSON.stringify(results));
 }
 window.addEventListener('beforeunload', setLocalStorage);
 
 function getLocalStorage() {
     if(localStorage.getItem('theme')) theme = localStorage.theme;
-    else theme = 'light';
     if(localStorage.getItem('sounds')) sounds = localStorage.sounds;
-    else sounds = 'on';
+    if(localStorage.getItem('results')) results = JSON.parse(localStorage.getItem('results'));
 }
 window.addEventListener('load', getLocalStorage);
 
@@ -30,6 +31,37 @@ function initGame () {
     const wrapper = document.createElement('div');
     wrapper.classList.add('wrapper');
     document.body.appendChild(wrapper);
+
+    const table = document.createElement('table');
+    table.classList.add('table');
+    wrapper.appendChild(table);
+
+    const tableMainRow = document.createElement('tr');
+    table.appendChild(tableMainRow);
+
+    const tableTime = document.createElement('td');
+    tableTime.classList.add('table-item');
+    tableTime.style.fontSize = '20px';
+    tableTime.textContent = 'time';
+    tableMainRow.appendChild(tableTime);
+
+    const tableMines = document.createElement('td');
+    tableMines.classList.add('table-item');
+    tableMines.style.fontSize = '20px';
+    tableMines.textContent = 'mines';
+    tableMainRow.appendChild(tableMines);
+
+    const tableTurns = document.createElement('td');
+    tableTurns.classList.add('table-item');
+    tableTurns.style.fontSize = '20px';
+    tableTurns.textContent = 'turns';
+    tableMainRow.appendChild(tableTurns);
+
+    const tableResult = document.createElement('td');
+    tableResult.classList.add('table-item');
+    tableResult.style.fontSize = '20px';
+    tableResult.textContent = 'result';
+    tableMainRow.appendChild(tableResult);
 
     const gameHeader = document.createElement('div');
     gameHeader.classList.add('header');
@@ -160,7 +192,13 @@ function initGame () {
     soundOff.textContent = 'Off';
     sound.appendChild(soundOff);
 
+    const rangeTable = document.createElement('div');
+    rangeTable.textContent = 'Last games results';
+    rangeTable.classList.add('range-table');
+    amountBombs.appendChild(rangeTable);
+
     function checkTheme() {
+        if(theme === undefined) theme = 'light';
         if(theme === 'light') {
             document.body.style.backgroundColor = 'aliceblue';
             document.body.style.color = 'black';
@@ -182,6 +220,7 @@ function initGame () {
     }
 
     function checkSound() {
+        if(sounds === undefined) sounds = 'on';
         if(sounds === 'on') {
             soundOn.setAttribute('disabled', 'disabled');
             soundOff.removeAttribute('disabled', 'disabled');
@@ -190,6 +229,10 @@ function initGame () {
             soundOn.removeAttribute('disabled', 'disabled');
             soundOff.setAttribute('disabled', 'disabled');
         }
+    }
+
+    function checkResults() {
+        if(results === null) results = [];
     }
 
     function checkFieldSize() {
@@ -224,6 +267,7 @@ function initGame () {
     generateField(fieldSize);
     checkTheme();
     checkSound();
+    checkResults();
     checkFieldSize();
 
     const tiles = [...document.querySelector('.field').children];
@@ -282,6 +326,17 @@ function initGame () {
             tile.classList.add('open-bomb');
             clearInterval(interval);
             if(sounds ==='on') loosing.play();
+
+            let result = {};
+            result.time = time.textContent;
+            result.mines = document.querySelector('.amount-bombs-item').value;
+            result.turns = Number(turns.textContent) + 1;
+            result.res = 'loose';
+            if(results.length < 10) results.unshift(result);
+            if(results.length >= 10) {
+                results.pop();
+                results.unshift(result);
+            }
             return alert('you loose');
         }
 
@@ -313,6 +368,17 @@ function initGame () {
                 clearInterval(interval);
                 alert('you won!');
                 if(sounds ==='on') winning.play();
+
+                let result = {};
+                result.time = time.textContent;
+                result.mines = document.querySelector('.amount-bombs-item').value;
+                result.turns = Number(turns.textContent) + 1;
+                result.res = 'win';
+                if(results.length < 10) results.unshift(result);
+                if(results.length >= 10) {
+                    results.pop();
+                    results.unshift(result);
+                }
         }
     }
 
@@ -344,6 +410,17 @@ function initGame () {
                 clearInterval(interval);
                 alert('you won!');
                 if(sounds ==='on') winning.play();
+
+                let result = {};
+                result.time = time.textContent;
+                result.mines = document.querySelector('.amount-bombs-item').value;
+                result.turns = Number(turns.textContent) + 1;
+                result.res = 'win';
+                if(results.length < 10) results.unshift(result);
+                if(results.length >= 10) {
+                    results.pop();
+                    results.unshift(result);
+                }
         }
     }
 
@@ -378,6 +455,38 @@ function initGame () {
         }
         else return;
     }
+
+    function displayResults() {
+        if(results === null) return;
+        for(let i = 0; i < results.length; i++) {
+            const tableRow = document.createElement('tr');
+            if(i % 2 === 0 || i === 0) tableRow.style.backgroundColor = 'yellowgreen';
+            if(i % 2 === 1) tableRow.style.backgroundColor = 'lightskyblue';
+            table.appendChild(tableRow);
+
+            const tableTime = document.createElement('td');
+            tableTime.classList.add('table-item');
+            tableTime.textContent = `${results[i].time}`;
+            tableRow.appendChild(tableTime);
+
+            const tableMines = document.createElement('td');
+            tableMines.classList.add('table-item');
+            tableMines.textContent = results[i].mines;
+            tableRow.appendChild(tableMines);
+
+            const tableTurns = document.createElement('td');
+            tableTurns.classList.add('table-item');
+            tableTurns.textContent = results[i].turns;
+            tableRow.appendChild(tableTurns);
+
+            const tableResult = document.createElement('td');
+            tableResult.classList.add('table-item');
+            tableResult.textContent = results[i].res;
+            tableRow.appendChild(tableResult);
+        }
+    }
+
+    displayResults();
 
     document.querySelector('.field').addEventListener('click', shuffleBombsPosition, {once: true});
 
@@ -457,6 +566,16 @@ function initGame () {
         soundOff.setAttribute('disabled', 'disabled');
         soundOn.removeAttribute('disabled', 'disabled');
         sounds = 'off';
+    })
+
+    rangeTable.addEventListener('click', function() {
+        table.classList.toggle('visible');
+    })
+
+    document.addEventListener('click', function(e) { 
+        if (!e.target.closest('.table') && !e.target.closest('.range-table')) { 
+            table.classList.remove('visible');
+        }
     })
 }    
 
