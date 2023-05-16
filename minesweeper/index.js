@@ -318,14 +318,11 @@ function initGame () {
         tile.classList.add('open-tile');
 
         if(checkBomb(row, column) === true) {
-            const bomb = document.createElement('img');
-            bomb.src = './assets/icons/free-icon-bomb-8598672.png';
-            bomb.style.width = '14px';
-            tile.appendChild(bomb);
             tile.classList.remove('open-tile');
-            tile.classList.add('open-bomb');
+            openAllBombs();
             clearInterval(interval);
             if(sounds ==='on') loosing.play();
+            gameField.classList.add('blocked');
 
             let result = {};
             result.time = time.textContent;
@@ -360,6 +357,7 @@ function initGame () {
                     }
                 }
             }
+            if(sounds ==='on') opening.play();
         }
 
         openedTiles++;
@@ -486,6 +484,18 @@ function initGame () {
         }
     }
 
+    function openAllBombs() {
+        for(let i = 0; i < bombsOnField.length; i++) {
+            const index = bombsOnField[i];
+            const tile = tiles[index];
+            const bomb = document.createElement('img');
+            bomb.src = './assets/icons/free-icon-bomb-8598672.png';
+            bomb.style.width = '14px';
+            tile.appendChild(bomb);
+            tile.classList.add('open-bomb');
+        }
+    }
+
     displayResults();
 
     document.querySelector('.field').addEventListener('click', shuffleBombsPosition, {once: true});
@@ -500,8 +510,6 @@ function initGame () {
 
         madeTurns++;
         document.querySelector('.turns').textContent = madeTurns;
-
-        if(sounds ==='on') opening.play();
     })
 
     document.querySelector('.field').addEventListener('contextmenu', function(event) {
