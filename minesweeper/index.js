@@ -56,23 +56,23 @@ function initGame () {
     tableTime.textContent = 'time';
     tableMainRow.appendChild(tableTime);
 
-    const tableMines = document.createElement('td');
-    tableMines.classList.add('table-item');
-    tableMines.style.fontSize = '20px';
-    tableMines.textContent = 'mines';
-    tableMainRow.appendChild(tableMines);
-
     const tableTurns = document.createElement('td');
     tableTurns.classList.add('table-item');
     tableTurns.style.fontSize = '20px';
     tableTurns.textContent = 'turns';
     tableMainRow.appendChild(tableTurns);
 
-    const tableResult = document.createElement('td');
-    tableResult.classList.add('table-item');
-    tableResult.style.fontSize = '20px';
-    tableResult.textContent = 'result';
-    tableMainRow.appendChild(tableResult);
+    const tableMines = document.createElement('td');
+    tableMines.classList.add('table-item');
+    tableMines.style.fontSize = '20px';
+    tableMines.textContent = 'mines';
+    tableMainRow.appendChild(tableMines);
+
+    const tableSize = document.createElement('td');
+    tableSize.classList.add('table-item');
+    tableSize.style.fontSize = '20px';
+    tableSize.textContent = 'size';
+    tableMainRow.appendChild(tableSize);
 
     const gameHeader = document.createElement('div');
     gameHeader.classList.add('header');
@@ -343,17 +343,6 @@ function initGame () {
             clearInterval(interval);
             if(sounds ==='on') loosing.play();
             gameField.classList.add('blocked');
-
-            let result = {};
-            result.time = time.textContent;
-            result.mines = document.querySelector('.amount-bombs-item').value;
-            result.turns = Number(turns.textContent) + 1;
-            result.res = 'loose';
-            if(results.length < 10) results.unshift(result);
-            if(results.length >= 10) {
-                results.pop();
-                results.unshift(result);
-            }
             p.textContent = '!!!You loose!!!';
             return;
         }
@@ -393,7 +382,9 @@ function initGame () {
                 result.time = time.textContent;
                 result.mines = document.querySelector('.amount-bombs-item').value;
                 result.turns = Number(turns.textContent) + 1;
-                result.res = 'win';
+                if(fieldSize === 10) result.size = 'easy';
+                if(fieldSize === 15) result.size = 'medium';
+                if(fieldSize === 25) result.size = 'hard';
                 if(results.length < 10) results.unshift(result);
                 if(results.length >= 10) {
                     results.pop();
@@ -436,7 +427,9 @@ function initGame () {
                 result.time = time.textContent;
                 result.mines = document.querySelector('.amount-bombs-item').value;
                 result.turns = Number(turns.textContent) + 1;
-                result.res = 'win';
+                if(fieldSize === 10) result.size = 'easy';
+                if(fieldSize === 15) result.size = 'medium';
+                if(fieldSize === 25) result.size = 'hard';
                 if(results.length < 10) results.unshift(result);
                 if(results.length >= 10) {
                     results.pop();
@@ -490,20 +483,20 @@ function initGame () {
             tableTime.textContent = `${results[i].time}`;
             tableRow.appendChild(tableTime);
 
-            const tableMines = document.createElement('td');
-            tableMines.classList.add('table-item');
-            tableMines.textContent = results[i].mines;
-            tableRow.appendChild(tableMines);
-
             const tableTurns = document.createElement('td');
             tableTurns.classList.add('table-item');
             tableTurns.textContent = results[i].turns;
             tableRow.appendChild(tableTurns);
 
-            const tableResult = document.createElement('td');
-            tableResult.classList.add('table-item');
-            tableResult.textContent = results[i].res;
-            tableRow.appendChild(tableResult);
+            const tableMines = document.createElement('td');
+            tableMines.classList.add('table-item');
+            tableMines.textContent = results[i].mines;
+            tableRow.appendChild(tableMines);
+
+            const tableSize = document.createElement('td');
+            tableSize.classList.add('table-item');
+            tableSize.textContent = results[i].size;
+            tableRow.appendChild(tableSize);
         }
     }
 
