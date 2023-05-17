@@ -1,5 +1,5 @@
-let fieldSize = 10;
-let numberOfBombs = 10;
+let fieldSize = localStorage.fieldSize;
+let numberOfBombs = localStorage.numberOfBombs;
 let usedFlags = 0;
 let madeTurns = 0;
 let openedTiles = 0;
@@ -17,6 +17,8 @@ function setLocalStorage() {
     localStorage.setItem('theme', theme);
     localStorage.setItem('sounds', sounds);
     localStorage.setItem('results', JSON.stringify(results));
+    localStorage.setItem('fieldSize', fieldSize);
+    localStorage.setItem('numberOfBombs', numberOfBombs);
 }
 window.addEventListener('beforeunload', setLocalStorage);
 
@@ -24,10 +26,14 @@ function getLocalStorage() {
     if(localStorage.getItem('theme')) theme = localStorage.theme;
     if(localStorage.getItem('sounds')) sounds = localStorage.sounds;
     if(localStorage.getItem('results')) results = JSON.parse(localStorage.getItem('results'));
+    if(localStorage.getItem('fieldSize')) fieldSize = localStorage.fieldSize;
+    if(localStorage.getItem('numberOfBombs')) numberOfBombs = localStorage.numberOfBombs;
 }
 window.addEventListener('load', getLocalStorage);
 
 function initGame () {
+    checkNumberOfBombs();
+
     const wrapper = document.createElement('div');
     wrapper.classList.add('wrapper');
     document.body.appendChild(wrapper);
@@ -236,21 +242,26 @@ function initGame () {
     }
 
     function checkFieldSize() {
-        if(fieldSize === 10) {
+        if(fieldSize === undefined) fieldSize = 10;
+        if(fieldSize === '10' || fieldSize === 10) {
             easy.setAttribute('disabled', 'disabled');
             medium.removeAttribute('disabled', 'disabled');
             hard.removeAttribute('disabled', 'disabled');
         }
-        if(fieldSize === 15) {
+        if(fieldSize === '15' || fieldSize === 15) {
             easy.removeAttribute('disabled', 'disabled');
             medium.setAttribute('disabled', 'disabled');
             hard.removeAttribute('disabled', 'disabled');
         }
-        if(fieldSize === 25) {
+        if(fieldSize === '25' || fieldSize === 25) {
             easy.removeAttribute('disabled', 'disabled');
             medium.removeAttribute('disabled', 'disabled');
             hard.setAttribute('disabled', 'disabled');
         }
+    }
+
+    function checkNumberOfBombs() {
+        if(numberOfBombs === undefined) numberOfBombs = 10;
     }
 
     function generateField(size) {
@@ -264,12 +275,12 @@ function initGame () {
         }
     }
 
-    generateField(fieldSize);
     checkTheme();
     checkSound();
     checkResults();
     checkFieldSize();
-
+    generateField(fieldSize);
+    
     const tiles = [...document.querySelector('.field').children];
     let bombsOnField = [...Array(Math.pow(fieldSize, 2)).keys()]
         .sort(() => Math.random() - 0.5)
@@ -366,6 +377,7 @@ function initGame () {
                 clearInterval(interval);
                 alert('you won!');
                 if(sounds ==='on') winning.play();
+                gameField.classList.add('blocked');
 
                 let result = {};
                 result.time = time.textContent;
@@ -378,6 +390,7 @@ function initGame () {
                     results.unshift(result);
                 }
         }
+        console.log(tiles);
     }
 
     function setFlag(row, column) {
@@ -408,6 +421,7 @@ function initGame () {
                 clearInterval(interval);
                 alert('you won!');
                 if(sounds ==='on') winning.play();
+                gameField.classList.add('blocked');
 
                 let result = {};
                 result.time = time.textContent;
