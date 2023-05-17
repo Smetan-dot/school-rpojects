@@ -34,6 +34,11 @@ window.addEventListener('load', getLocalStorage);
 function initGame () {
     checkNumberOfBombs();
 
+    const favicon = document.createElement('link');
+    favicon.setAttribute('rel', 'icon');
+    favicon.href = './assets/icons/free-icon-bomb-8598672.png';
+    document.head.appendChild(favicon);
+
     const wrapper = document.createElement('div');
     wrapper.classList.add('wrapper');
     document.body.appendChild(wrapper);
@@ -72,6 +77,10 @@ function initGame () {
     const gameHeader = document.createElement('div');
     gameHeader.classList.add('header');
     wrapper.appendChild(gameHeader);
+
+    const p = document.createElement('p');
+    p.classList.add('result');
+    wrapper.appendChild(p);
 
     const gameField = document.createElement('div');
     gameField.classList.add('field');
@@ -267,7 +276,7 @@ function initGame () {
     function generateField(size) {
         const field = document.querySelector('.field');
         field.style.width = size * 17 + size * 2 + 'px';
-    
+
         for(let i = 0; i < Math.pow(size, 2); i++) {
             const tile = document.createElement('button');
             tile.classList.add('tile');
@@ -285,7 +294,7 @@ function initGame () {
     let bombsOnField = [...Array(Math.pow(fieldSize, 2)).keys()]
         .sort(() => Math.random() - 0.5)
         .slice(0, numberOfBombs); // generate bombs position
-    
+
     function restartGame() {
         usedFlags = 0;
         madeTurns = 0;
@@ -345,7 +354,8 @@ function initGame () {
                 results.pop();
                 results.unshift(result);
             }
-            return alert('you loose');
+            p.textContent = '!!!You loose!!!';
+            return;
         }
 
         if(checkBomb(row, column) === false) {
@@ -375,7 +385,7 @@ function initGame () {
         if(openedTiles >= Math.pow(fieldSize, 2) - numberOfBombs || 
             openedTiles >= Math.pow(fieldSize, 2) - usedFlags) {
                 clearInterval(interval);
-                alert('you won!');
+                p.textContent = '!!!You won!!!';
                 if(sounds ==='on') winning.play();
                 gameField.classList.add('blocked');
 
@@ -390,7 +400,6 @@ function initGame () {
                     results.unshift(result);
                 }
         }
-        console.log(tiles);
     }
 
     function setFlag(row, column) {
@@ -419,7 +428,7 @@ function initGame () {
         if(openedTiles >= Math.pow(fieldSize, 2) - numberOfBombs || 
             openedTiles >= Math.pow(fieldSize, 2) - usedFlags) {
                 clearInterval(interval);
-                alert('you won!');
+                p.textContent = '!!!You won!!!';
                 if(sounds ==='on') winning.play();
                 gameField.classList.add('blocked');
 
