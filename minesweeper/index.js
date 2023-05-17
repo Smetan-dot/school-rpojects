@@ -325,7 +325,7 @@ function initGame () {
                 if(checkBomb(row + j, column + i)) count++;
             }
         }
-        return count;
+        return count; //recoursivly checking for bombs all tile's siblings 
     }
  
     function openTile(row, column) {
@@ -377,14 +377,13 @@ function initGame () {
                 p.textContent = '!!!You won!!!';
                 if(sounds ==='on') winning.play();
                 gameField.classList.add('blocked');
-
                 let result = {};
                 result.time = time.textContent;
                 result.mines = document.querySelector('.amount-bombs-item').value;
                 result.turns = Number(turns.textContent) + 1;
-                if(fieldSize === 10) result.size = 'easy';
-                if(fieldSize === 15) result.size = 'medium';
-                if(fieldSize === 25) result.size = 'hard';
+                if(fieldSize === '10' || fieldSize === 10) result.size = 'easy';
+                if(fieldSize === '15' || fieldSize === 15) result.size = 'medium';
+                if(fieldSize === '25' || fieldSize === 25) result.size = 'hard';
                 if(results.length < 10) results.unshift(result);
                 if(results.length >= 10) {
                     results.pop();
@@ -427,9 +426,9 @@ function initGame () {
                 result.time = time.textContent;
                 result.mines = document.querySelector('.amount-bombs-item').value;
                 result.turns = Number(turns.textContent) + 1;
-                if(fieldSize === 10) result.size = 'easy';
-                if(fieldSize === 15) result.size = 'medium';
-                if(fieldSize === 25) result.size = 'hard';
+                if(fieldSize === '10') result.size = 'easy';
+                if(fieldSize === '15') result.size = 'medium';
+                if(fieldSize === '25') result.size = 'hard';
                 if(results.length < 10) results.unshift(result);
                 if(results.length >= 10) {
                     results.pop();
@@ -514,9 +513,9 @@ function initGame () {
 
     displayResults();
 
-    document.querySelector('.field').addEventListener('click', shuffleBombsPosition, {once: true});
+    document.querySelector('.field').addEventListener('click', shuffleBombsPosition, {once: true}); //shuffle bombs, if first tile with bomb
 
-    document.querySelector('.field').addEventListener('click', timer, {once: true});
+    document.querySelector('.field').addEventListener('click', timer, {once: true}); // run timer and deleting after first using
 
     document.querySelector('.field').addEventListener('click', function(event) {
         const index = tiles.indexOf(event.target);
@@ -541,22 +540,22 @@ function initGame () {
     document.querySelector('.new-game').addEventListener('click', restartGame);
 
     document.querySelectorAll('.difficalty-item')[0].addEventListener('click', function() {
-        fieldSize = 10;
+        fieldSize = '10';
         restartGame();
     })
     document.querySelectorAll('.difficalty-item')[1].addEventListener('click', function() {
-        fieldSize = 15;
+        fieldSize = '15';
         restartGame();
     })
     document.querySelectorAll('.difficalty-item')[2].addEventListener('click', function() {
-        fieldSize = 25;
+        fieldSize = '25';
         restartGame();
     })
 
     document.querySelector('.amount-bombs-item').addEventListener('mouseup', function() {
         numberOfBombs = document.querySelector('.amount-bombs-item').value;
         restartGame();
-    })
+    }) // listener at input type=range
 
     light.addEventListener('click', function() {
         document.body.style.backgroundColor = 'aliceblue';
@@ -600,7 +599,7 @@ function initGame () {
         if (!e.target.closest('.table') && !e.target.closest('.range-table')) { 
             table.classList.remove('visible');
         }
-    })
+    }) // close table on click outside
 }    
 
 initGame();
