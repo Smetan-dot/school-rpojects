@@ -4,9 +4,12 @@ let usedFlags = 0;
 let madeTurns = 0;
 let openedTiles = 0;
 let interval;
+let num = 0;
 let theme = localStorage.theme;
 let sounds = localStorage.sounds;
 let results = JSON.parse(localStorage.getItem('results'));
+let tempArr = JSON.parse(localStorage.getItem('tiles'));
+let bombsOnField = JSON.parse(localStorage.getItem('bombsOnField'));
 
 const opening = new Audio('./assets/sounds/69880c1f5e57698.mp3');
 const makeFlag = new Audio('./assets/sounds/mouth_foley_puff_09.mp3');
@@ -18,7 +21,14 @@ function setLocalStorage() {
     localStorage.setItem('sounds', sounds);
     localStorage.setItem('results', JSON.stringify(results));
     localStorage.setItem('fieldSize', fieldSize);
-    localStorage.setItem('numberOfBombs', numberOfBombs);
+    localStorage.setItem('numberOfBombs', document.querySelector('.amount-bombs-item').value);
+    localStorage.setItem('tiles', JSON.stringify(tempArr));
+    localStorage.setItem('bombsOnField', JSON.stringify(bombsOnField));
+    localStorage.setItem('openedTiles', openedTiles);
+    localStorage.setItem('leftBombs', numberOfBombs);
+    localStorage.setItem('usedFlags', usedFlags);
+    localStorage.setItem('madeTurns', madeTurns);
+    localStorage.setItem('num', num);
 }
 window.addEventListener('beforeunload', setLocalStorage);
 
@@ -28,6 +38,13 @@ function getLocalStorage() {
     if(localStorage.getItem('results')) results = JSON.parse(localStorage.getItem('results'));
     if(localStorage.getItem('fieldSize')) fieldSize = localStorage.fieldSize;
     if(localStorage.getItem('numberOfBombs')) numberOfBombs = localStorage.numberOfBombs;
+    if(localStorage.getItem('tiles')) tempArr = JSON.parse(localStorage.getItem('tiles'));
+    if(localStorage.getItem('bombsOnField')) bombsOnField = JSON.parse(localStorage.getItem('bombsOnField'));
+    if(localStorage.getItem('usedFlags')) usedFlags = localStorage.usedFlags;
+    if(localStorage.getItem('leftBombs')) numberOfBombs = localStorage.leftBombs;
+    if(localStorage.getItem('openedTiles')) openedTiles = localStorage.openedTiles;
+    if(localStorage.getItem('madeTurns')) madeTurns = localStorage.madeTurns;
+    if(localStorage.getItem('num')) num = localStorage.num;
 }
 window.addEventListener('load', getLocalStorage);
 
@@ -97,7 +114,8 @@ function initGame () {
 
     const time = document.createElement('span');
     time.classList.add('time');
-    time.textContent = '0:00';
+    if(localStorage.getItem('time')) time.textContent = localStorage.time;
+    else time.textContent = '0:00';
     timeWrapper.appendChild(time);
 
     const turnsWrapper = document.createElement('div');
@@ -107,7 +125,8 @@ function initGame () {
 
     const turns = document.createElement('span');
     turns.classList.add('turns');
-    turns.textContent = madeTurns;
+    if(localStorage.getItem('madeTurns')) turns.textContent = localStorage.madeTurns;
+    else turns.textContent = madeTurns;
     turnsWrapper.appendChild(turns);
 
     const newGame = document.createElement('a');
@@ -126,7 +145,8 @@ function initGame () {
 
     const bomb = document.createElement('span');
     bomb.classList.add('bomb');
-    bomb.textContent = numberOfBombs;
+    if(localStorage.getItem('leftBombs')) bomb.textContent = localStorage.leftBombs;
+    else bomb.textContent = numberOfBombs;
     bombsCounter.appendChild(bomb);
 
     const flagsCounter = document.createElement('div');
@@ -140,7 +160,8 @@ function initGame () {
 
     const flag = document.createElement('span');
     flag.classList.add('flag');
-    flag.textContent = '0';
+    if(localStorage.getItem('usedFlags')) flag.textContent = localStorage.usedFlags;
+    else flag.textContent = usedFlags;
     flagsCounter.appendChild(flag);
 
     const difficalty = document.createElement('div');
@@ -250,6 +271,10 @@ function initGame () {
         if(results === null) results = [];
     }
 
+    function checkTiles() {
+        if(tempArr === null) tempArr = [];
+    }
+
     function checkFieldSize() {
         if(fieldSize === undefined) fieldSize = 10;
         if(fieldSize === '10' || fieldSize === 10) {
@@ -273,6 +298,11 @@ function initGame () {
         if(numberOfBombs === undefined) numberOfBombs = 10;
     }
 
+    function setTimeLocalStorage() {
+        localStorage.setItem('time', time.textContent)
+    }
+    window.addEventListener('beforeunload', setTimeLocalStorage);
+
     function generateField(size) {
         const field = document.querySelector('.field');
         field.style.width = size * 17 + size * 2 + 'px';
@@ -287,23 +317,58 @@ function initGame () {
     checkTheme();
     checkSound();
     checkResults();
+    checkTiles();
     checkFieldSize();
     generateField(fieldSize);
     
     const tiles = [...document.querySelector('.field').children];
-    let bombsOnField = [...Array(Math.pow(fieldSize, 2)).keys()]
+    if(bombsOnField === null) {
+        bombsOnField = [...Array(Math.pow(fieldSize, 2)).keys()]
         .sort(() => Math.random() - 0.5)
         .slice(0, numberOfBombs); // generate bombs position
+    };
+
+    function dataForTiles() {
+        for(let i = 0; i < tiles.length; i++) {
+            if(tempArr[i] !== undefined) {
+                tiles[i].disabled = tempArr[i].disabled;
+                tiles[i].className = tempArr[i].class;
+                tiles[i].textContent = tempArr[i].text;
+                tiles[i].style.color = tempArr[i].color;
+            } 
+        }
+    } // give parameters to tiles from saved array
+
+    dataForTiles();
 
     function restartGame() {
+        tempArr = [];
+        bombsOnField = null;
         usedFlags = 0;
         madeTurns = 0;
         openedTiles = 0;
         numberOfBombs = document.querySelector('.amount-bombs-item').value;
+        localStorage.removeItem('leftBombs');
+        localStorage.removeItem('usedFlags');
+        localStorage.removeItem('madeTurns');
+        localStorage.removeItem('time');
         clearInterval(interval);
+        num = 0;
         document.body.innerHTML = '';
 
         initGame();
+    }
+
+    function saveTiles() {
+        tempArr = [];
+        for(let i = 0; i < tiles.length; i++) {
+            let object = {};
+            object.disabled = tiles[i].disabled;
+            object.class = tiles[i].className;
+            object.text = tiles[i].textContent;
+            object.color = tiles[i].style.color;
+            tempArr.push(object);
+        }
     }
     
     function checkCoordValidity(row, column) {
@@ -372,11 +437,12 @@ function initGame () {
 
         openedTiles++;
         if(openedTiles >= Math.pow(fieldSize, 2) - numberOfBombs || 
-            openedTiles >= Math.pow(fieldSize, 2) - usedFlags) {
+           openedTiles >= Math.pow(fieldSize, 2) - usedFlags) {
                 clearInterval(interval);
                 p.textContent = '!!!You won!!!';
                 if(sounds ==='on') winning.play();
                 gameField.classList.add('blocked');
+
                 let result = {};
                 result.time = time.textContent;
                 result.mines = document.querySelector('.amount-bombs-item').value;
@@ -390,6 +456,7 @@ function initGame () {
                     results.unshift(result);
                 }
         }
+        saveTiles();
     }
 
     function setFlag(row, column) {
@@ -416,7 +483,7 @@ function initGame () {
         }
 
         if(openedTiles >= Math.pow(fieldSize, 2) - numberOfBombs || 
-            openedTiles >= Math.pow(fieldSize, 2) - usedFlags) {
+           openedTiles >= Math.pow(fieldSize, 2) - usedFlags) {
                 clearInterval(interval);
                 p.textContent = '!!!You won!!!';
                 if(sounds ==='on') winning.play();
@@ -426,15 +493,16 @@ function initGame () {
                 result.time = time.textContent;
                 result.mines = document.querySelector('.amount-bombs-item').value;
                 result.turns = Number(turns.textContent) + 1;
-                if(fieldSize === '10') result.size = 'easy';
-                if(fieldSize === '15') result.size = 'medium';
-                if(fieldSize === '25') result.size = 'hard';
+                if(fieldSize === '10' || fieldSize === 10) result.size = 'easy';
+                if(fieldSize === '15' || fieldSize === 15) result.size = 'medium';
+                if(fieldSize === '25' || fieldSize === 25) result.size = 'hard';
                 if(results.length < 10) results.unshift(result);
                 if(results.length >= 10) {
                     results.pop();
                     results.unshift(result);
                 }
         }
+        saveTiles();
     }
 
     function getTimeFromNum(num) {
@@ -449,13 +517,10 @@ function initGame () {
     }
 
     function timer() {
-        if(madeTurns === 0) {
-            let num = 0;
             interval = setInterval(() => {
                 num++;
                 document.querySelector('.time').textContent = getTimeFromNum(num);
             }, 1000);
-        }
     }
 
     function shuffleBombsPosition(event) {
