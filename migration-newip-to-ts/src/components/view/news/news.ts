@@ -1,6 +1,6 @@
 import './news.css';
 
-interface INews {
+export interface INews {
     source: {
         id: string,
         name: string
@@ -14,7 +14,7 @@ interface INews {
     content: string
 }
 
-class News {
+export class News {
     public draw(data: INews[]): void {
         const news = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
 
