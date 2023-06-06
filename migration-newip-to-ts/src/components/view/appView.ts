@@ -13,9 +13,9 @@ export interface ISourcesData {
 }
 
 export class AppView {
-    public news: News;
+    private news: News;
 
-    public sources: Sources;
+    private sources: Sources;
     
     constructor() {
         this.news = new News();

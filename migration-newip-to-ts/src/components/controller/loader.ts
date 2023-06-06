@@ -5,9 +5,9 @@ type Options = {
 }
 
 class Loader {
-    public baseLink: string;
+    private baseLink: string;
 
-    public options: Options;
+    private options: Options;
 
     constructor(baseLink: string, options: Options) {
         this.baseLink = baseLink;
