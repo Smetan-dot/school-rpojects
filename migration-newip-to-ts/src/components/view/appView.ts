@@ -1,15 +1,15 @@
 import { News, INews } from './news/news';
 import { Sources, ISources } from './sources/sources';
 
-interface INewsData {
+export interface INewsData {
     status: string,
-    totalResults: number,
-    articles: INews[]
+    totalResults?: number,
+    articles?: INews[]
 }
 
-interface ISourcesData {
+export interface ISourcesData {
     status: string,
-    sources: ISources[]
+    sources?: ISources[]
 }
 
 export class AppView {

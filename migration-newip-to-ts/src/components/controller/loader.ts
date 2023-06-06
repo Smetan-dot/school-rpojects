@@ -1,3 +1,5 @@
+import { INewsData, ISourcesData } from '../view/appView';
+
 type Options = {
     [key: string]: string
 }
@@ -14,7 +16,7 @@ class Loader {
 
     public getResp(
         { endpoint, options = {} }: {endpoint: string, options?: Options},
-        callback = (): void => {
+        callback: (data: INewsData | ISourcesData) => void = (): void => {
             console.error('No callback for GET response');
         }
     ): void {
@@ -42,7 +44,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    public load(method: string, endpoint: string, callback: (data: string) => void, options = {}): void {
+    public load(method: string, endpoint: string, callback: (data: INewsData | ISourcesData) => void, options = {}): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
