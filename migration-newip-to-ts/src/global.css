@@ -1,6 +1,6 @@
 body {
     color: #fff;
-    background: #17181c;
+    background: #2a2d33;
     font-family: sans-serif;
 }
 
@@ -9,7 +9,7 @@ header {
 }
 
 header h1 {
-    font-size: 40px;
+    font-size: 37px;
     font-weight: 800;
 }
 
@@ -18,18 +18,35 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 2%;
 }
 footer .copyright {
-    font-size: 14px;
-    color: #333;
+    font-size: 16px;
+    color: #666;
     text-align: center;
 }
 footer .copyright a {
-    color: #444;
+    color: #999;
+    transition: 0.3s;
 }
 footer .copyright a:hover {
-    color: #555;
+    color: #d4d4d4;
 }
 footer .copyright:before {
     content: '©';
+}
+
+.rs-school-link {
+    width: 50px;
+}
+
+.github-link {
+    color: #999;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.github-link:hover {
+    color: #d4d4d4;
 }
