@@ -5,7 +5,7 @@ type Options = {
 }
 
 class Loader {
-    private baseLink: string;
+    private readonly baseLink: string;
 
     private options: Options;
 
