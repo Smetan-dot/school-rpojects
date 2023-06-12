@@ -4,13 +4,18 @@ body {
     font-family: sans-serif;
 }
 
+main {
+    display: flex;
+}
+
 header {
-    padding: 10px 30px;
+    padding: 1vh 30px;
 }
 
 header h1 {
     font-size: 36px;
     font-weight: 800;
+    margin: 2.5vh 0;
 }
 
 footer {
@@ -49,4 +54,10 @@ footer .copyright:before {
 
 .github-link:hover {
     color: #d4d4d4;
+}
+
+@media (max-width: 940px) {
+    main {
+        display: block;
+    }
 }

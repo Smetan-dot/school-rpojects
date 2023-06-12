@@ -1,7 +1,12 @@
+.news {
+    margin: auto;
+    padding-left: 8px;
+}
+
 .news__item {
     display: flex;
     flex-direction: column;
-    margin: 1rem auto 1.6% auto;
+    margin: 0 auto 1.6% auto;
     background: #fff;
     color: #333;
     line-height: 1.4;
@@ -118,6 +123,15 @@
 
 .news__item:hover .news__meta-details {
     left: 0;
+}
+
+@media (max-width: 940px) {
+    .news {
+        padding-left: 0;
+    }
+    .news__item {
+        margin: 1rem auto 1.6% auto;
+    }
 }
 
 @media (min-width: 640px) {
