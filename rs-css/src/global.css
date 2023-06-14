@@ -1,0 +1,68 @@
+body {
+    margin: 0;
+    background-color:rgb(100, 100, 100);
+    display: flex;
+}
+
+.gameWrapper {
+    width: 85%;
+    height: 100vh;
+    margin: auto;
+}
+
+.levelsWrapper {
+    width: 15%;
+    height: 100vh;
+    background-color: rgb(50, 50, 50);
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+}
+
+.task-name {
+    font-size: 24px;
+    color: rgb(150, 150, 150);
+}
+
+.game-table {
+    width: 90%;
+    height: 20vh;
+    margin: auto;
+}
+
+.editor {
+    width: 90%;
+    height: 50vh;
+    margin: 5vh auto;
+    border: 5px solid rgb(50, 50, 50);
+    border-radius: 5px;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+}
+
+.year {
+    font-size: 16px;
+    color: rgb(150, 150, 150);
+}
+
+.github {
+    color: rgb(150, 150, 150);
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.github:hover {
+    color:rgb(200, 200, 200);
+}
+
+.rs-school-img {
+    width: 50px;
+}
