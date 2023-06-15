@@ -16,6 +16,12 @@ body {
     background-color: rgb(50, 50, 50);
 }
 
+.level {
+    font-size: 20px;
+    padding-left: 10%;
+    color: rgb(150, 150, 150);
+}
+
 .header {
     display: flex;
     justify-content: center;
@@ -30,9 +36,12 @@ body {
     width: 90%;
     height: 20vh;
     margin: auto;
+    perspective: 800px;
+    transform-style: flat;
 }
 
 .editor {
+    display: flex;
     width: 90%;
     height: 50vh;
     margin: 5vh auto;

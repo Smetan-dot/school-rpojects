@@ -1,0 +1,47 @@
+.css-editor {
+    width: 50%;
+    height: 100%;
+}
+
+.css-title {
+    height: 5%;
+    padding: 9.5px 19px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: rgb(200, 200, 200);
+}
+
+.input-block {
+    height: 90%;
+    display: flex;
+}
+
+.column-numbers {
+    width: 15px;
+    padding: 5px 10px;
+    line-height: 150%;
+    text-align: right;
+    background-color: rgb(200, 200, 200);
+}
+
+.input-wrapper {
+    width: calc(100% - 35px);
+    padding: 5px 10px;
+    line-height: 150%;
+    background-color: #efefef;
+}
+
+.input {
+    width: 100%;
+    background: inherit;
+    border: none;
+    letter-spacing: 2px;
+    outline: none;
+    animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+    0%, 100% {background-color: #efefef;}
+    50% {background-color: rgb(151, 252, 105);}
+}
