@@ -1,9 +1,9 @@
-.css-editor {
+.editor-element {
     width: 50%;
     height: 100%;
 }
 
-.css-title {
+.editor-title {
     height: 5%;
     padding: 9.5px 19px;
     font-size: 16px;
@@ -12,7 +12,7 @@
     color: rgb(200, 200, 200);
 }
 
-.input-block {
+.editor-block {
     height: 90%;
     display: flex;
 }
@@ -44,4 +44,32 @@
 @keyframes blink {
     0%, 100% {background-color: #efefef;}
     50% {background-color: rgb(151, 252, 105);}
+}
+
+.input:focus::-webkit-input-placeholder {
+    text-indent: 500px;
+    transition: text-indent 0.5s ease;
+}
+
+.answer-block {
+    display:flex;
+    justify-content: space-between;
+    letter-spacing: 1px;
+    color: #AAA;
+    margin-top: 24px;
+}
+
+.answer-button {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: rgb(75, 75, 75);
+    background-color: rgb(200, 200, 200);
+    border: solid 1px #999;
+    border-width: 1px 1px 5px 1px;
+    cursor: pointer;
+}
+
+.answer-button:active {
+    border-width: 1px 1px 2px 1px;
+    transform: translateY(3px);
 }

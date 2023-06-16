@@ -1,8 +1,10 @@
 import './global.css';
 import './components/game-table/table.css';
 import './components/css-editor/css-editor.css';
+import './components/html-viewer/html-viewer.css';
 import drawTable from './components/game-table/table';
 import drawCssEditor from './components/css-editor/css-editor';
+import drawHtmlViewer from './components/html-viewer/html-viewer';
 
 function startGame (): void {
     const gameWrapper = document.createElement('div');
@@ -64,6 +66,7 @@ function startGame (): void {
 
     drawTable (gameTable);
     drawCssEditor (editor);
+    drawHtmlViewer(editor);
 }
 
 startGame ();

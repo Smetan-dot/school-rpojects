@@ -1,15 +1,15 @@
 export default function drawCssEditor (wrapper: HTMLDivElement): void {
     const cssEditor = document.createElement('div');
-    cssEditor.classList.add('css-editor');
+    cssEditor.classList.add('editor-element');
     wrapper.appendChild(cssEditor);
 
     const cssTitle = document.createElement('div');
-    cssTitle.classList.add('css-title');
+    cssTitle.classList.add('editor-title');
     cssTitle.textContent = 'CSS Editor';
     cssEditor.appendChild(cssTitle);
 
     const inputBlock = document.createElement('div');
-    inputBlock.classList.add('input-block');
+    inputBlock.classList.add('editor-block');
     cssEditor.appendChild(inputBlock);
 
     const columnNumbers = document.createElement('div');
@@ -26,4 +26,14 @@ export default function drawCssEditor (wrapper: HTMLDivElement): void {
     input.type = 'text';
     input.placeholder = '[Type in a CSS selector]';
     inputWrapper.appendChild(input);
+
+    const answerBlock = document.createElement('div');
+    answerBlock.classList.add('answer-block');
+    answerBlock.textContent = 'Press enter to answer or click button on the right';
+    inputWrapper.appendChild(answerBlock);
+
+    const answerButton = document.createElement('button');
+    answerButton.classList.add('answer-button');
+    answerButton.textContent = 'Enter';
+    answerBlock.appendChild(answerButton);
 }

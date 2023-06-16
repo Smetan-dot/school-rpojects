@@ -1,0 +1,6 @@
+.markup {
+    width: calc(100% - 35px);
+    padding: 5px 10px;
+    line-height: 150%;
+    background-color: rgb(75, 75, 75);
+}
