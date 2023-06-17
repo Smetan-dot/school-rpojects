@@ -16,10 +16,19 @@ body {
     background-color: rgb(50, 50, 50);
 }
 
-.level {
+.level-title {
     font-size: 20px;
+    letter-spacing: 2px;
     padding-left: 10%;
     color: rgb(150, 150, 150);
+}
+
+.level {
+    font-size: 20px;
+    line-height: 150%;
+    padding-left: 10%;
+    color: rgb(150, 150, 150);
+    cursor: pointer;
 }
 
 .header {

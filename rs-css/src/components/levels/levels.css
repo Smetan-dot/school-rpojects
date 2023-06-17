@@ -1,0 +1,60 @@
+.table plate {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    background-color: white;
+    box-shadow: 0px 10px 5px rgba(0,0,0,.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.table bento {
+    width: 100px;
+    height: 100px;
+    background-color: brown;
+    border: 3px solid rgb(78, 20, 20);
+    box-shadow: 0px 10px 5px rgba(0,0,0,.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.table apple {
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    background-color: red;
+    box-shadow: 0px 6px 3px rgba(0,0,0,.2);
+}
+
+.table orange {
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    background-color: orangered;
+    box-shadow: 0px 6px 3px rgba(0,0,0,.2);
+}
+
+.table pickle {
+    width: 20px;
+    height: 60px;
+    border-radius: 20px;
+    background-color: green;
+    box-shadow: 0px 6px 3px rgba(0,0,0,.2);
+}
+
+.small {
+    width: 30px;
+    height: 30px;
+}
+
+.markup plate, .markup bento, .markup apple, .markup orange, .markup pickle {
+    padding-left: 20px;
+    cursor: default;
+}
+
+.markup plate, .markup bento {
+    display: flex;
+    flex-direction: column;
+}

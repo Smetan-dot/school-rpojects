@@ -1,5 +1,8 @@
-export default function drawTable (wrapper: HTMLDivElement): void {
+import { Level } from "../levels/levels";
+
+export default function drawTable (wrapper: HTMLDivElement, objects: Level[], current: number): void {
     const table = document.createElement('div');
     table.classList.add('table');
+    table.innerHTML = objects[current].markup;
     wrapper.appendChild(table);
 }
