@@ -8,7 +8,7 @@ import drawCssEditor from './components/css-editor/css-editor';
 import drawHtmlViewer from './components/html-viewer/html-viewer';
 import { levels, drawLevels } from './components/levels/levels';
 
-const currentLevel = 9;
+const currentLevel = 2;
 
 function initGame (): void {
     const gameWrapper = document.createElement('div');
@@ -72,7 +72,7 @@ function initGame (): void {
         drawTable (gameTable, levels, currentLevel);
         drawCssEditor (editor);
         drawHtmlViewer(editor, levels, currentLevel);
-        drawLevels(levelsWrapper, levels);
+        drawLevels(levelsWrapper, levels, currentLevel);
     }
 
     startLevel ();

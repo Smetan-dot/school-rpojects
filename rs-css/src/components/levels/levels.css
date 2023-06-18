@@ -1,8 +1,10 @@
 section plate {
-    width: 100px;
-    height: 100px;
-    border-radius: 100px;
-    background-color: white;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 80px;
+    border: 10px solid white;
+    background-color: rgb(240, 240, 240);
     box-shadow: 0px 10px 5px rgba(0,0,0,.2);
     display: flex;
     justify-content: center;
@@ -10,8 +12,9 @@ section plate {
 }
 
 section bento {
-    width: 100px;
-    height: 100px;
+    position: relative;
+    width: 90px;
+    height: 90px;
     background-color: brown;
     border: 3px solid rgb(78, 20, 20);
     box-shadow: 0px 10px 5px rgba(0,0,0,.2);
@@ -21,24 +24,36 @@ section bento {
 }
 
 section apple {
-    width: 60px;
-    height: 60px;
+    position: relative;
+    width: 52px;
+    height: 48px;
+    border-color: rgb(194, 0, 0, 0.84);
+    border-style: solid;
+    border-width: 2px 4px 10px 4px;
     border-radius: 60px;
     background-color: red;
     box-shadow: 0px 6px 3px rgba(0,0,0,.2);
 }
 
 section orange {
-    width: 60px;
-    height: 60px;
+    position: relative;
+    width: 52px;
+    height: 48px;
+    border-color: rgba(194, 87, 0, 0.84);
+    border-style: solid;
+    border-width: 2px 4px 10px 4px;
     border-radius: 60px;
-    background-color: orange;
+    background-color: rgb(255, 115, 0);
     box-shadow: 0px 6px 3px rgba(0,0,0,.2);
 }
 
 section pickle {
-    width: 20px;
-    height: 60px;
+    position: relative;
+    width: 16px;
+    height: 50px;
+    border-color: rgb(0, 100, 0, 0.84);
+    border-style: solid;
+    border-width: 2px 2px 8px 2px;
     border-radius: 20px;
     background-color: green;
     box-shadow: 0px 6px 3px rgba(0,0,0,.2);
@@ -51,8 +66,9 @@ section pickle {
 }
 
 .small {
-    width: 30px;
-    height: 30px;
+    width: 26px;
+    height: 24px;
+    border-width: 1px 2px 5px 2px;
 }
 
 .markup plate, .markup bento, .markup apple, .markup orange, .markup pickle {
@@ -63,4 +79,13 @@ section pickle {
 .markup plate, .markup bento {
     display: flex;
     flex-direction: column;
+}
+
+.bounce {
+    animation: bouncing 0.4s cubic-bezier(0.1,0.25,0.1,1) infinite alternate;
+}
+
+@keyframes bouncing {
+    0%  { bottom: 0; box-shadow: 0 0 5px rgba(0,0,0,0.8); }
+    100% { bottom: 10px; box-shadow: 0 10px 10px rgba(0,0,0,0.4); }
 }

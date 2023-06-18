@@ -11,8 +11,8 @@ export const levels = [
         answer: 'plate',
         elements: ['plate', '', 'plate', ''],
         markup: `
-        <plate></plate>
-        <plate></plate>`
+        <plate class="bounce"></plate>
+        <plate class="bounce"></plate>`
     },
 
     {
@@ -21,7 +21,7 @@ export const levels = [
         elements: ['plate', '', 'bento', '', 'plate', ''],
         markup: `
         <plate></plate>
-        <bento></bento>
+        <bento class="bounce"></bento>
         <plate></plate>`
     },
 
@@ -32,7 +32,7 @@ export const levels = [
         markup: `
         <pickle></pickle>
         <plate>
-        <pickle></pickle>
+        <pickle class="bounce"></pickle>
         </plate>`
     },
 
@@ -41,7 +41,7 @@ export const levels = [
         answer: '.small',
         elements: ['', 'Sorange', 'bento', '', 'plate', 'orange'],
         markup: `
-        <orange class="small"></orange>
+        <orange class="small bounce"></orange>
         <bento></bento>
         <plate>
         <orange></orange>
@@ -56,10 +56,10 @@ export const levels = [
         <plate>
         <apple></apple>
         </plate>
-        <apple class="small"></apple>
+        <apple class="small bounce"></apple>
         <apple></apple>
         <plate>
-        <apple class="small"></apple>
+        <apple class="small bounce"></apple>
         </plate>`
     },
 
@@ -69,11 +69,11 @@ export const levels = [
         elements: ['bento', 'Sorange', '', 'Sapple', 'plate', 'Sorange'],
         markup: `
         <bento>
-        <orange class="small"></orange>
+        <orange class="small bounce"></orange>
         </bento>
         <apple class="small"></apple>
         <plate>
-        <orange class="small"></orange>
+        <orange class="small bounce"></orange>
         </plate>`
     },
 
@@ -85,7 +85,7 @@ export const levels = [
         <plate>
         <apple></apple>
         </plate>
-        <plate id="nice"></plate>`
+        <plate class="bounce" id="nice"></plate>`
     },
 
     {
@@ -97,7 +97,7 @@ export const levels = [
         <pickle></pickle>
         </bento>
         <plate id="nice">
-        <pickle></pickle>
+        <pickle class="bounce"></pickle>
         </plate>
         <plate>
         <pickle></pickle>
@@ -109,12 +109,12 @@ export const levels = [
         answer: '*',
         elements: ['', 'Sapple', 'bento', 'orange', '', 'pickle', 'plate', 'Sorange'],
         markup: `
-        <apple class="small"></apple>
-        <bento>
+        <apple class="small bounce"></apple>
+        <bento class="bounce">
         <orange></orange>
         </bento>
-        <pickle></pickle>
-        <plate>
+        <pickle class="bounce"></pickle>
+        <plate class="bounce">
         <orange class="small"></orange>
         </plate>`
     },
@@ -125,23 +125,24 @@ export const levels = [
         elements: ['Nplate', 'pickle', '', 'pickle', 'bento', 'orange', 'plate', 'orange'],
         markup: `
         <plate id="nice">
-        <pickle></pickle>
+        <pickle class="bounce"></pickle>
         </plate>
         <pickle></pickle>
         <bento>
         <orange></orange>
         </bento>
         <plate>
-        <orange></orange>
+        <orange class="bounce"></orange>
         </plate>`
     }
 ]
 
-export function drawLevels (wrapper: HTMLDivElement, arrayOfLevels: Level[]): void {
+export function drawLevels (wrapper: HTMLDivElement, arrayOfLevels: Level[], current: number): void {
     for (let i = 0; i < arrayOfLevels.length; i += 1) {
         const level = document.createElement('div');
         level.classList.add('level');
         level.textContent = `${arrayOfLevels[i].level}`;
+        if (current === i) level.classList.add('current');
         wrapper.appendChild(level);
     }
 }
