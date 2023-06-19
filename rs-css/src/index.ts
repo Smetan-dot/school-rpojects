@@ -8,7 +8,7 @@ import drawCssEditor from './components/css-editor/css-editor';
 import drawHtmlViewer from './components/html-viewer/html-viewer';
 import { levels, drawLevels } from './components/levels/levels';
 
-const currentLevel = 2;
+const currentLevel = 0;
 
 function initGame (): void {
     const gameWrapper = document.createElement('div');
@@ -23,6 +23,9 @@ function initGame (): void {
     title.classList.add('level-title');
     title.textContent = 'Levels';
     levelsWrapper.appendChild(title);
+    
+    const levelsBlock = document.createElement('div');
+    levelsWrapper.appendChild(levelsBlock);
 
     const header = document.createElement('header');
     header.classList.add('header');
@@ -68,14 +71,23 @@ function initGame (): void {
     rsImg.classList.add('rs-school-img');
     rsLink.appendChild(rsImg);
 
-    function startLevel (): void {
-        drawTable (gameTable, levels, currentLevel);
+    function startLevel (level: number): void {
+        gameTable.innerHTML = '';
+        editor.innerHTML = '';
+        levelsBlock.innerHTML = '';
+        drawTable (gameTable, levels, level);
         drawCssEditor (editor);
-        drawHtmlViewer(editor, levels, currentLevel);
-        drawLevels(levelsWrapper, levels, currentLevel);
+        drawHtmlViewer(editor, levels, level);
+        drawLevels(levelsBlock, levels, level);
+
+        for (let i = 0; i < levelsBlock.childNodes.length; i += 1 ) {
+            levelsBlock.childNodes[i].addEventListener('click', () => {
+                startLevel (levels[i].level - 1);
+            })
+        }
     }
 
-    startLevel ();
+    startLevel (currentLevel);     
 }
 
 initGame ();
