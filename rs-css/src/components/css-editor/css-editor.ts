@@ -1,4 +1,6 @@
-export default function drawCssEditor (wrapper: HTMLDivElement): void {
+import { Level } from "../levels/levels";
+
+export default function drawCssEditor (wrapper: HTMLDivElement, objects: Level[], current: number): void {
     const cssEditor = document.createElement('div');
     cssEditor.classList.add('editor-element');
     wrapper.appendChild(cssEditor);
@@ -36,4 +38,18 @@ export default function drawCssEditor (wrapper: HTMLDivElement): void {
     answerButton.classList.add('answer-button');
     answerButton.textContent = 'Enter';
     answerBlock.appendChild(answerButton);
+
+    answerButton.addEventListener('click', () => {
+        if (input.value === objects[current].answer) {
+            document.querySelectorAll('.bounce').forEach ( (el) => {
+                el.classList.add('correct');
+            })
+        }
+        else {
+            wrapper.classList.add('shake');
+            setTimeout(() => {
+                wrapper.classList.remove('shake');
+            }, 200);
+        }
+    })
 }

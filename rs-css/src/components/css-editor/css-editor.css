@@ -47,8 +47,8 @@
 }
 
 .input:focus::-webkit-input-placeholder {
-    text-indent: 500px;
-    transition: text-indent 0.5s ease;
+    text-indent: 700px;
+    transition: text-indent 0.6s ease;
 }
 
 .answer-block {
@@ -72,4 +72,22 @@
 .answer-button:active {
     border-width: 1px 1px 2px 1px;
     transform: translateY(3px);
+}
+
+.correct {
+    transform: translateY(-300px);
+    transition: 0.3s;
+}
+
+.shake {
+    animation: shake 0.1s 2;
+}
+
+@keyframes shake {
+    0% {transform:translateX(0px)}
+    20% {transform:translateX(5px)}
+    40% {transform:translateX(0px)}
+    60% {transform:translateX(-5px)}
+    80% {transform:translateX(0px)}
+    100% {transform:translateX(5px)}
 }

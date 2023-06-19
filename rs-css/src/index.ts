@@ -76,7 +76,7 @@ function initGame (): void {
         editor.innerHTML = '';
         levelsBlock.innerHTML = '';
         drawTable (gameTable, levels, level);
-        drawCssEditor (editor);
+        drawCssEditor (editor, levels, level);
         drawHtmlViewer(editor, levels, level);
         drawLevels(levelsBlock, levels, level);
 
@@ -87,7 +87,7 @@ function initGame (): void {
         }
     }
 
-    startLevel (currentLevel);     
+    startLevel (currentLevel);
 }
 
 initGame ();
