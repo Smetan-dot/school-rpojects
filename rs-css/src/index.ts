@@ -4,9 +4,10 @@ import './components/css-editor/css-editor.css';
 import './components/html-viewer/html-viewer.css';
 import './components/levels/levels.css';
 import drawTable from './components/game-table/table';
-import drawCssEditor from './components/css-editor/css-editor';
+import { drawCssEditor, checkAnswer } from './components/css-editor/css-editor';
 import drawHtmlViewer from './components/html-viewer/html-viewer';
 import { levels, drawLevels } from './components/levels/levels';
+
 
 const currentLevel = 0;
 
@@ -76,7 +77,7 @@ function initGame (): void {
         editor.innerHTML = '';
         levelsBlock.innerHTML = '';
         drawTable (gameTable, levels, level);
-        drawCssEditor (editor, levels, level);
+        drawCssEditor (editor);
         drawHtmlViewer(editor, levels, level);
         drawLevels(levelsBlock, levels, level);
 
@@ -85,9 +86,22 @@ function initGame (): void {
                 startLevel (levels[i].level - 1);
             })
         }
+
+        const answerButton = document.querySelector('.answer-button') as HTMLButtonElement;
+        const input = document.querySelector('.input') as HTMLInputElement;
+
+        answerButton.addEventListener('click', () => {
+            checkAnswer (input, editor, levels, level, startLevel);
+        })
+
+        document.addEventListener('keydown', (event) => {
+            if (event.code === 'Enter') {
+                checkAnswer (input, editor, levels, level, startLevel);
+            }
+        })
     }
 
-    startLevel (currentLevel);
+    startLevel (currentLevel); 
 }
 
 initGame ();

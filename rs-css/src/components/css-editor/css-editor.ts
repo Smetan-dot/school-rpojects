@@ -1,6 +1,29 @@
 import { Level } from "../levels/levels";
 
-export default function drawCssEditor (wrapper: HTMLDivElement, objects: Level[], current: number): void {
+export function checkAnswer (field: HTMLInputElement, wrapper: HTMLDivElement, objects: Level[], current: number, func: (num: number) => void): void {
+    if (field.value === objects[current].answer) {
+        document.querySelectorAll('.bounce').forEach ( (el) => {
+            el.classList.add('correct');
+        })
+        setTimeout(() => {
+            if (current + 1 < 9) func(current + 1);
+            else {
+                const table = document.querySelector('.table') as HTMLElement;
+                table.innerHTML = '';
+                table.textContent = 'great job!'
+                table.classList.add('win');
+            }
+        }, 600);
+    }
+    else {
+        wrapper.classList.add('shake');
+        setTimeout(() => {
+            wrapper.classList.remove('shake');
+        }, 200);
+    }
+}
+
+export function drawCssEditor (wrapper: HTMLDivElement): void {
     const cssEditor = document.createElement('div');
     cssEditor.classList.add('editor-element');
     wrapper.appendChild(cssEditor);
@@ -38,18 +61,4 @@ export default function drawCssEditor (wrapper: HTMLDivElement, objects: Level[]
     answerButton.classList.add('answer-button');
     answerButton.textContent = 'Enter';
     answerBlock.appendChild(answerButton);
-
-    answerButton.addEventListener('click', () => {
-        if (input.value === objects[current].answer) {
-            document.querySelectorAll('.bounce').forEach ( (el) => {
-                el.classList.add('correct');
-            })
-        }
-        else {
-            wrapper.classList.add('shake');
-            setTimeout(() => {
-                wrapper.classList.remove('shake');
-            }, 200);
-        }
-    })
 }

@@ -106,21 +106,6 @@ export const levels = [
 
     {
         level: 9,
-        answer: '*',
-        elements: ['', 'Sapple', 'bento', 'orange', '', 'pickle', 'plate', 'Sorange'],
-        markup: `
-        <apple class="small bounce"></apple>
-        <bento class="bounce">
-        <orange></orange>
-        </bento>
-        <pickle class="bounce"></pickle>
-        <plate class="bounce">
-        <orange class="small"></orange>
-        </plate>`
-    },
-
-    {
-        level: 10,
         answer: 'plate *',
         elements: ['Nplate', 'pickle', '', 'pickle', 'bento', 'orange', 'plate', 'orange'],
         markup: `
@@ -133,6 +118,21 @@ export const levels = [
         </bento>
         <plate>
         <orange class="bounce"></orange>
+        </plate>`
+    },
+
+    {
+        level: 10,
+        answer: '*',
+        elements: ['', 'Sapple', 'bento', 'orange', '', 'pickle', 'plate', 'Sorange'],
+        markup: `
+        <apple class="small bounce"></apple>
+        <bento class="bounce">
+        <orange></orange>
+        </bento>
+        <pickle class="bounce"></pickle>
+        <plate class="bounce">
+        <orange class="small"></orange>
         </plate>`
     }
 ]
