@@ -94,11 +94,13 @@ function initGame (): void {
             checkAnswer (input, editor, levels, level, startLevel);
         })
 
-        document.addEventListener('keydown', (event) => {
+        input.addEventListener('keydown', (event) => {
             if (event.code === 'Enter') {
                 checkAnswer (input, editor, levels, level, startLevel);
             }
         })
+
+        
     }
 
     startLevel (currentLevel); 

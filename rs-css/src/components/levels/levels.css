@@ -11,6 +11,8 @@ section plate {
     align-items: center;
 }
 
+
+
 section bento {
     position: relative;
     width: 90px;
@@ -71,16 +73,6 @@ section pickle {
     border-width: 1px 2px 5px 2px;
 }
 
-.markup plate, .markup bento, .markup apple, .markup orange, .markup pickle {
-    padding-left: 20px;
-    cursor: default;
-}
-
-.markup plate, .markup bento {
-    display: flex;
-    flex-direction: column;
-}
-
 .bounce {
     animation: bouncing 0.4s cubic-bezier(0.1,0.25,0.1,1) infinite alternate;
 }
@@ -88,4 +80,8 @@ section pickle {
 @keyframes bouncing {
     0%  { bottom: 0; box-shadow: 0 0 5px rgba(0,0,0,0.8); }
     100% { bottom: 10px; box-shadow: 0 10px 10px rgba(0,0,0,0.4); }
+}
+
+.hovered {
+    outline: 5px solid rgba(0, 255, 255, 0.6);
 }

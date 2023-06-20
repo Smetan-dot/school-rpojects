@@ -7,3 +7,22 @@
     background-color: rgb(75, 75, 75);
     color: rgb(150, 150, 150);
 }
+
+.markup plate,
+.markup bento, 
+.markup apple, 
+.markup orange, 
+.markup pickle {
+    padding-left: 20px;
+    cursor: default;
+}
+
+.markup plate, 
+.markup bento {
+    display: flex;
+    flex-direction: column;
+}
+
+.hover {
+    color:rgb(200, 200, 200);
+}
