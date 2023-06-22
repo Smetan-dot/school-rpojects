@@ -93,20 +93,4 @@ export default function drawHtmlViewer (wrapper: HTMLDivElement, objects: Level[
 
     markup.append('</section>');
     htmlBlock.appendChild(markup);
-
-    markup.addEventListener('mouseover', (event) => {
-        const el = event.target as HTMLElement;
-        if (el.closest('plate') || el.closest('bento') || el.closest('apple') || el.closest('orange') || el.closest('pickle')
-        || el.closest('.small') || el.closest('#nice')) {
-            el.classList.add('hover');
-        }
-    })
-
-    markup.addEventListener('mouseout', (event) => {
-        const el = event.target as HTMLElement;
-        if (el.closest('plate') || el.closest('bento') || el.closest('apple') || el.closest('orange') || el.closest('pickle')
-        || el.closest('.small') || el.closest('#nice')) {
-            el.classList.remove('hover');
-        }
-    })
 }
