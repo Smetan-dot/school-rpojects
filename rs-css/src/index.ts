@@ -105,7 +105,6 @@ function initGame (): void {
         const flatTable = getFlatArray(arrayTable.children);
 
         const flatArray = getFlatArray(markup.children);
-        console.log(flatArray);
 
         markup.addEventListener('mouseover', (event) => {
             const el = event.target as HTMLElement;
@@ -114,6 +113,7 @@ function initGame (): void {
             if (el.tagName === 'SPAN' && el.parentElement) {
                 index = flatArray.indexOf(el.parentElement);
                 flatTable[index].classList.add('hovered');
+                if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.add('visible');
                 el.parentElement.classList.add('hover');
                 if (el.parentElement.firstElementChild) el.parentElement.firstElementChild.setAttribute('style', 'color: rgb(150, 150, 150)');
             }
@@ -122,7 +122,7 @@ function initGame (): void {
             || el.closest('.small') || el.closest('#nice')) && el.tagName !== 'SPAN') {
                 el.classList.add('hover');
                 flatTable[index].classList.add('hovered');
-
+                if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.add('visible');
                 if (el.firstElementChild) el.firstElementChild.setAttribute('style', 'color: rgb(150, 150, 150)');
             }
         })
@@ -134,6 +134,7 @@ function initGame (): void {
             if (el.tagName === 'SPAN' && el.parentElement) {
                 index = flatArray.indexOf(el.parentElement);
                 flatTable[index].classList.remove('hovered');
+                if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.remove('visible');
                 el.parentElement.classList.remove('hover');
                 if (el.parentElement.firstElementChild) el.parentElement.firstElementChild.removeAttribute('style');
             }
@@ -142,7 +143,7 @@ function initGame (): void {
             || el.closest('.small') || el.closest('#nice')) && el.tagName !== 'SPAN') {
                 el.classList.remove('hover');
                 flatTable[index].classList.remove('hovered');
-
+                if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.remove('visible');
                 if (el.firstElementChild) el.firstElementChild.removeAttribute('style');
             }
         })
