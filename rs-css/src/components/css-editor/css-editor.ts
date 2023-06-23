@@ -61,4 +61,9 @@ export function drawCssEditor (wrapper: HTMLDivElement): void {
     answerButton.classList.add('answer-button');
     answerButton.textContent = 'Enter';
     answerBlock.appendChild(answerButton);
+
+    const helpButton = document.createElement('button');
+    helpButton.classList.add('help-button');
+    helpButton.textContent = 'Help';
+    inputWrapper.appendChild(helpButton);
 }

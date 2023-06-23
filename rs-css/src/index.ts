@@ -77,9 +77,9 @@ function initGame (): void {
         editor.innerHTML = '';
         levelsBlock.innerHTML = '';
         drawCssEditor (editor);
-        drawHtmlViewer(editor, levels, level);
+        drawHtmlViewer (editor, levels, level);
         drawTable (gameTable, levels, level);
-        drawLevels(levelsBlock, levels, level);
+        drawLevels (levelsBlock, levels, level);
 
         for (let i = 0; i < levelsBlock.childNodes.length; i += 1 ) {
             levelsBlock.childNodes[i].addEventListener('click', () => {
@@ -146,6 +146,12 @@ function initGame (): void {
                 if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.remove('visible');
                 if (el.firstElementChild) el.firstElementChild.removeAttribute('style');
             }
+        })
+
+        const helpButton = document.querySelector('.help-button') as HTMLButtonElement;
+        helpButton.addEventListener('click', () => {
+            input.value = `${levels[level].answer}`;
+            input.classList.add('type');
         })
     }
 
