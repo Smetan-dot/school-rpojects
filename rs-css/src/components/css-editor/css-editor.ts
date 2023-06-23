@@ -6,7 +6,7 @@ export function checkAnswer (field: HTMLInputElement, wrapper: HTMLDivElement, o
             el.classList.add('correct');
         })
         setTimeout(() => {
-            if (current + 1 < 9) func(current + 1);
+            if (current + 1 < 10) func(current + 1);
             else {
                 const table = document.querySelector('.table') as HTMLElement;
                 table.innerHTML = '';
@@ -21,6 +21,24 @@ export function checkAnswer (field: HTMLInputElement, wrapper: HTMLDivElement, o
             wrapper.classList.remove('shake');
         }, 200);
     }
+}
+
+export function typeAnswer (field: HTMLInputElement, objects: Level[], current: number):void {
+    let i = 0;
+    const text = objects[current].answer;
+    const speed = 100; 
+    const input = field;
+    input.focus();
+
+    function typeWriter(): void {
+        if (i < text.length) {
+            input.value += text.charAt(i);
+            i += 1;
+            setTimeout(typeWriter, speed);
+        }
+    }
+
+    typeWriter();
 }
 
 export function drawCssEditor (wrapper: HTMLDivElement): void {

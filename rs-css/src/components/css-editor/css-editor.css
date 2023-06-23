@@ -41,18 +41,9 @@
     animation: blink 1s linear infinite;
 }
 
-.type {
-    animation: typing 3.5s steps(100, end);
-}
-
 @keyframes blink {
     0%, 100% {background-color: #efefef;}
     50% {background-color: rgb(151, 252, 105);}
-}
-
-@keyframes typing {
-    0% {width: 0;}
-    100% {width: 100%;}
 }
 
 .input:focus::-webkit-input-placeholder {

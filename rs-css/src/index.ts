@@ -4,7 +4,7 @@ import './components/css-editor/css-editor.css';
 import './components/html-viewer/html-viewer.css';
 import './components/levels/levels.css';
 import { drawTable, getFlatArray } from './components/game-table/table';
-import { drawCssEditor, checkAnswer } from './components/css-editor/css-editor';
+import { drawCssEditor, checkAnswer, typeAnswer } from './components/css-editor/css-editor';
 import drawHtmlViewer from './components/html-viewer/html-viewer';
 import { levels, drawLevels } from './components/levels/levels';
 
@@ -150,8 +150,7 @@ function initGame (): void {
 
         const helpButton = document.querySelector('.help-button') as HTMLButtonElement;
         helpButton.addEventListener('click', () => {
-            input.value = `${levels[level].answer}`;
-            input.classList.add('type');
+            typeAnswer (input, levels, level);
         })
     }
 
