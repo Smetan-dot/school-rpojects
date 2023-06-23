@@ -8,8 +8,8 @@ import { drawCssEditor, checkAnswer, typeAnswer } from './components/css-editor/
 import drawHtmlViewer from './components/html-viewer/html-viewer';
 import { levels, drawLevels } from './components/levels/levels';
 
-
-const currentLevel = 0;
+let currentLevel = 0;
+const progress = ['', '', '', '', '', '', '', '', ''];
 
 function initGame (): void {
     const gameWrapper = document.createElement('div');
@@ -27,6 +27,11 @@ function initGame (): void {
     
     const levelsBlock = document.createElement('div');
     levelsWrapper.appendChild(levelsBlock);
+
+    const resetButton = document.createElement('button');
+    resetButton.classList.add('reset-button');
+    resetButton.textContent = 'Reset';
+    levelsWrapper.appendChild(resetButton);
 
     const header = document.createElement('header');
     header.classList.add('header');
@@ -79,26 +84,33 @@ function initGame (): void {
         drawCssEditor (editor);
         drawHtmlViewer (editor, levels, level);
         drawTable (gameTable, levels, level);
-        drawLevels (levelsBlock, levels, level);
+        drawLevels (levelsBlock, levels, level, progress); // constructing level, markup and other environment
+
+
 
         for (let i = 0; i < levelsBlock.childNodes.length; i += 1 ) {
             levelsBlock.childNodes[i].addEventListener('click', () => {
                 startLevel (levels[i].level - 1);
             })
-        }
+        } // add listeners for level-buttons
+
+
 
         const answerButton = document.querySelector('.answer-button') as HTMLButtonElement;
         const input = document.querySelector('.input') as HTMLInputElement;
+        const divLevel = document.querySelector('.current') as HTMLDivElement;
 
         answerButton.addEventListener('click', () => {
-            checkAnswer (input, editor, levels, level, startLevel);
+            checkAnswer (input, editor, divLevel, levels, level, startLevel, progress);
         })
 
         input.addEventListener('keydown', (event) => {
             if (event.code === 'Enter') {
-                checkAnswer (input, editor, levels, level, startLevel);
+                checkAnswer (input, editor, divLevel, levels, level, startLevel, progress);
             }
-        })
+        }) // check answer from input 
+
+
 
         const markup = document.querySelector('.markup') as HTMLElement;
         const arrayTable = document.querySelector('.table') as HTMLDivElement;
@@ -152,7 +164,14 @@ function initGame (): void {
         helpButton.addEventListener('click', () => {
             typeAnswer (input, levels, level);
         })
+
+        localStorage.setItem('level', `${level}`);
+        localStorage.setItem('progress', JSON.stringify(progress));
     }
+
+    if (localStorage.getItem('level')) currentLevel = Number(localStorage.getItem('level'));
+    
+    
 
     startLevel (currentLevel); 
 }

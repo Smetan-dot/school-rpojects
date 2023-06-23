@@ -24,10 +24,23 @@ body {
 }
 
 .level {
+    display: flex;
+    justify-content: space-between;
     font-size: 20px;
     line-height: 150%;
-    padding-left: 10%;
+    padding: 0 10%;
     color: rgb(150, 150, 150);
+    cursor: pointer;
+}
+
+.reset-button {
+    display: block;
+    width: 80%;
+    font-size: 14px;
+    padding: 5px 0;
+    margin: 20px auto;
+    color: rgb(75, 75, 75);
+    background-color: rgb(200, 200, 200);
     cursor: pointer;
 }
 

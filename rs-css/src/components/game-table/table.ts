@@ -23,7 +23,6 @@ export function drawTable (wrapper: HTMLDivElement, objects: Level[], current: n
         const flatMarkUp = getFlatArray(arrayMarkup.children);
 
         const flatArray = getFlatArray(table.children);
-        console.log(flatArray);
 
         flatArray.forEach ((object) => {
             const code = document.createElement('div');

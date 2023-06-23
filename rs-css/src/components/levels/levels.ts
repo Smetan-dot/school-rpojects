@@ -137,12 +137,23 @@ export const levels = [
     }
 ]
 
-export function drawLevels (wrapper: HTMLDivElement, arrayOfLevels: Level[], current: number): void {
+export function drawLevels (wrapper: HTMLDivElement, arrayOfLevels: Level[], current: number, object: string[]): void {
     for (let i = 0; i < arrayOfLevels.length; i += 1) {
         const level = document.createElement('div');
         level.classList.add('level');
         level.textContent = `${arrayOfLevels[i].level}`;
         if (current === i) level.classList.add('current');
         wrapper.appendChild(level);
+    }
+
+    const levelProgressArr = Array.from(document.querySelectorAll('.level'));
+
+    for (let i = 0; i < object.length; i += 1) {
+        if (object[i] === 'done') {
+            const icon = document.createElement('span');
+            icon.innerHTML = '&#10004';
+            icon.style.color = 'rgb(151, 252, 105)';
+            levelProgressArr[i].appendChild(icon);
+        }
     }
 }

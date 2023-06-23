@@ -1,16 +1,25 @@
 import { Level } from "../levels/levels";
 
-export function checkAnswer (field: HTMLInputElement, wrapper: HTMLDivElement, objects: Level[], current: number, func: (num: number) => void): void {
+export function checkAnswer (field: HTMLInputElement, wrapper: HTMLDivElement, levelWrapper: HTMLDivElement, objects: Level[], current: number, func: (num: number) => void, object: string[]): void {
     if (field.value === objects[current].answer) {
         document.querySelectorAll('.bounce').forEach ( (el) => {
             el.classList.add('correct');
         })
+
+        const icon = document.createElement('span');
+        icon.innerHTML = '&#10004';
+        icon.style.color = 'rgb(151, 252, 105)';
+        levelWrapper.appendChild(icon);
+    
+        const prog = object;
+        prog[current] = 'done';
+
         setTimeout(() => {
             if (current + 1 < 10) func(current + 1);
             else {
                 const table = document.querySelector('.table') as HTMLElement;
                 table.innerHTML = '';
-                table.textContent = 'great job!'
+                table.textContent = 'great job!';
                 table.classList.add('win');
             }
         }, 600);
