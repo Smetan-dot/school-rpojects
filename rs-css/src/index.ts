@@ -9,7 +9,7 @@ import drawHtmlViewer from './components/html-viewer/html-viewer';
 import { levels, drawLevels } from './components/levels/levels';
 
 let currentLevel = 0;
-const progress = ['', '', '', '', '', '', '', '', ''];
+let progress = ['', '', '', '', '', '', '', '', ''];
 
 function initGame (): void {
     const gameWrapper = document.createElement('div');
@@ -170,7 +170,7 @@ function initGame (): void {
     }
 
     if (localStorage.getItem('level')) currentLevel = Number(localStorage.getItem('level'));
-    
+    if (localStorage.getItem('progress')) progress = JSON.parse(localStorage.getItem('progress') || '{}');
     
 
     startLevel (currentLevel); 
