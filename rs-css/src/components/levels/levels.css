@@ -62,8 +62,6 @@ section pickle {
 }
 
 #nice {
-    height: 80px;
-    width: 80px;
     border: solid 10px rgb(132, 253, 10, 0.8);
 }
 
@@ -84,4 +82,27 @@ section pickle {
 
 .hovered {
     outline: 5px solid rgba(0, 255, 255, 0.6);
+}
+
+@media (max-width: 630px) {
+    section plate {
+        width: 60px;
+        height: 60px;
+    }
+
+    section bento {
+        width: 70px;
+        height: 70px;
+    }
+
+    section apple, 
+    section orange {
+        width: 38px;
+        height: 35px;
+    }
+
+    section pickle {
+        width: 14px;
+        height: 40px;
+    }
 }

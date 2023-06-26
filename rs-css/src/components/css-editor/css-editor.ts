@@ -78,7 +78,7 @@ export function drawCssEditor (wrapper: HTMLDivElement): void {
 
     const columnNumbers = document.createElement('div');
     columnNumbers.classList.add('column-numbers');
-    columnNumbers.textContent = '1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14';
+    columnNumbers.textContent = '1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17';
     inputBlock.appendChild(columnNumbers);
 
     const inputWrapper = document.createElement('div');
