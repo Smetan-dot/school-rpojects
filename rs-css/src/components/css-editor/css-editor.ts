@@ -1,7 +1,7 @@
 import { Level } from "../levels/levels";
 
 export function checkAnswer (field: HTMLInputElement, wrapper: HTMLDivElement, levelWrapper: HTMLDivElement, objects: Level[], current: number, func: (num: number) => void, object: string[]): void {
-    if (field.value === objects[current].answer) {
+    if (objects[current].answer.includes(field.value)) {
         document.querySelectorAll('.bounce').forEach ( (el) => {
             el.classList.add('correct');
         })
@@ -36,7 +36,7 @@ export function checkAnswer (field: HTMLInputElement, wrapper: HTMLDivElement, l
 
 export function typeAnswer (field: HTMLInputElement, objects: Level[], current: number, levelWrapper: HTMLDivElement, object: string[]):void {
     let i = 0;
-    const text = objects[current].answer;
+    const text = objects[current].answer[0];
     const speed = 100; 
     const input = field;
     input.focus();

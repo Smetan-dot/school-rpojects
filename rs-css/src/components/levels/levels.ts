@@ -1,6 +1,6 @@
 export type Level = {
     level: number,
-    answer: string,
+    answer: Array<string>,
     elements: Array<string>,
     markup: string
 }
@@ -8,7 +8,7 @@ export type Level = {
 export const levels = [
     {
         level: 1,
-        answer: 'plate',
+        answer: ['plate', '*', ':nth-child(1), :nth-child(2)'],
         elements: ['plate', '', 'plate', ''],
         markup: `
         <plate class="bounce"></plate>
@@ -17,7 +17,7 @@ export const levels = [
 
     {
         level: 2,
-        answer: 'bento',
+        answer: ['bento', ':nth-child(2)', ':nth-child(even)'],
         elements: ['plate', '', 'bento', '', 'plate', ''],
         markup: `
         <plate></plate>
@@ -27,7 +27,7 @@ export const levels = [
 
     {
         level: 3,
-        answer: 'plate pickle',
+        answer: ['plate pickle', 'plate *', 'plate > pickle', ':only-child'],
         elements: ['', 'pickle', 'plate', 'pickle' ],
         markup: `
         <pickle></pickle>
@@ -38,7 +38,7 @@ export const levels = [
 
     {
         level: 4,
-        answer: '.small',
+        answer: ['.small', 'orange.small'],
         elements: ['', 'Sorange', 'bento', '', 'plate', 'orange'],
         markup: `
         <orange class="small bounce"></orange>
@@ -50,7 +50,7 @@ export const levels = [
 
     {
         level: 5,
-        answer: '.small',
+        answer: ['.small', 'apple.small'],
         elements: ['plate', 'apple', '', 'Sapple', '', 'apple', 'plate', 'Sapple'],
         markup: `
         <plate>
@@ -65,7 +65,7 @@ export const levels = [
 
     {
         level: 6,
-        answer: 'orange .small',
+        answer: ['orange.small', 'bento orange, plate orange', 'bento > orange, plate > orange', 'bento .small, plate .small', 'bento > .small, plate > .small', ':only-child'],
         elements: ['bento', 'Sorange', '', 'Sapple', 'plate', 'Sorange'],
         markup: `
         <bento>
@@ -79,7 +79,7 @@ export const levels = [
 
     {
         level: 7,
-        answer: '#nice',
+        answer: ['#nice', 'plate:empty'],
         elements: ['plate', 'apple', 'Nplate', ''],
         markup: `
         <plate>
@@ -90,7 +90,7 @@ export const levels = [
 
     {
         level: 8,
-        answer: '#nice pickle',
+        answer: ['#nice pickle', '#nice > pickle'],
         elements: ['bento', 'pickle', 'Nplate', 'pickle', 'plate', 'pickle'],
         markup: `
         <bento>
@@ -106,7 +106,7 @@ export const levels = [
 
     {
         level: 9,
-        answer: 'plate *',
+        answer: ['plate *', 'plate pickle, plate orange'],
         elements: ['Nplate', 'pickle', '', 'pickle', 'bento', 'orange', 'plate', 'orange'],
         markup: `
         <plate id="nice">
@@ -123,7 +123,7 @@ export const levels = [
 
     {
         level: 10,
-        answer: '*',
+        answer: ['*'],
         elements: ['', 'Sapple', 'bento', 'orange', '', 'pickle', 'plate', 'Sorange'],
         markup: `
         <apple class="small bounce"></apple>
