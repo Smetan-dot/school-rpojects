@@ -155,5 +155,11 @@ export function drawLevels (wrapper: HTMLDivElement, arrayOfLevels: Level[], cur
             icon.style.color = 'rgb(151, 252, 105)';
             levelProgressArr[i].appendChild(icon);
         }
+        if (object[i] === 'done with help') {
+            const icon = document.createElement('span');
+            icon.innerHTML = '&#10004';
+            icon.style.color = 'rgb(150, 150, 150)';
+            levelProgressArr[i].appendChild(icon);
+        }
     }
 }

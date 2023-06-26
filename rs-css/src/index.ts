@@ -110,6 +110,18 @@ function initGame (): void {
             }
         }) // check answer from input 
 
+        const helpButton = document.querySelector('.help-button') as HTMLButtonElement;
+        helpButton.addEventListener('click', () => {
+            typeAnswer (input, levels, level, divLevel, progress);
+        })
+
+
+
+        resetButton.addEventListener('click', () => {
+            progress = ['', '', '', '', '', '', '', '', ''];
+            startLevel (level);
+        }) // reset progress
+
 
 
         const markup = document.querySelector('.markup') as HTMLElement;
@@ -158,11 +170,6 @@ function initGame (): void {
                 if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.remove('visible');
                 if (el.firstElementChild) el.firstElementChild.removeAttribute('style');
             }
-        })
-
-        const helpButton = document.querySelector('.help-button') as HTMLButtonElement;
-        helpButton.addEventListener('click', () => {
-            typeAnswer (input, levels, level);
         })
 
         localStorage.setItem('level', `${level}`);

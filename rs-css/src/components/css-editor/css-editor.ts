@@ -6,13 +6,15 @@ export function checkAnswer (field: HTMLInputElement, wrapper: HTMLDivElement, l
             el.classList.add('correct');
         })
 
-        const icon = document.createElement('span');
-        icon.innerHTML = '&#10004';
-        icon.style.color = 'rgb(151, 252, 105)';
-        levelWrapper.appendChild(icon);
+        if (!levelWrapper.lastElementChild) {
+            const icon = document.createElement('span');
+            icon.innerHTML = '&#10004';
+            icon.style.color = 'rgb(151, 252, 105)';
+            levelWrapper.appendChild(icon);
     
-        const prog = object;
-        prog[current] = 'done';
+            const prog = object;
+            prog[current] = 'done';
+        }
 
         setTimeout(() => {
             if (current + 1 < 10) func(current + 1);
@@ -32,7 +34,7 @@ export function checkAnswer (field: HTMLInputElement, wrapper: HTMLDivElement, l
     }
 }
 
-export function typeAnswer (field: HTMLInputElement, objects: Level[], current: number):void {
+export function typeAnswer (field: HTMLInputElement, objects: Level[], current: number, levelWrapper: HTMLDivElement, object: string[]):void {
     let i = 0;
     const text = objects[current].answer;
     const speed = 100; 
@@ -48,6 +50,16 @@ export function typeAnswer (field: HTMLInputElement, objects: Level[], current: 
     }
 
     typeWriter();
+
+    if (!levelWrapper.lastElementChild) {
+        const icon = document.createElement('span');
+        icon.innerHTML = '&#10004';
+        icon.style.color = 'rgb(150, 150, 150)';
+        levelWrapper.appendChild(icon);
+    
+        const prog = object;
+        prog[current] = 'done with help';
+    }
 }
 
 export function drawCssEditor (wrapper: HTMLDivElement): void {
