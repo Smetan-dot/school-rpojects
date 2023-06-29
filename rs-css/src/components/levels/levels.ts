@@ -146,20 +146,20 @@ export function drawLevels (wrapper: HTMLDivElement, arrayOfLevels: Level[], cur
         wrapper.appendChild(level);
     }
 
-    const levelProgressArr = Array.from(document.querySelectorAll('.level'));
+   
 
     for (let i = 0; i < object.length; i += 1) {
         if (object[i] === 'done') {
             const icon = document.createElement('span');
             icon.innerHTML = '&#10004';
             icon.style.color = 'rgb(151, 252, 105)';
-            levelProgressArr[i].appendChild(icon);
+            wrapper.children[i].appendChild(icon);
         }
         if (object[i] === 'done with help') {
             const icon = document.createElement('span');
             icon.innerHTML = '&#10004';
             icon.style.color = 'rgb(150, 150, 150)';
-            levelProgressArr[i].appendChild(icon);
+            wrapper.children[i].appendChild(icon);
         }
     }
 }
