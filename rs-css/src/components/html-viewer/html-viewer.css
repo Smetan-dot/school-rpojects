@@ -23,6 +23,42 @@
     flex-direction: column;
 }
 
-.hover {
-    color:rgb(200, 200, 200);
+.markup apple {
+    color: rgba(255, 80, 80, 0.7);
+}
+
+.markup .apple-hover {
+    color: rgb(255, 80, 80);;
+}
+
+.markup orange {
+    color: rgba(255, 172, 0, 0.6);
+}
+
+.markup .orange-hover {
+    color: rgb(255, 172, 0);
+}
+
+.markup pickle {
+    color: rgba(43, 255, 0, 0.6);
+}
+
+.markup .pickle-hover {
+    color: rgba(43, 255, 0);
+}
+
+.markup bento {
+    color: rgba(255, 150, 120, 0.7);
+}
+
+.markup .bento-hover {
+    color: rgb(255, 150, 120);
+}
+
+.markup plate {
+    color: rgba(200, 200, 200, 0.7);
+}
+
+.markup .plate-hover {
+    color: rgb(200, 200, 200);
 }

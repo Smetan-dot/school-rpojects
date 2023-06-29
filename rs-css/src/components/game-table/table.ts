@@ -40,8 +40,7 @@ export function drawTable (wrapper: HTMLDivElement, objects: Level[], current: n
             if (el.closest('plate') || el.closest('bento') || el.closest('apple') || el.closest('orange') || el.closest('pickle')
             || el.closest('.bounce') || el.closest('.small') || el.closest('#nice')) {
                 el.classList.add('hovered');
-                flatMarkUp[index].classList.add('hover');
-                if (el.firstElementChild && !(el.firstElementChild.classList.contains('html-code'))) flatMarkUp[index + 1].setAttribute('style', 'color: rgb(150, 150, 150)');
+                flatMarkUp[index].classList.add(`${flatMarkUp[index].localName}-hover`);
                 if (el.lastElementChild && el.lastElementChild.classList.contains('html-code')) el.lastElementChild.classList.add('visible');
             }
             
@@ -54,8 +53,7 @@ export function drawTable (wrapper: HTMLDivElement, objects: Level[], current: n
             if (el.closest('plate') || el.closest('bento') || el.closest('apple') || el.closest('orange') || el.closest('pickle')
             || el.closest('.bounce') || el.closest('.small') || el.closest('#nice')) {
                 el.classList.remove('hovered');
-                flatMarkUp[index].classList.remove('hover');
-                if (el.firstElementChild && !(el.firstElementChild.classList.contains('html-code'))) flatMarkUp[index + 1].removeAttribute('style');
+                flatMarkUp[index].classList.remove(`${flatMarkUp[index].localName}-hover`);
                 if (el.lastElementChild && el.lastElementChild.classList.contains('html-code')) el.lastElementChild.classList.remove('visible');
             }
         })
