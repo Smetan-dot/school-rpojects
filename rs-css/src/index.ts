@@ -77,6 +77,8 @@ function initGame (): void {
     rsImg.classList.add('rs-school-img');
     rsLink.appendChild(rsImg);
 
+
+
     function startLevel (level: number): void {
         gameTable.innerHTML = '';
         editor.innerHTML = '';
@@ -110,10 +112,12 @@ function initGame (): void {
             }
         }) // check answer from input 
 
+
+
         const helpButton = document.querySelector('.help-button') as HTMLButtonElement;
         helpButton.addEventListener('click', () => {
             typeAnswer (input, levels, level, divLevel, progress);
-        })
+        }) // type answer witn using help-button
 
 
 
@@ -123,23 +127,20 @@ function initGame (): void {
         }) // reset progress
 
 
-
         const markup = document.querySelector('.markup') as HTMLElement;
         const arrayTable = document.querySelector('.table') as HTMLDivElement;
-        const flatTable = getFlatArray(arrayTable.children);
-
-        const flatArray = getFlatArray(markup.children);
+        const flatTable = getFlatArray(arrayTable.children); // convert to a one-dimensional array for indexing
+        const flatArray = getFlatArray(markup.children); // convert to a one-dimensional array for indexing
 
         markup.addEventListener('mouseover', (event) => {
             const el = event.target as HTMLElement;
-            let index = flatArray.indexOf(el);
+            let index = flatArray.indexOf(el); // general index for highlighting
 
             if (el.tagName === 'SPAN' && el.parentElement) {
                 index = flatArray.indexOf(el.parentElement);
                 flatTable[index].classList.add('hovered');
                 if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.add('visible');
                 el.parentElement.classList.add(`${el.parentElement.localName}-hover`);
-                
             }
 
             if ((el.closest('plate') || el.closest('bento') || el.closest('apple') || el.closest('orange') || el.closest('pickle')
@@ -148,11 +149,13 @@ function initGame (): void {
                 flatTable[index].classList.add('hovered');
                 if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.add('visible');
             }
-        })
+        }) // hover actions in html-viewer
+
+
 
         markup.addEventListener('mouseout', (event) => {
             const el = event.target as HTMLElement;
-            let index = flatArray.indexOf(el);
+            let index = flatArray.indexOf(el); // general index for highlighting
 
             if (el.tagName === 'SPAN' && el.parentElement) {
                 index = flatArray.indexOf(el.parentElement);
@@ -167,7 +170,9 @@ function initGame (): void {
                 flatTable[index].classList.remove('hovered');
                 if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.remove('visible');
             }
-        })
+        }) // hover-out actions in html-viewer
+
+
 
         localStorage.setItem('level', `${level}`);
         localStorage.setItem('progress', JSON.stringify(progress));

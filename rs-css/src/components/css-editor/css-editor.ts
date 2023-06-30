@@ -4,7 +4,7 @@ export function checkAnswer (field: HTMLInputElement, wrapper: HTMLDivElement, l
     if (objects[current].answer.includes(field.value)) {
         document.querySelectorAll('.bounce').forEach ( (el) => {
             el.classList.add('correct');
-        })
+        }) 
 
         if (!levelWrapper.lastElementChild) {
             const icon = document.createElement('span');
@@ -14,7 +14,7 @@ export function checkAnswer (field: HTMLInputElement, wrapper: HTMLDivElement, l
     
             const prog = object;
             prog[current] = 'done';
-        }
+        } // update progress
 
         setTimeout(() => {
             if (current + 1 < 10) func(current + 1);
@@ -24,7 +24,7 @@ export function checkAnswer (field: HTMLInputElement, wrapper: HTMLDivElement, l
                 table.textContent = 'great job!';
                 table.classList.add('win');
             }
-        }, 600);
+        }, 600); // end-game action
     }
     else {
         wrapper.classList.add('shake');
@@ -32,7 +32,9 @@ export function checkAnswer (field: HTMLInputElement, wrapper: HTMLDivElement, l
             wrapper.classList.remove('shake');
         }, 200);
     }
-}
+} // check value in input and do actions to correct and wrong answers
+
+
 
 export function typeAnswer (field: HTMLInputElement, objects: Level[], current: number, levelWrapper: HTMLDivElement, object: string[]):void {
     let i = 0;
@@ -47,7 +49,7 @@ export function typeAnswer (field: HTMLInputElement, objects: Level[], current: 
             i += 1;
             setTimeout(typeWriter, speed);
         }
-    }
+    } // letter-by-letter text entry 
 
     typeWriter();
 
@@ -60,7 +62,9 @@ export function typeAnswer (field: HTMLInputElement, objects: Level[], current: 
         const prog = object;
         prog[current] = 'done with help';
     }
-}
+} // typing answer in input
+
+
 
 export function drawCssEditor (wrapper: HTMLDivElement): void {
     const cssEditor = document.createElement('div');
@@ -105,4 +109,4 @@ export function drawCssEditor (wrapper: HTMLDivElement): void {
     helpButton.classList.add('help-button');
     helpButton.textContent = 'Help';
     inputWrapper.appendChild(helpButton);
-}
+} // markup for css-editor

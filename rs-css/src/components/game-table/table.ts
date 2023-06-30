@@ -10,19 +10,22 @@ export function getFlatArray (HTMLCollection: HTMLCollection): Element[] {
         }
     })
     return flatArray;
-}
+} // create flat array from HTML-collection
+
+
 
 export function drawTable (wrapper: HTMLDivElement, objects: Level[], current: number): void {
     const table = document.createElement('section');
     table.classList.add('table');
     table.innerHTML = objects[current].markup;
-    wrapper.appendChild(table);
+    wrapper.appendChild(table); // create table
     
     if (document.querySelector('.markup')) {
         const arrayMarkup = document.querySelector('.markup') as HTMLDivElement;
-        const flatMarkUp = getFlatArray(arrayMarkup.children);
+        const flatMarkUp = getFlatArray(arrayMarkup.children); // create flat array from markup-block
+        const flatArray = getFlatArray(table.children); // create flat array from table-block
 
-        const flatArray = getFlatArray(table.children);
+
 
         flatArray.forEach ((object) => {
             const code = document.createElement('div');
@@ -31,7 +34,9 @@ export function drawTable (wrapper: HTMLDivElement, objects: Level[], current: n
             if (object.classList.contains('small')) code.textContent = `<${object.localName} class="small"></${object.localName}>`;
             if (object.id === 'nice') code.textContent = `<${object.localName} id="nice"></${object.localName}>`;
             object.appendChild(code);
-        })
+        }) // add help-modals with code for each element on the table
+
+
 
         table.addEventListener('mouseover', (event) => {
             const el = event.target as HTMLElement;
@@ -43,8 +48,7 @@ export function drawTable (wrapper: HTMLDivElement, objects: Level[], current: n
                 flatMarkUp[index].classList.add(`${flatMarkUp[index].localName}-hover`);
                 if (el.lastElementChild && el.lastElementChild.classList.contains('html-code')) el.lastElementChild.classList.add('visible');
             }
-            
-        })
+        }) // hover actions in table-block
 
         table.addEventListener('mouseout', (event) => {
             const el = event.target as HTMLElement;
@@ -56,6 +60,6 @@ export function drawTable (wrapper: HTMLDivElement, objects: Level[], current: n
                 flatMarkUp[index].classList.remove(`${flatMarkUp[index].localName}-hover`);
                 if (el.lastElementChild && el.lastElementChild.classList.contains('html-code')) el.lastElementChild.classList.remove('visible');
             }
-        })
+        }) // hover-out actions in table-block
     }
 }
