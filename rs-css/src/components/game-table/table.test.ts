@@ -1,4 +1,5 @@
-import { getFlatArray } from "./table";
+import { getFlatArray, drawTable } from "./table";
+import { levels } from "../levels/levels";
 
 describe (
     'Get flat array from HTMLCollection',
@@ -8,12 +9,28 @@ describe (
         const bento = document.querySelector('bento');
         const apple = document.querySelector('apple');
 
-        test(
+        test (
             'flatting',
             () => {
                 const collection = document.querySelector('.table')?.children as HTMLCollection;
                 const res = getFlatArray(collection);
                 expect(res).toEqual([plate, apple, bento]);
+            }
+        )
+    }
+)
+
+describe (
+    'checking creating table-block',
+    () => {
+        const table = document.createElement('div');
+        const current = 2;
+
+        test (
+            'drawing',
+            () => {
+                drawTable(table, levels, current);
+                expect(table.children[0].innerHTML).toEqual(levels[current].markup);
             }
         )
     }
