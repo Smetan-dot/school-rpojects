@@ -17,7 +17,7 @@ export function checkAnswer (field: HTMLInputElement, wrapper: HTMLDivElement, l
         } // update progress
 
         setTimeout(() => {
-            if (current + 1 < 10) func(current + 1);
+            if (current + 1 < objects.length) func(current + 1);
             else {
                 const table = document.querySelector('.table') as HTMLElement;
                 table.innerHTML = '';
