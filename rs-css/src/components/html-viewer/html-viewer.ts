@@ -1,6 +1,7 @@
 import { Level } from "../levels/levels";
+import { getFlatArray } from "../game-table/table";
 
-export default function drawHtmlViewer (wrapper: HTMLDivElement, objects: Level[], current: number): void {
+export function drawHtmlViewer (wrapper: HTMLDivElement, objects: Level[], current: number): void {
     const htmlViewer = document.createElement('div');
     htmlViewer.classList.add('editor-element');
     wrapper.appendChild(htmlViewer);
@@ -93,4 +94,51 @@ export default function drawHtmlViewer (wrapper: HTMLDivElement, objects: Level[
 
     markup.append('</section>');
     htmlBlock.appendChild(markup);
+}
+
+export function markupHoverAction ():void {
+    const markup = document.querySelector('.markup') as HTMLElement;
+    const arrayTable = document.querySelector('.table') as HTMLDivElement;
+    const flatTable = getFlatArray(arrayTable.children); // convert to a one-dimensional array for indexing
+    const flatArray = getFlatArray(markup.children); // convert to a one-dimensional array for indexing
+
+    markup.addEventListener('mouseover', (event) => {
+        const el = event.target as HTMLElement;
+        let index = flatArray.indexOf(el); // general index for highlighting
+
+        if (el.tagName === 'SPAN' && el.parentElement) {
+            index = flatArray.indexOf(el.parentElement);
+            flatTable[index].classList.add('hovered');
+            if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.add('visible');
+            el.parentElement.classList.add(`${el.parentElement.localName}-hover`);
+        }
+
+        if ((el.closest('plate') || el.closest('bento') || el.closest('apple') || el.closest('orange') || el.closest('pickle')
+        || el.closest('.small') || el.closest('#nice')) && el.tagName !== 'SPAN') {
+            el.classList.add(`${el.localName}-hover`);
+            flatTable[index].classList.add('hovered');
+            if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.add('visible');
+        }
+    }) // hover actions in html-viewer
+
+
+
+    markup.addEventListener('mouseout', (event) => {
+        const el = event.target as HTMLElement;
+        let index = flatArray.indexOf(el); // general index for highlighting
+
+        if (el.tagName === 'SPAN' && el.parentElement) {
+            index = flatArray.indexOf(el.parentElement);
+            flatTable[index].classList.remove('hovered');
+            if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.remove('visible');
+            el.parentElement.classList.remove(`${el.parentElement.localName}-hover`); 
+        }
+
+        if ((el.closest('plate') || el.closest('bento') || el.closest('apple') || el.closest('orange') || el.closest('pickle')
+        || el.closest('.small') || el.closest('#nice')) && el.tagName !== 'SPAN') {
+            el.classList.remove(`${el.localName}-hover`);
+            flatTable[index].classList.remove('hovered');
+            if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.remove('visible');
+        }
+    }) // hover-out actions in html-viewer
 }

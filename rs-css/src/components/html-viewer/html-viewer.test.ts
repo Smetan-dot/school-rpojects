@@ -1,4 +1,4 @@
-import drawHtmlViewer from "./html-viewer";
+import { drawHtmlViewer, markupHoverAction  } from "./html-viewer";
 import { levels } from "../levels/levels";
 
 describe (

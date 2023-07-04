@@ -3,13 +3,53 @@ import './components/game-table/table.css';
 import './components/css-editor/css-editor.css';
 import './components/html-viewer/html-viewer.css';
 import './components/levels/levels.css';
-import { drawTable, getFlatArray } from './components/game-table/table';
+import { drawTable } from './components/game-table/table';
 import { drawCssEditor, checkAnswer, typeAnswer } from './components/css-editor/css-editor';
-import drawHtmlViewer from './components/html-viewer/html-viewer';
+import { drawHtmlViewer, markupHoverAction } from './components/html-viewer/html-viewer';
 import { levels, drawLevels } from './components/levels/levels';
 
 let currentLevel = 0;
 let progress = ['', '', '', '', '', '', '', '', ''];
+
+
+
+function addListeners (func: (num: number) => void, level: number): void {
+    const editor = document.querySelector('.editor') as HTMLDivElement;
+    const levelsBlock = document.querySelector('.levels-block') as HTMLDivElement;
+
+    for (let i = 0; i < levelsBlock.childNodes.length; i += 1 ) {
+        levelsBlock.childNodes[i].addEventListener('click', () => {
+            func (levels[i].level - 1);
+        })
+    } // add listeners for level-buttons
+
+    const answerButton = document.querySelector('.answer-button') as HTMLButtonElement;
+    const input = document.querySelector('.input') as HTMLInputElement;
+    const divLevel = document.querySelector('.current') as HTMLDivElement;
+
+    answerButton.addEventListener('click', () => {
+        checkAnswer (input, editor, divLevel, levels, level, func, progress);
+    })
+
+    input.addEventListener('keydown', (event) => {
+        if (event.code === 'Enter') {
+            checkAnswer (input, editor, divLevel, levels, level, func, progress);
+        }
+    }) // check answer from input 
+
+    const helpButton = document.querySelector('.help-button') as HTMLButtonElement;
+    helpButton.addEventListener('click', () => {
+        typeAnswer (input, levels, level, divLevel, progress);
+    }) // type answer witn using help-button
+
+    const resetButton = document.querySelector('.reset-button') as HTMLDivElement;
+    resetButton.addEventListener('click', () => {
+        progress = ['', '', '', '', '', '', '', '', ''];
+        func (level);
+    }) // reset progress
+}
+
+
 
 function initGame (): void {
     const gameWrapper = document.createElement('div');
@@ -26,6 +66,7 @@ function initGame (): void {
     levelsWrapper.appendChild(title);
     
     const levelsBlock = document.createElement('div');
+    levelsBlock.classList.add('levels-block');
     levelsWrapper.appendChild(levelsBlock);
 
     const resetButton = document.createElement('button');
@@ -86,93 +127,9 @@ function initGame (): void {
         drawCssEditor (editor);
         drawHtmlViewer (editor, levels, level);
         drawTable (gameTable, levels, level);
-        drawLevels (levelsBlock, levels, level, progress); // constructing level, markup and other environment
-
-
-
-        for (let i = 0; i < levelsBlock.childNodes.length; i += 1 ) {
-            levelsBlock.childNodes[i].addEventListener('click', () => {
-                startLevel (levels[i].level - 1);
-            })
-        } // add listeners for level-buttons
-
-
-
-        const answerButton = document.querySelector('.answer-button') as HTMLButtonElement;
-        const input = document.querySelector('.input') as HTMLInputElement;
-        const divLevel = document.querySelector('.current') as HTMLDivElement;
-
-        answerButton.addEventListener('click', () => {
-            checkAnswer (input, editor, divLevel, levels, level, startLevel, progress);
-        })
-
-        input.addEventListener('keydown', (event) => {
-            if (event.code === 'Enter') {
-                checkAnswer (input, editor, divLevel, levels, level, startLevel, progress);
-            }
-        }) // check answer from input 
-
-
-
-        const helpButton = document.querySelector('.help-button') as HTMLButtonElement;
-        helpButton.addEventListener('click', () => {
-            typeAnswer (input, levels, level, divLevel, progress);
-        }) // type answer witn using help-button
-
-
-
-        resetButton.addEventListener('click', () => {
-            progress = ['', '', '', '', '', '', '', '', ''];
-            startLevel (level);
-        }) // reset progress
-
-
-        const markup = document.querySelector('.markup') as HTMLElement;
-        const arrayTable = document.querySelector('.table') as HTMLDivElement;
-        const flatTable = getFlatArray(arrayTable.children); // convert to a one-dimensional array for indexing
-        const flatArray = getFlatArray(markup.children); // convert to a one-dimensional array for indexing
-
-        markup.addEventListener('mouseover', (event) => {
-            const el = event.target as HTMLElement;
-            let index = flatArray.indexOf(el); // general index for highlighting
-
-            if (el.tagName === 'SPAN' && el.parentElement) {
-                index = flatArray.indexOf(el.parentElement);
-                flatTable[index].classList.add('hovered');
-                if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.add('visible');
-                el.parentElement.classList.add(`${el.parentElement.localName}-hover`);
-            }
-
-            if ((el.closest('plate') || el.closest('bento') || el.closest('apple') || el.closest('orange') || el.closest('pickle')
-            || el.closest('.small') || el.closest('#nice')) && el.tagName !== 'SPAN') {
-                el.classList.add(`${el.localName}-hover`);
-                flatTable[index].classList.add('hovered');
-                if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.add('visible');
-            }
-        }) // hover actions in html-viewer
-
-
-
-        markup.addEventListener('mouseout', (event) => {
-            const el = event.target as HTMLElement;
-            let index = flatArray.indexOf(el); // general index for highlighting
-
-            if (el.tagName === 'SPAN' && el.parentElement) {
-                index = flatArray.indexOf(el.parentElement);
-                flatTable[index].classList.remove('hovered');
-                if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.remove('visible');
-                el.parentElement.classList.remove(`${el.parentElement.localName}-hover`); 
-            }
-
-            if ((el.closest('plate') || el.closest('bento') || el.closest('apple') || el.closest('orange') || el.closest('pickle')
-            || el.closest('.small') || el.closest('#nice')) && el.tagName !== 'SPAN') {
-                el.classList.remove(`${el.localName}-hover`);
-                flatTable[index].classList.remove('hovered');
-                if (flatTable[index].lastElementChild) flatTable[index].lastElementChild?.classList.remove('visible');
-            }
-        }) // hover-out actions in html-viewer
-
-
+        drawLevels (levelsBlock, levels, level, progress); 
+        addListeners (startLevel, level);
+        markupHoverAction (); // constructing level, markup, listeners and other environment
 
         localStorage.setItem('level', `${level}`);
         localStorage.setItem('progress', JSON.stringify(progress));
@@ -181,7 +138,6 @@ function initGame (): void {
     if (localStorage.getItem('level')) currentLevel = Number(localStorage.getItem('level'));
     if (localStorage.getItem('progress')) progress = JSON.parse(localStorage.getItem('progress') || '{}');
     
-
     startLevel (currentLevel); 
 }
 
