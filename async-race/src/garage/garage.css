@@ -1,6 +1,11 @@
-.garage-container {
+.garage-container,
+.winners-container {
     height: 100%;
     margin-top: 20px;
+}
+
+.hide {
+    display: none;
 }
 
 .create-block,

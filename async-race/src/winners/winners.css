@@ -1,0 +1,29 @@
+table {
+    color: white;
+    border-spacing: 0;
+    margin-bottom: 20px;
+}
+
+#table-head {
+    background-color: rgb(53, 140, 255);
+}
+
+th {
+    padding: 10px 10px 10px 0;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+td {
+    padding: 5px 0;
+    font-size: 14px;
+}
+
+#name {
+    padding: 0 50px;
+}
+
+td svg {
+    width: 40px;
+}
