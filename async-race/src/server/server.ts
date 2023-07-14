@@ -37,3 +37,15 @@ export async function createCar(car: Car): Promise<void> {
         body: JSON.stringify(car)
     })
 }
+
+export async function deleteCar(i:number): Promise<void> {
+    await fetch (`http://127.0.0.1:3000/garage/${i}`, {
+        method: 'DELETE'
+    })
+}
+
+export async function deleteWinner(i:number): Promise<void> {
+    await fetch (`http://127.0.0.1:3000/winners/${i}`, {
+        method: 'DELETE'
+    })
+}

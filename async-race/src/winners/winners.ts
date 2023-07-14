@@ -1,11 +1,12 @@
 import { getWinners, getCar } from "../server/server";
 import paintCar from "../car";
 
-const winners = await getWinners();
 const winnersOnPage = 10;
 const currentPage = 1;
 
 async function drawWinners (wrapper: HTMLDivElement):Promise<void> {
+    const winners = await getWinners();
+
     const heading = document.createElement('h2');
     heading.classList.add('heading');
     heading.textContent = `Winners (${winners.length})`;
@@ -36,7 +37,9 @@ async function drawWinners (wrapper: HTMLDivElement):Promise<void> {
     })
 }
 
-function drawPaginationButtons (wrapper: HTMLDivElement):void {
+async function drawPaginationButtons (wrapper: HTMLDivElement):Promise<void> {
+  const winners = await getWinners();
+
   const prevButton = document.createElement('button');
   prevButton.classList.add('button');
   prevButton.classList.add('changing');

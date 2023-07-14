@@ -1,4 +1,5 @@
-import { Car, getCars, createCar } from "../server/server";
+import { Car, getCars, createCar, deleteCar, deleteWinner } from "../server/server";
+import createWinners from "../winners/winners";
 import paintCar from "../car";
 
 const carsOnPage = 7; 
@@ -96,7 +97,7 @@ function drawButtonsBlock (wrapper: HTMLDivElement):void {
     buttonsBlock.appendChild(generateButton);
 }
 
-function drawCarButtons (wrapper: HTMLDivElement, car: Car):void {
+function drawCarButtons (wrapper: HTMLDivElement, car: Car, func: () => Promise<void>):void {
     const carButtons = document.createElement('div');
     carButtons.classList.add('car-buttons');
     wrapper.appendChild(carButtons);
@@ -104,18 +105,31 @@ function drawCarButtons (wrapper: HTMLDivElement, car: Car):void {
     const selectButton = document.createElement('button');
     selectButton.classList.add('button');
     selectButton.classList.add('changing');
+    selectButton.id = `s${car.id}`;
     selectButton.textContent = 'SELECT';
     carButtons.appendChild(selectButton);
 
     const removeButton = document.createElement('button');
     removeButton.classList.add('button');
     removeButton.classList.add('changing');
+    removeButton.id = `r${car.id}`;
     removeButton.textContent = 'REMOVE';
     carButtons.appendChild(removeButton);
 
     const carName = document.createElement('span');
     carName.textContent = car.name;
     carButtons.appendChild(carName);
+
+    removeButton.addEventListener('click', () => {
+        deleteCar (car.id);
+        deleteWinner (car.id);
+        const garageContainer = document.querySelector('.garage-container') as HTMLDivElement;
+        garageContainer.remove();
+        const winnersContainer = document.querySelector('.winners-container') as HTMLDivElement;
+        winnersContainer.remove();
+        func ();
+        createWinners ();
+    })
 }
 
 function drawCarWithControls (wrapper: HTMLDivElement, car: Car):void {
@@ -149,7 +163,7 @@ function drawCarWithControls (wrapper: HTMLDivElement, car: Car):void {
     track.appendChild(flag);
 }
 
-async function drawGarage(wrapper:HTMLDivElement):Promise<void> {
+async function drawGarage(wrapper:HTMLDivElement, func: () => Promise<void>):Promise<void> {
     const cars = await getCars ();
 
     const garageWrapper = document.createElement('div');
@@ -178,7 +192,7 @@ async function drawGarage(wrapper:HTMLDivElement):Promise<void> {
         carContainer.classList.add('car-container');
         garage.appendChild(carContainer);
 
-        drawCarButtons (carContainer, el);
+        drawCarButtons (carContainer, el, func);
 
         drawCarWithControls (carContainer, el);
     })
@@ -224,6 +238,6 @@ export default async function createGarage ():Promise<void> {
     drawCreateBlock (garageContainer, createGarage);
     drawUpdateBlock (garageContainer);
     drawButtonsBlock (garageContainer);
-    await drawGarage (garageContainer);
+    await drawGarage (garageContainer, createGarage);
     drawPaginationButtons (garageContainer, createGarage);
 }
