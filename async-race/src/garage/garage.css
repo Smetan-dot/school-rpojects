@@ -1,0 +1,58 @@
+.garage-container {
+    height: 100%;
+    margin-top: 20px;
+}
+
+.create-block,
+.update-block,
+.buttons-block {
+    display: flex;
+    gap: 1%;
+    margin-top: 10px;
+}
+
+.heading,
+.sub-heading {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: white;
+}
+
+.sub-heading {
+    font-size: 18px;
+}
+
+.car-container {
+    margin-top: 10px;
+    color: white;
+    border-bottom: dotted 2px white;
+}
+
+.car-buttons,
+.car-with-controls {
+    display: flex;
+    align-items: center;
+}
+
+.car-with-controls {
+    margin-top: 10px;
+}
+
+.garage {
+    margin-bottom: 20px;
+}
+
+.garage .button {
+    margin-right: 13px;
+}
+
+.track {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.flag {
+    margin-right: 70px;
+}
