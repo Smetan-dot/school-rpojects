@@ -1,7 +1,7 @@
 import './index.css';
 import './garage/garage.css';
 import './winners/winners.css';
-import { createGarage } from './garage/garage';
+import createGarage from './garage/garage';
 import createWinners from './winners/winners';
 
 function createHeader ():void {

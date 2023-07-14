@@ -1,7 +1,19 @@
-import { Car, getCars } from "../server/server";
+import { Car, getCars, createCar } from "../server/server";
 import paintCar from "../car";
 
-function drawCreateBlock (wrapper: HTMLDivElement):void {
+const carsOnPage = 7; 
+let currentPage = 1;
+
+function addCar (name: string, color: string, id: number):Car {
+    const car = {
+        "name": name,
+        "color": color,
+        "id": id
+    }
+    return car;
+}
+
+async function drawCreateBlock (wrapper: HTMLDivElement, func: () => Promise<void>):Promise<void> {
     const createBlock = document.createElement('div');
     createBlock.classList.add('create-block');
     wrapper.appendChild(createBlock);
@@ -22,6 +34,18 @@ function drawCreateBlock (wrapper: HTMLDivElement):void {
     createButton.classList.add('changing');
     createButton.textContent = 'CREATE';
     createBlock.appendChild(createButton);
+
+    const cars = await getCars ();
+
+    createButton.addEventListener('click', () => {
+        if (inputCreate.value) {
+            const car = addCar (inputCreate.value, colorCreate.value, cars.length + 1);
+            createCar (car);
+            const garage = document.querySelector('.garage-container') as HTMLDivElement;
+            garage.remove();
+            func ();
+        } else inputCreate.focus();
+    })
 }
 
 function drawUpdateBlock (wrapper: HTMLDivElement):void {
@@ -126,25 +150,30 @@ function drawCarWithControls (wrapper: HTMLDivElement, car: Car):void {
 }
 
 async function drawGarage(wrapper:HTMLDivElement):Promise<void> {
-    const cars = await getCars();
-    // const carsOnPage = 7; 
-    const currentPage = 1;
+    const cars = await getCars ();
+
+    const garageWrapper = document.createElement('div');
+    garageWrapper.classList.add('garage-wrapper');
+    wrapper.appendChild(garageWrapper);
 
     const heading = document.createElement('h2');
     heading.classList.add('heading');
     heading.textContent = `Garage (${cars.length})`;
-    wrapper.appendChild(heading);
+    garageWrapper.appendChild(heading);
 
     const subHeading = document.createElement('h3');
     subHeading.classList.add('sub-heading');
     subHeading.textContent = `Page #${currentPage}`; 
-    wrapper.appendChild(subHeading);
+    garageWrapper.appendChild(subHeading);
 
     const garage = document.createElement('div');
     garage.classList.add('garage');
-    wrapper.appendChild(garage);
+    garageWrapper.appendChild(garage);
 
-    cars.forEach (el => {
+    const start = carsOnPage * currentPage - carsOnPage;
+    const end = start + carsOnPage;
+
+    cars.slice(start, end).forEach (el => {
         const carContainer = document.createElement('div');
         carContainer.classList.add('car-container');
         garage.appendChild(carContainer);
@@ -155,30 +184,46 @@ async function drawGarage(wrapper:HTMLDivElement):Promise<void> {
     })
 }
 
-export function drawPaginationButtons (wrapper: HTMLDivElement):void {
+async function drawPaginationButtons (wrapper: HTMLDivElement, func: () => Promise<void>):Promise<void> {
+    const cars = await getCars ();
+
     const prevButton = document.createElement('button');
     prevButton.classList.add('button');
     prevButton.classList.add('changing');
     prevButton.textContent = 'PREV';
-    prevButton.setAttribute('disabled', 'disabled');
+    if (currentPage === 1) prevButton.setAttribute('disabled', 'disabled');
     wrapper.appendChild(prevButton);
 
     const nextButton = document.createElement('button');
     nextButton.classList.add('button');
     nextButton.classList.add('changing');
     nextButton.textContent = 'NEXT';
-    nextButton.setAttribute('disabled', 'disabled');
+    if (cars.length <= carsOnPage || currentPage === Math.ceil(cars.length / carsOnPage)) nextButton.setAttribute('disabled', 'disabled');
     wrapper.appendChild(nextButton);
+
+    nextButton.addEventListener('click', () => {
+        currentPage += 1;
+        const garageContainer = document.querySelector('.garage-container') as HTMLDivElement;
+        garageContainer.remove();
+        func ();
+    })
+
+    prevButton.addEventListener('click', () => {
+        currentPage -= 1;
+        const garageContainer = document.querySelector('.garage-container') as HTMLDivElement;
+        garageContainer.remove();
+        func ();
+    })
 }
 
-export async function createGarage ():Promise<void> {
+export default async function createGarage ():Promise<void> {
     const garageContainer = document.createElement('div');
     garageContainer.classList.add('garage-container');
     document.body.appendChild(garageContainer);
 
-    drawCreateBlock (garageContainer);
+    drawCreateBlock (garageContainer, createGarage);
     drawUpdateBlock (garageContainer);
     drawButtonsBlock (garageContainer);
     await drawGarage (garageContainer);
-    drawPaginationButtons (garageContainer);
+    drawPaginationButtons (garageContainer, createGarage);
 }

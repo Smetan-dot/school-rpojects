@@ -27,3 +27,13 @@ export async function getWinners (): Promise<Winner[]> {
     const winners = await data.json();
     return winners;
 }
+
+export async function createCar(car: Car): Promise<void> {
+    await fetch ('http://127.0.0.1:3000/garage', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(car)
+    })
+}
