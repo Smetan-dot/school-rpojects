@@ -1,6 +1,6 @@
 import { Car, getCars, createCar, deleteCar, deleteWinner, updateCar } from "../server/server";
 import createWinners from "../winners/winners";
-import paintCar from "../car";
+import { paintCar, brands, models, generateCarName, generateColor } from "../car";
 
 const carsOnPage = 7; 
 let currentPage = 1;
@@ -86,7 +86,7 @@ async function drawCreateBlock (wrapper: HTMLDivElement, func: () => Promise<voi
     })
 }
 
-function drawButtonsBlock (wrapper: HTMLDivElement):void {
+async function drawButtonsBlock (wrapper: HTMLDivElement, func: () => Promise<void>):Promise<void> {
     const buttonsBlock = document.createElement('div');
     buttonsBlock.classList.add('buttons-block');
     wrapper.appendChild(buttonsBlock);
@@ -106,6 +106,18 @@ function drawButtonsBlock (wrapper: HTMLDivElement):void {
     generateButton.classList.add('changing');
     generateButton.textContent = 'GENERATE CARS';
     buttonsBlock.appendChild(generateButton);
+
+    const cars = await getCars ();
+
+    generateButton.addEventListener ('click', () => {
+        for (let i = 1; i <= 100; i += 1) {
+            const car = addCar (generateCarName (brands, models), generateColor (), cars.length + i);
+            createCar (car);
+        }
+        const garage = document.querySelector('.garage-container') as HTMLDivElement;
+        garage.remove();
+        func ();
+    })
 }
 
     function drawCarButtons (wrapper: HTMLDivElement, car: Car, func: () => Promise<void>):void {
@@ -138,7 +150,6 @@ function drawButtonsBlock (wrapper: HTMLDivElement):void {
         const colorUpdate = document.querySelector('.color-update') as HTMLInputElement;
         colorUpdate.value = car.color;
     })
-
     removeButton.addEventListener ('click', () => {
         deleteCar (car.id);
         deleteWinner (car.id);
@@ -256,7 +267,7 @@ export default async function createGarage ():Promise<void> {
 
     drawCreateBlock (garageContainer, createGarage);
     drawUpdateBlock (garageContainer, createGarage);
-    drawButtonsBlock (garageContainer);
+    drawButtonsBlock (garageContainer, createGarage);
     await drawGarage (garageContainer, createGarage);
     drawPaginationButtons (garageContainer, createGarage);
 }

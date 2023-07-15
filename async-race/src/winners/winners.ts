@@ -1,5 +1,5 @@
 import { getWinners, getCar } from "../server/server";
-import paintCar from "../car";
+import { paintCar } from "../car";
 
 const winnersOnPage = 10;
 const currentPage = 1;
