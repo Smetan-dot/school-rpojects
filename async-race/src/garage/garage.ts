@@ -1,4 +1,4 @@
-import { Car, getCars, createCar, deleteCar, deleteWinner } from "../server/server";
+import { Car, getCars, createCar, deleteCar, deleteWinner, updateCar } from "../server/server";
 import createWinners from "../winners/winners";
 import paintCar from "../car";
 
@@ -20,12 +20,12 @@ async function drawCreateBlock (wrapper: HTMLDivElement, func: () => Promise<voi
     wrapper.appendChild(createBlock);
 
     const inputCreate = document.createElement('input');
-    inputCreate.classList.add('input-text');
+    inputCreate.classList.add('input-create');
     inputCreate.type = 'text';
     createBlock.appendChild(inputCreate);
 
     const colorCreate = document.createElement('input');
-    colorCreate.classList.add('input-color');
+    colorCreate.classList.add('color-create');
     colorCreate.type = 'color';
     colorCreate.value = "#e66465";
     createBlock.appendChild(colorCreate);
@@ -38,7 +38,7 @@ async function drawCreateBlock (wrapper: HTMLDivElement, func: () => Promise<voi
 
     const cars = await getCars ();
 
-    createButton.addEventListener('click', () => {
+    createButton.addEventListener ('click', () => {
         if (inputCreate.value) {
             const car = addCar (inputCreate.value, colorCreate.value, cars.length + 1);
             createCar (car);
@@ -49,19 +49,19 @@ async function drawCreateBlock (wrapper: HTMLDivElement, func: () => Promise<voi
     })
 }
 
-function drawUpdateBlock (wrapper: HTMLDivElement):void {
+    function drawUpdateBlock (wrapper: HTMLDivElement, func: () => Promise<void>):void {
     const updateBlock = document.createElement('div');
     updateBlock.classList.add('update-block');
     wrapper.appendChild(updateBlock);
 
     const inputUpdate = document.createElement('input');
-    inputUpdate.classList.add('input-text');
+    inputUpdate.classList.add('input-update');
     inputUpdate.type = 'text';
     inputUpdate.setAttribute('disabled', 'disabled');
     updateBlock.appendChild(inputUpdate);
 
     const colorUpdate = document.createElement('input');
-    colorUpdate.classList.add('input-color');
+    colorUpdate.classList.add('color-update');
     colorUpdate.type = 'color';
     colorUpdate.value = "#f6b73c";
     colorUpdate.setAttribute('disabled', 'disabled');
@@ -73,6 +73,17 @@ function drawUpdateBlock (wrapper: HTMLDivElement):void {
     updateButton.textContent = 'UPDATE';
     updateButton.setAttribute('disabled', 'disabled');
     updateBlock.appendChild(updateButton);
+
+    updateButton.addEventListener ('click', () => {
+        const car = addCar (inputUpdate.value, colorUpdate.value, Number(updateBlock.id));
+        updateCar (Number(updateBlock.id), car);
+        const garage = document.querySelector('.garage-container') as HTMLDivElement;
+        garage.remove();
+        const winnersContainer = document.querySelector('.winners-container') as HTMLDivElement;
+        winnersContainer.remove();
+        func ();
+        createWinners ();
+    })
 }
 
 function drawButtonsBlock (wrapper: HTMLDivElement):void {
@@ -97,7 +108,7 @@ function drawButtonsBlock (wrapper: HTMLDivElement):void {
     buttonsBlock.appendChild(generateButton);
 }
 
-function drawCarButtons (wrapper: HTMLDivElement, car: Car, func: () => Promise<void>):void {
+    function drawCarButtons (wrapper: HTMLDivElement, car: Car, func: () => Promise<void>):void {
     const carButtons = document.createElement('div');
     carButtons.classList.add('car-buttons');
     wrapper.appendChild(carButtons);
@@ -105,14 +116,12 @@ function drawCarButtons (wrapper: HTMLDivElement, car: Car, func: () => Promise<
     const selectButton = document.createElement('button');
     selectButton.classList.add('button');
     selectButton.classList.add('changing');
-    selectButton.id = `s${car.id}`;
     selectButton.textContent = 'SELECT';
     carButtons.appendChild(selectButton);
 
     const removeButton = document.createElement('button');
     removeButton.classList.add('button');
     removeButton.classList.add('changing');
-    removeButton.id = `r${car.id}`;
     removeButton.textContent = 'REMOVE';
     carButtons.appendChild(removeButton);
 
@@ -120,7 +129,17 @@ function drawCarButtons (wrapper: HTMLDivElement, car: Car, func: () => Promise<
     carName.textContent = car.name;
     carButtons.appendChild(carName);
 
-    removeButton.addEventListener('click', () => {
+    selectButton.addEventListener ('click', () => {
+        const updateBlock = document.querySelector('.update-block') as HTMLDivElement;
+        Array.from(updateBlock.children).forEach(el => el.removeAttribute('disabled'));
+        updateBlock.setAttribute('id', `${car.id}`);
+        const inputUpdate = document.querySelector('.input-update') as HTMLInputElement;
+        inputUpdate.value = car.name;
+        const colorUpdate = document.querySelector('.color-update') as HTMLInputElement;
+        colorUpdate.value = car.color;
+    })
+
+    removeButton.addEventListener ('click', () => {
         deleteCar (car.id);
         deleteWinner (car.id);
         const garageContainer = document.querySelector('.garage-container') as HTMLDivElement;
@@ -236,7 +255,7 @@ export default async function createGarage ():Promise<void> {
     document.body.appendChild(garageContainer);
 
     drawCreateBlock (garageContainer, createGarage);
-    drawUpdateBlock (garageContainer);
+    drawUpdateBlock (garageContainer, createGarage);
     drawButtonsBlock (garageContainer);
     await drawGarage (garageContainer, createGarage);
     drawPaginationButtons (garageContainer, createGarage);

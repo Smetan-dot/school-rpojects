@@ -38,14 +38,24 @@ export async function createCar(car: Car): Promise<void> {
     })
 }
 
-export async function deleteCar(i:number): Promise<void> {
+export async function deleteCar (i:number): Promise<void> {
     await fetch (`http://127.0.0.1:3000/garage/${i}`, {
         method: 'DELETE'
     })
 }
 
-export async function deleteWinner(i:number): Promise<void> {
+export async function deleteWinner (i:number): Promise<void> {
     await fetch (`http://127.0.0.1:3000/winners/${i}`, {
         method: 'DELETE'
+    })
+}
+
+export async function updateCar (i: number, car: Car): Promise<void> {
+    await fetch (`http://127.0.0.1:3000/garage/${i}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(car)
     })
 }
