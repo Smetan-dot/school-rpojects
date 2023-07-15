@@ -10,6 +10,11 @@ export type Winner = {
     "time": number
 }
 
+export type Answer = {
+    "velocity": number,
+    "distance": number
+}
+
 export async function getCar (i:number): Promise<Car> {
     const data = await fetch (`http://127.0.0.1:3000/garage/${i}`);
     const car = await data.json();
@@ -59,3 +64,11 @@ export async function updateCar (i: number, car: Car): Promise<void> {
         body: JSON.stringify(car)
     })
 }
+
+export async function startStopCar (status: string, id: number): Promise<Answer> {
+    const response = await fetch (`http://127.0.0.1:3000/engine?id=${id}&status=${status}`, {
+        method: 'PATCH'
+    })
+    const answer = await response.json();
+    return answer;
+}    

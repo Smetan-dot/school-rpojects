@@ -1,4 +1,4 @@
-import { Car, getCars, createCar, deleteCar, deleteWinner, updateCar } from "../server/server";
+import { Car, getCars, createCar, deleteCar, deleteWinner, updateCar, startStopCar } from "../server/server";
 import createWinners from "../winners/winners";
 import { paintCar, brands, models, generateCarName, generateColor } from "../car";
 
@@ -184,6 +184,7 @@ function drawCarWithControls (wrapper: HTMLDivElement, car: Car):void {
     carWithControls.appendChild(track);
 
     const carInstance = document.createElement('div');
+    carInstance.classList.add('car-instance');
     carInstance.innerHTML = paintCar (car.color);
     track.appendChild(carInstance);
 
@@ -191,6 +192,13 @@ function drawCarWithControls (wrapper: HTMLDivElement, car: Car):void {
     flag.classList.add('flag');
     flag.innerHTML = `<svg width="35px" height="30px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1V16H3V10H7L9 12H15V3H9L7 1H1Z" fill="#C51616"/></svg>`;
     track.appendChild(flag);
+
+    aButton.addEventListener ('click', async () => {
+        const response = await startStopCar ('started', car.id);
+        const animationTime = response.distance / response.velocity;
+        carInstance.style.transition = `${animationTime}ms ease-in`;
+        carInstance.style.transform = `translateX(${track.clientWidth - carInstance.clientWidth}px)`;
+    })
 }
 
 async function drawGarage(wrapper:HTMLDivElement, func: () => Promise<void>):Promise<void> {

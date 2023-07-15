@@ -58,6 +58,11 @@
     justify-content: space-between;
 }
 
+.car-instance {
+    position: relative;
+    z-index: 100;
+}
+
 .flag {
     margin-right: 70px;
 }
