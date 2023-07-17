@@ -69,8 +69,8 @@ export async function startStopCar (status: string, id: number): Promise<Answer>
     const response = await fetch (`http://127.0.0.1:3000/engine?id=${id}&status=${status}`, {
         method: 'PATCH'
     })
-    const answer = await response.json();
-    return answer;
+    return response.json();
+    
 }    
 
 export async function switchDrive (status: string, id: number): Promise<number> {

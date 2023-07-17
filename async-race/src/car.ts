@@ -13,7 +13,7 @@ export function generateColor ():string {
  }
 
 export function paintCar (color: string): string  {
-    const car = `<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill=${color} stroke="white" stroke-width="5" width="60px" x="0px" y="0px" viewBox="0 110 512.005 260.005" style="enable-background:new 0 0 512.005 512.005;" xml:space="preserve" transform="matrix(-1,0,0,1,0,0)">
+    const car = `<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill=${color} stroke="white" stroke-width="5" width="60px" x="0px" y="0px" viewBox="0 110 512.005 262.005" style="enable-background:new 0 0 512.005 512.005;" xml:space="preserve" transform="matrix(-1,0,0,1,0,0)">
     <g>
         <g>
             <path d="M400.904,285.275c-23.554,0-42.716,19.162-42.716,42.716c0,23.554,19.162,42.716,42.716,42.716
