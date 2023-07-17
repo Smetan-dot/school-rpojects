@@ -1,4 +1,4 @@
-import { Car, getCars, createCar, deleteCar, deleteWinner, updateCar, startStopCar } from "../server/server";
+import { Car, getCars, createCar, deleteCar, deleteWinner, updateCar, startStopCar, switchDrive } from "../server/server";
 import createWinners from "../winners/winners";
 import { paintCar, brands, models, generateCarName, generateColor } from "../car";
 
@@ -12,6 +12,21 @@ function addCar (name: string, color: string, id: number):Car {
         "id": id
     }
     return car;
+}
+
+function movingCar (object: HTMLDivElement, time: number, distance: number): Animation {
+    const car = object;
+    const animation =  car.animate ([
+        {transform: 'translateX(0)'},
+        {transform: `translateX(${distance}px)`}
+    ],
+        {
+            duration: time,
+            easing: 'ease-in',
+            fill: "forwards"
+        }
+    )
+    return animation;
 }
 
 async function drawCreateBlock (wrapper: HTMLDivElement, func: () => Promise<void>):Promise<void> {
@@ -193,11 +208,29 @@ function drawCarWithControls (wrapper: HTMLDivElement, car: Car):void {
     flag.innerHTML = `<svg width="35px" height="30px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1V16H3V10H7L9 12H15V3H9L7 1H1Z" fill="#C51616"/></svg>`;
     track.appendChild(flag);
 
+    let player: Animation;
+
     aButton.addEventListener ('click', async () => {
         const response = await startStopCar ('started', car.id);
         const animationTime = response.distance / response.velocity;
-        carInstance.style.transition = `${animationTime}ms ease-in`;
-        carInstance.style.transform = `translateX(${track.clientWidth - carInstance.clientWidth}px)`;
+        const animationWidth = track.clientWidth - carInstance.clientWidth;
+        player = movingCar (carInstance, animationTime, animationWidth);
+
+        aButton.setAttribute ('disabled', 'disabled');
+        bButton.removeAttribute ('disabled');
+
+        const driveMode = await switchDrive ('drive', car.id);
+        if (driveMode === 500) {
+            player.pause();
+        }
+    })
+
+    bButton.addEventListener ('click', async () => {
+        await startStopCar ('stopped', car.id);
+        bButton.setAttribute ('disabled', 'disabled');
+        aButton.removeAttribute ('disabled');
+        
+        player.cancel();
     })
 }
 
