@@ -1,9 +1,12 @@
-import { Car, getCars, createCar, deleteCar, deleteWinner, updateCar, startStopCar, switchDrive } from "../server/server";
+import { Car, getCars, createCar, deleteCar, deleteWinner, updateCar, startStopCar, switchDrive, 
+    Winner, getWinner, createWinner, updateWinner } from "../server/server";
 import createWinners from "../winners/winners";
 import { paintCar, brands, models, generateCarName, generateColor } from "../car";
 
 const carsOnPage = 7; 
 let currentPage = 1;
+let isWinner = false;
+let animationArr: Animation[] = [];
 
 function addCar (name: string, color: string, id: number):Car {
     const car = {
@@ -12,6 +15,15 @@ function addCar (name: string, color: string, id: number):Car {
         "id": id
     }
     return car;
+}
+
+function addWinner (id: number, wins: number, time: number):Winner {
+    const winner = {
+        "id": id,
+        "wins": wins,
+        "time": time
+    }
+    return winner;
 }
 
 async function displayCurrentCars (): Promise<Car[]> {
@@ -36,7 +48,23 @@ function movingCar (object: HTMLDivElement, time: number, distance: number): Ani
     return animation;
 }
 
-async function startRace (element: Car): Promise<void> {
+function showWinner (str: string): void {
+    const modal = document.createElement('p');
+    modal.classList.add('modal');
+    modal.textContent = str;
+    document.body.appendChild(modal);
+
+    setTimeout(() => {
+        modal.remove();
+    }, 2000)
+}
+
+function getMinTime (time1: number, time2: number): number {
+    if (time1 > time2) return time2;
+    return time1;
+}
+
+async function startRace (element: Car): Promise<Animation> {
     const response = await startStopCar ('started', element.id);
 
     let player: Animation = new Animation;
@@ -51,10 +79,29 @@ async function startRace (element: Car): Promise<void> {
     if (driveMode === 500) {
         player.pause();
     }
-    else {
+    else if (driveMode !== 500 && !isWinner) {
         const result = (Number(player.currentTime) / 1000).toFixed(2);
-        console.log(`${element.name} win with result ${result}s!`);
+        showWinner (`${element.name} win with result ${result}s!`);
+        
+        const tableWinner = await getWinner (element.id);
+        const winnersContainer = document.querySelector('.winners-container') as HTMLDivElement;
+
+        if (Object.keys(tableWinner).length === 0) {
+            const winner = addWinner (element.id, 1, Number(result));
+            await createWinner (winner);
+            winnersContainer.remove();
+            createWinners ();
+        } else {
+            const winner = addWinner (element.id, tableWinner.wins + 1, getMinTime (tableWinner.time, Number(result)));
+            await updateWinner (element.id, winner);
+            winnersContainer.remove();
+            createWinners ();
+        }
+
+        isWinner = true;
     };
+
+    return player;
 }
 
 async function drawCreateBlock (wrapper: HTMLDivElement, func: () => Promise<void>):Promise<void> {
@@ -163,10 +210,42 @@ async function drawButtonsBlock (wrapper: HTMLDivElement, func: () => Promise<vo
     })
 
     raceButton.addEventListener ('click', async () => {
+        const buttonsChanging = document.querySelectorAll('.changing');
+        const buttonsA = document.querySelectorAll('.a');
+        const buttonsB = document.querySelectorAll('.b');
+        buttonsChanging.forEach(el => el.setAttribute('disabled', 'disabled'));
+        buttonsA.forEach(el => el.setAttribute('disabled', 'disabled'));
+        raceButton.setAttribute('disabled', 'disabled');
+        resetButton.setAttribute('disabled', 'disabled');
+        animationArr = [];
+
         const currentCars = await displayCurrentCars();
-        currentCars.forEach (async (el) => {
-            startRace (el);
+        currentCars.forEach (async (car) => {
+            const player = await startRace (car);
+            animationArr.push(player);
+            if (animationArr.length === 7) {
+                resetButton.removeAttribute('disabled');
+                buttonsChanging.forEach(el => el.removeAttribute('disabled'));
+                buttonsB.forEach(el => el.setAttribute('disabled', 'disabled'));
+            }
         })
+    })
+
+    resetButton.addEventListener ('click',async () => {
+        const buttonsA = document.querySelectorAll('.a');
+        const buttonsB = document.querySelectorAll('.b');
+        const currentCars = await displayCurrentCars();
+        currentCars.forEach (async (car) => {
+            await startStopCar ('stopped', car.id);
+            animationArr.forEach(player => {
+                player.cancel();
+            })
+            isWinner = false;
+        })
+
+        raceButton.removeAttribute('disabled');
+        buttonsA.forEach(el => el.removeAttribute('disabled'));
+        buttonsB.forEach(el => el.setAttribute('disabled', 'disabled'));
     })
 }
 
@@ -212,19 +291,21 @@ async function drawButtonsBlock (wrapper: HTMLDivElement, func: () => Promise<vo
     })
 }
 
-function drawCarWithControls (wrapper: HTMLDivElement, car: Car):void {
+function drawCarWithControls (wrapper: HTMLDivElement, car: Car, i: number):void {
     const carWithControls = document.createElement('div');
     carWithControls.classList.add('car-with-controls');
     wrapper.appendChild(carWithControls);
 
     const aButton = document.createElement('button');
     aButton.classList.add('button');
+    aButton.classList.add('a');
     aButton.textContent = 'A';
     carWithControls.appendChild(aButton);
 
     const bButton = document.createElement('button');
     bButton.classList.add('button');
     bButton.classList.add('changing');
+    bButton.classList.add('b');
     bButton.textContent = 'B';
     bButton.setAttribute('disabled', 'disabled');
     carWithControls.appendChild(bButton);
@@ -250,6 +331,7 @@ function drawCarWithControls (wrapper: HTMLDivElement, car: Car):void {
         const animationTime = response.distance / response.velocity;
         const animationWidth = track.clientWidth - carInstance.clientWidth;
         player = movingCar (carInstance, animationTime, animationWidth);
+        animationArr[i] = player;
 
         aButton.setAttribute ('disabled', 'disabled');
         bButton.removeAttribute ('disabled');
@@ -266,6 +348,7 @@ function drawCarWithControls (wrapper: HTMLDivElement, car: Car):void {
         aButton.removeAttribute ('disabled');
 
         player.cancel();
+        animationArr.slice(i, i+1);
     })
 }
 
@@ -292,14 +375,14 @@ async function drawGarage(wrapper:HTMLDivElement, func: () => Promise<void>):Pro
 
     const currentCars = await displayCurrentCars ();
 
-    currentCars.forEach (el => {
+    currentCars.forEach ((el, i) => {
         const carContainer = document.createElement('div');
         carContainer.classList.add('car-container');
         garage.appendChild(carContainer);
 
         drawCarButtons (carContainer, el, func);
 
-        drawCarWithControls (carContainer, el);
+        drawCarWithControls (carContainer, el, i);
     })
 }
 

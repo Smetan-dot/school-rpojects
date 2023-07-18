@@ -66,3 +66,13 @@
 .flag {
     margin-right: 70px;
 }
+
+.modal {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    color: azure;
+    font-size: 40px;
+    font-weight: 700;
+}

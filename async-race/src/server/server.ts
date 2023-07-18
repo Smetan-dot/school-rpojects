@@ -78,4 +78,30 @@ export async function switchDrive (status: string, id: number): Promise<number> 
         method: 'PATCH'
     })
     return responce.status;  
-}    
+}
+
+export async function createWinner (winner: Winner): Promise<void> {
+    await fetch ('http://127.0.0.1:3000/winners', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(winner)
+    })
+}
+
+export async function getWinner (i: number): Promise<Winner> {
+    const data = await fetch (`http://127.0.0.1:3000/winners/${i}`);
+    const winner = await data.json();
+    return winner;
+}
+
+export async function updateWinner (i: number, winner: Winner): Promise<void> {
+    await fetch (`http://127.0.0.1:3000/winners/${i}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(winner)
+    })
+}
