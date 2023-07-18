@@ -1,8 +1,15 @@
-import { getWinners, getCar } from "../server/server";
+import { getWinners, getCar, Winner } from "../server/server";
 import { paintCar } from "../car";
 
 const winnersOnPage = 10;
-const currentPage = 1;
+let currentPage = 1;
+
+async function displayCurrentWinners (): Promise<Winner[]> {
+  const winners = await getWinners ();
+  const start = winnersOnPage * currentPage - winnersOnPage;
+  const end = start + winnersOnPage;
+  return winners.slice(start, end);
+}
 
 async function drawWinners (wrapper: HTMLDivElement):Promise<void> {
     const winners = await getWinners();
@@ -29,38 +36,56 @@ async function drawWinners (wrapper: HTMLDivElement):Promise<void> {
     const tBody = document.createElement('tbody');
     table.appendChild(tBody);
 
-    winners.forEach (async (el, i) => {
-        const tableRow = document.createElement('tr');
+    const currentWinners = await displayCurrentWinners ();
+
+    currentWinners.forEach (async (el, i) => {
         const car = await getCar (el.id);
-        tableRow.innerHTML = `<td>${i + 1}</td><td>${paintCar (car.color)}</td><td id="name">${car.name}</td><td>${el.wins}</td><td>${el.time}</td>`;
+        const tableRow = document.createElement('tr');
+        tableRow.innerHTML = `<td>${(currentPage * winnersOnPage - winnersOnPage) + i + 1}</td><td>${paintCar (car.color)}</td><td id="name">${car.name}</td><td>${el.wins}</td><td>${el.time}</td>`;
         tBody.appendChild(tableRow);
     })
 }
 
-async function drawPaginationButtons (wrapper: HTMLDivElement):Promise<void> {
+async function drawPaginationButtons (wrapper: HTMLDivElement, func: () => Promise<void>):Promise<void> {
   const winners = await getWinners();
 
   const prevButton = document.createElement('button');
   prevButton.classList.add('button');
   prevButton.classList.add('changing');
   prevButton.textContent = 'PREV';
-  prevButton.setAttribute('disabled', 'disabled');
+  if (currentPage === 1) prevButton.setAttribute('disabled', 'disabled');
   wrapper.appendChild(prevButton);
 
   const nextButton = document.createElement('button');
   nextButton.classList.add('button');
   nextButton.classList.add('changing');
   nextButton.textContent = 'NEXT';
-  if (winners.length <= winnersOnPage) nextButton.setAttribute('disabled', 'disabled');
+  if (winners.length <= winnersOnPage || currentPage === Math.ceil(winners.length / winnersOnPage)) nextButton.setAttribute('disabled', 'disabled');
   wrapper.appendChild(nextButton);
+
+  prevButton.addEventListener ('click', () => {
+      currentPage -= 1;
+      const winnersContainer = document.querySelector('.winners-container') as HTMLDivElement;
+      winnersContainer.remove();
+      func ();
+  })
+
+  nextButton.addEventListener ('click', () => {
+      currentPage += 1;
+      const winnersContainer = document.querySelector('.winners-container') as HTMLDivElement;
+      winnersContainer.remove();
+      func ();
+  })
 }
 
 export default async function createWinners ():Promise<void> {
+    const winnersButton = document.querySelector('.win') as HTMLButtonElement;
+
     const winnersContainer = document.createElement('div');
     winnersContainer.classList.add('winners-container');
-    winnersContainer.classList.add('hide');
+    if (!winnersButton.classList.contains('chosen')) winnersContainer.classList.add('hide');
     document.body.appendChild(winnersContainer);
 
     await drawWinners (winnersContainer);
-    drawPaginationButtons (winnersContainer);
+    drawPaginationButtons (winnersContainer, createWinners);
 }

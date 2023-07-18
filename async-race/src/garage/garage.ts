@@ -56,7 +56,7 @@ function showWinner (str: string): void {
 
     setTimeout(() => {
         modal.remove();
-    }, 2000)
+    }, 1000)
 }
 
 function getMinTime (time1: number, time2: number): number {
@@ -405,6 +405,7 @@ async function drawPaginationButtons (wrapper: HTMLDivElement, func: () => Promi
 
     nextButton.addEventListener('click', () => {
         currentPage += 1;
+        isWinner = false;
         const garageContainer = document.querySelector('.garage-container') as HTMLDivElement;
         garageContainer.remove();
         func ();
@@ -412,6 +413,7 @@ async function drawPaginationButtons (wrapper: HTMLDivElement, func: () => Promi
 
     prevButton.addEventListener('click', () => {
         currentPage -= 1;
+        isWinner = false;
         const garageContainer = document.querySelector('.garage-container') as HTMLDivElement;
         garageContainer.remove();
         func ();
