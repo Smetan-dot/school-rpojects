@@ -76,7 +76,7 @@ async function startRace (element: Car): Promise<Animation> {
     player = movingCar (car, animationTime, animationWidth);
 
     const driveMode = await switchDrive ('drive', element.id);
-    console.log(player);
+    
     if (driveMode === 500) {
         player.pause();
     }
@@ -210,30 +210,34 @@ async function drawButtonsBlock (wrapper: HTMLDivElement, func: () => Promise<vo
     })
 
     raceButton.addEventListener ('click', async () => {
-        const buttonsChanging = document.querySelectorAll('.changing');
-        const buttonsA = document.querySelectorAll('.a');
-        const buttonsB = document.querySelectorAll('.b');
-        buttonsChanging.forEach(el => el.setAttribute('disabled', 'disabled'));
-        buttonsA.forEach(el => el.setAttribute('disabled', 'disabled'));
-        raceButton.setAttribute('disabled', 'disabled');
-        resetButton.setAttribute('disabled', 'disabled');
+        const buttons = document.querySelectorAll('.button');
+        const buttonGarage = document.querySelector('.gar');
+        const buttonWin = document.querySelector('.win');
+        const prev = document.querySelector('.prev');
+        const next = document.querySelector('.next');
+        buttons.forEach(el => el.setAttribute('disabled', 'disabled'));
         animationArr = [];
 
         const currentCars = await displayCurrentCars();
         currentCars.forEach (async (car) => {
             const player = await startRace (car);
             animationArr.push(player);
-            if (animationArr.length === 7) {
+            if (animationArr.length === currentCars.length) {
                 resetButton.removeAttribute('disabled');
-                buttonsChanging.forEach(el => el.removeAttribute('disabled'));
-                buttonsB.forEach(el => el.setAttribute('disabled', 'disabled'));
+                buttonGarage?.removeAttribute('disabled');
+                buttonWin?.removeAttribute('disabled');
+                if (currentPage > 1) prev?.removeAttribute('disabled');
+                if ((cars.length >= carsOnPage && currentPage === 1) || currentPage < Math.ceil(cars.length / carsOnPage)) next?.removeAttribute('disabled');
             }
         })
     })
 
     resetButton.addEventListener ('click',async () => {
-        const buttonsA = document.querySelectorAll('.a');
+        const buttons = document.querySelectorAll('.button');
         const buttonsB = document.querySelectorAll('.b');
+        const prev = document.querySelector('.prev');
+        const next = document.querySelector('.next');
+
         const currentCars = await displayCurrentCars();
         currentCars.forEach (async (car) => {
             await startStopCar ('stopped', car.id);
@@ -243,9 +247,10 @@ async function drawButtonsBlock (wrapper: HTMLDivElement, func: () => Promise<vo
             isWinner = false;
         })
 
-        raceButton.removeAttribute('disabled');
-        buttonsA.forEach(el => el.removeAttribute('disabled'));
+        buttons.forEach(el => el.removeAttribute('disabled'));
         buttonsB.forEach(el => el.setAttribute('disabled', 'disabled'));
+        if (currentPage === 1) prev?.setAttribute('disabled', 'disabled');
+        if (cars.length <= carsOnPage || currentPage === Math.ceil(cars.length / carsOnPage)) next?.setAttribute('disabled', 'disabled');
     })
 }
 
@@ -392,6 +397,7 @@ async function drawPaginationButtons (wrapper: HTMLDivElement, func: () => Promi
     const prevButton = document.createElement('button');
     prevButton.classList.add('button');
     prevButton.classList.add('changing');
+    prevButton.classList.add('prev');
     prevButton.textContent = 'PREV';
     if (currentPage === 1) prevButton.setAttribute('disabled', 'disabled');
     wrapper.appendChild(prevButton);
@@ -399,6 +405,7 @@ async function drawPaginationButtons (wrapper: HTMLDivElement, func: () => Promi
     const nextButton = document.createElement('button');
     nextButton.classList.add('button');
     nextButton.classList.add('changing');
+    nextButton.classList.add('next');
     nextButton.textContent = 'NEXT';
     if (cars.length <= carsOnPage || currentPage === Math.ceil(cars.length / carsOnPage)) nextButton.setAttribute('disabled', 'disabled');
     wrapper.appendChild(nextButton);
