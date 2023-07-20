@@ -77,10 +77,8 @@ async function startRace (element: Car): Promise<Animation> {
 
     const driveMode = await switchDrive ('drive', element.id);
     
-    if (driveMode === 500) {
-        player.pause();
-    }
-    else if ((driveMode !== 500 && !isWinner) || (driveMode === 500 && player.playState === 'finished' && !isWinner)) {
+    if (driveMode === 500) player.pause();
+    if (player.playState === 'finished' && !isWinner) {
         isWinner = true;
         const result = (Number(player.currentTime) / 1000).toFixed(2);
         showWinner (`${element.name} win with result ${result}s!`);
@@ -431,6 +429,11 @@ export default async function createGarage ():Promise<void> {
     const garageContainer = document.createElement('div');
     garageContainer.classList.add('garage-container');
     document.body.appendChild(garageContainer);
+
+    window.addEventListener ('DOMContentLoaded', async () => {
+        const currentCars = await displayCurrentCars ();
+        currentCars.forEach(el => startStopCar ('stopped', el.id));
+    })
 
     drawCreateBlock (garageContainer, createGarage);
     drawUpdateBlock (garageContainer, createGarage);

@@ -70,7 +70,6 @@ export async function startStopCar (status: string, id: number): Promise<Answer>
         method: 'PATCH'
     })
     return response.json();
-    
 }    
 
 export async function switchDrive (status: string, id: number): Promise<number> {
