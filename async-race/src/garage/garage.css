@@ -71,8 +71,9 @@
     position: absolute;
     top:50%;
     left:50%;
-    transform:translate(-50%, -50%);
-    color: azure;
+    transform:translate(-30%, -40%);
+    color: white;
+    text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
     font-size: 40px;
     font-weight: 700;
 }

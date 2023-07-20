@@ -56,7 +56,7 @@ function showWinner (str: string): void {
 
     setTimeout(() => {
         modal.remove();
-    }, 1000)
+    }, 2000)
 }
 
 function getMinTime (time1: number, time2: number): number {
@@ -76,10 +76,12 @@ async function startRace (element: Car): Promise<Animation> {
     player = movingCar (car, animationTime, animationWidth);
 
     const driveMode = await switchDrive ('drive', element.id);
+    console.log(player);
     if (driveMode === 500) {
         player.pause();
     }
-    else if (driveMode !== 500 && !isWinner) {
+    else if ((driveMode !== 500 && !isWinner) || (driveMode === 500 && player.playState === 'finished' && !isWinner)) {
+        isWinner = true;
         const result = (Number(player.currentTime) / 1000).toFixed(2);
         showWinner (`${element.name} win with result ${result}s!`);
         
@@ -97,8 +99,6 @@ async function startRace (element: Car): Promise<Animation> {
             winnersContainer.remove();
             createWinners ();
         }
-
-        isWinner = true;
     };
 
     return player;

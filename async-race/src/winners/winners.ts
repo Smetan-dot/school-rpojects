@@ -9,14 +9,14 @@ let winsFlag = false;
 let timeFlag = false;
 
 async function displayCurrentWinners (): Promise<Winner[]> {
-    const winners = await getWinners (currentPage, winnersOnPage, sort, order);
+    const winners = await getWinners (sort, order);
     const start = winnersOnPage * currentPage - winnersOnPage;
     const end = start + winnersOnPage;
     return winners.slice(start, end);
 }
 
 async function drawWinners (wrapper: HTMLDivElement):Promise<void> {
-    const winners = await getWinners(currentPage, winnersOnPage, sort, order);
+    const winners = await getWinners (sort, order);
 
     const heading = document.createElement('h2');
     heading.classList.add('heading');
@@ -93,7 +93,7 @@ async function sortWinners (func: (sort: string, order: string) => Promise<void>
 }
 
 async function drawPaginationButtons (wrapper: HTMLDivElement, func: (sort: string, order: string) => Promise<void>):Promise<void> {
-  const winners = await getWinners(currentPage, winnersOnPage, sort, order);
+  const winners = await getWinners(sort, order);
 
   const prevButton = document.createElement('button');
   prevButton.classList.add('button');
