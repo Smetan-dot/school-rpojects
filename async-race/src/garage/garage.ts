@@ -65,6 +65,7 @@ function getMinTime (time1: number, time2: number): number {
 }
 
 async function startRace (element: Car): Promise<Animation> {
+    const time1 = new Date().getTime();
     const response = await startStopCar ('started', element.id);
 
     let player: Animation = new Animation;
@@ -75,12 +76,13 @@ async function startRace (element: Car): Promise<Animation> {
 
     player = movingCar (car, animationTime, animationWidth);
 
+    const time2 = new Date().getTime();
     const driveMode = await switchDrive ('drive', element.id);
     
     if (driveMode === 500) player.pause();
     if (player.playState === 'finished' && !isWinner) {
         isWinner = true;
-        const result = (Number(player.currentTime) / 1000).toFixed(2);
+        const result = ((Number(player.currentTime) + (time2 - time1))/ 1000).toFixed(2);
         showWinner (`${element.name} win with result ${result}s!`);
         
         const tableWinner = await getWinner (element.id);
@@ -98,7 +100,8 @@ async function startRace (element: Car): Promise<Animation> {
             createWinners ();
         }
     };
-
+    
+    startStopCar ('stopped', element.id);
     return player;
 }
 
@@ -252,7 +255,7 @@ async function drawButtonsBlock (wrapper: HTMLDivElement, func: () => Promise<vo
     })
 }
 
-    function drawCarButtons (wrapper: HTMLDivElement, car: Car, func: () => Promise<void>):void {
+function drawCarButtons (wrapper: HTMLDivElement, car: Car, func: () => Promise<void>):void {
     const carButtons = document.createElement('div');
     carButtons.classList.add('car-buttons');
     wrapper.appendChild(carButtons);
@@ -426,18 +429,18 @@ async function drawPaginationButtons (wrapper: HTMLDivElement, func: () => Promi
 }
 
 export default async function createGarage ():Promise<void> {
-    const garageContainer = document.createElement('div');
-    garageContainer.classList.add('garage-container');
-    document.body.appendChild(garageContainer);
-
     window.addEventListener ('DOMContentLoaded', async () => {
         const currentCars = await displayCurrentCars ();
         currentCars.forEach(el => startStopCar ('stopped', el.id));
     })
+    
+    const garageContainer = document.createElement('div');
+    garageContainer.classList.add('garage-container');
+    document.body.appendChild(garageContainer);
 
     drawCreateBlock (garageContainer, createGarage);
     drawUpdateBlock (garageContainer, createGarage);
     drawButtonsBlock (garageContainer, createGarage);
     await drawGarage (garageContainer, createGarage);
-    drawPaginationButtons (garageContainer, createGarage);
+    await drawPaginationButtons (garageContainer, createGarage);
 }
