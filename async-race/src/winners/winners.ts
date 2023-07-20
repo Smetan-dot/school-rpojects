@@ -3,16 +3,20 @@ import { paintCar } from "../car";
 
 const winnersOnPage = 10;
 let currentPage = 1;
+let sort = 'id';
+let order = 'ASC';
+let winsFlag = false;
+let timeFlag = false;
 
 async function displayCurrentWinners (): Promise<Winner[]> {
-  const winners = await getWinners ();
-  const start = winnersOnPage * currentPage - winnersOnPage;
-  const end = start + winnersOnPage;
-  return winners.slice(start, end);
+    const winners = await getWinners (currentPage, winnersOnPage, sort, order);
+    const start = winnersOnPage * currentPage - winnersOnPage;
+    const end = start + winnersOnPage;
+    return winners.slice(start, end);
 }
 
 async function drawWinners (wrapper: HTMLDivElement):Promise<void> {
-    const winners = await getWinners();
+    const winners = await getWinners(currentPage, winnersOnPage, sort, order);
 
     const heading = document.createElement('h2');
     heading.classList.add('heading');
@@ -28,7 +32,7 @@ async function drawWinners (wrapper: HTMLDivElement):Promise<void> {
     table.innerHTML = `
     <thead id="table-head">
       <tr>
-        <th>Number</th><th>Car</th><th id="name">Name</th><th>Wins</th><th>Best Time</th>
+        <th>Number</th><th>Car</th><th id="name">Name</th><th id="wins">Wins</th><th id="time">Best Time</th>
       </tr>
     </thead>`
     wrapper.appendChild(table);
@@ -46,8 +50,50 @@ async function drawWinners (wrapper: HTMLDivElement):Promise<void> {
     })
 }
 
-async function drawPaginationButtons (wrapper: HTMLDivElement, func: () => Promise<void>):Promise<void> {
-  const winners = await getWinners();
+async function sortWinners (func: (sort: string, order: string) => Promise<void>): Promise<void> {
+    const winsButton = document.getElementById('wins');
+    const timeButton = document.getElementById('time');
+    if (sort === 'time' && order === 'ASC') timeButton?.append(' ↓');
+    if (sort === 'time' && order === 'DESC') timeButton?.append(' ↑');
+    if (sort === 'wins' && order === 'ASC') winsButton?.append(' ↓');
+    if (sort === 'wins' && order === 'DESC') winsButton?.append(' ↑');
+
+    winsButton?.addEventListener ('click', () => {
+        sort = 'wins';
+
+        if (!winsFlag) {
+            order = 'DESC';
+            winsFlag = true;
+        }
+        else {
+            order = 'ASC';
+            winsFlag = false;
+        }
+
+        const winnersContainer = document.querySelector('.winners-container') as HTMLDivElement;
+        winnersContainer.remove();
+        func (sort, order);
+    })
+    timeButton?.addEventListener ('click', () => {
+        sort = 'time';
+
+        if (timeFlag === false) {
+            order = 'ASC';
+            timeFlag = true;
+        }
+        else {
+            order = 'DESC';
+            timeFlag = false;
+        }
+
+        const winnersContainer = document.querySelector('.winners-container') as HTMLDivElement;
+        winnersContainer.remove();
+        func (sort, order);
+    })
+}
+
+async function drawPaginationButtons (wrapper: HTMLDivElement, func: (sort: string, order: string) => Promise<void>):Promise<void> {
+  const winners = await getWinners(currentPage, winnersOnPage, sort, order);
 
   const prevButton = document.createElement('button');
   prevButton.classList.add('button');
@@ -67,14 +113,14 @@ async function drawPaginationButtons (wrapper: HTMLDivElement, func: () => Promi
       currentPage -= 1;
       const winnersContainer = document.querySelector('.winners-container') as HTMLDivElement;
       winnersContainer.remove();
-      func ();
+      func (sort, order);
   })
 
   nextButton.addEventListener ('click', () => {
       currentPage += 1;
       const winnersContainer = document.querySelector('.winners-container') as HTMLDivElement;
       winnersContainer.remove();
-      func ();
+      func (sort, order);
   })
 }
 
@@ -87,5 +133,6 @@ export default async function createWinners ():Promise<void> {
     document.body.appendChild(winnersContainer);
 
     await drawWinners (winnersContainer);
-    drawPaginationButtons (winnersContainer, createWinners);
+    await drawPaginationButtons (winnersContainer, createWinners);
+    sortWinners (createWinners)
 }

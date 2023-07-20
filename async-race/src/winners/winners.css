@@ -24,6 +24,11 @@ td {
     padding: 0 50px;
 }
 
+#wins,
+#time {
+    cursor: pointer;
+}
+
 td svg {
     width: 40px;
 }

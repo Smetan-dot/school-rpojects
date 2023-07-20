@@ -27,8 +27,8 @@ export async function getCars (): Promise<Car[]> {
     return cars;
 }
 
-export async function getWinners (): Promise<Winner[]> {
-    const data = await fetch ('http://127.0.0.1:3000/winners');
+export async function getWinners (page: number, limit: number, sort: string, order: string ): Promise<Winner[]> {
+    const data = await fetch (`http://127.0.0.1:3000/winners?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`);
     const winners = await data.json();
     return winners;
 }
