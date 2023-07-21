@@ -15,26 +15,26 @@ export type Answer = {
     "distance": number
 }
 
-export async function getCar (i:number): Promise<Car> {
-    const data = await fetch (`http://127.0.0.1:3000/garage/${i}`);
+export async function getCar(i:number): Promise<Car> {
+    const data = await fetch(`http://127.0.0.1:3000/garage/${i}`);
     const car = await data.json();
     return car;
 }
 
-export async function getCars (): Promise<Car[]> {
-    const data = await fetch ('http://127.0.0.1:3000/garage');
+export async function getCars(): Promise<Car[]> {
+    const data = await fetch('http://127.0.0.1:3000/garage');
     const cars = await data.json();
     return cars;
 }
 
-export async function getWinners (sort: string, order: string ): Promise<Winner[]> {
-    const data = await fetch (`http://127.0.0.1:3000/winners?_sort=${sort}&_order=${order}`);
+export async function getWinners(sort: string, order: string ): Promise<Winner[]> {
+    const data = await fetch(`http://127.0.0.1:3000/winners?_sort=${sort}&_order=${order}`);
     const winners = await data.json();
     return winners;
 }
 
 export async function createCar(car: Car): Promise<void> {
-    await fetch ('http://127.0.0.1:3000/garage', {
+    await fetch('http://127.0.0.1:3000/garage', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -43,20 +43,20 @@ export async function createCar(car: Car): Promise<void> {
     })
 }
 
-export async function deleteCar (i:number): Promise<void> {
-    await fetch (`http://127.0.0.1:3000/garage/${i}`, {
+export async function deleteCar(i:number): Promise<void> {
+    await fetch(`http://127.0.0.1:3000/garage/${i}`, {
         method: 'DELETE'
     })
 }
 
-export async function deleteWinner (i:number): Promise<void> {
-    await fetch (`http://127.0.0.1:3000/winners/${i}`, {
+export async function deleteWinner(i:number): Promise<void> {
+    await fetch(`http://127.0.0.1:3000/winners/${i}`, {
         method: 'DELETE'
     })
 }
 
-export async function updateCar (i: number, car: Car): Promise<void> {
-    await fetch (`http://127.0.0.1:3000/garage/${i}`, {
+export async function updateCar(i: number, car: Car): Promise<void> {
+    await fetch(`http://127.0.0.1:3000/garage/${i}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -65,22 +65,22 @@ export async function updateCar (i: number, car: Car): Promise<void> {
     })
 }
 
-export async function startStopCar (status: string, id: number): Promise<Answer> {
-    const response = await fetch (`http://127.0.0.1:3000/engine?id=${id}&status=${status}`, {
+export async function startStopCar(status: string, id: number): Promise<Answer> {
+    const response = await fetch(`http://127.0.0.1:3000/engine?id=${id}&status=${status}`, {
         method: 'PATCH'
     })
     return response.json();
 }    
 
-export async function switchDrive (status: string, id: number): Promise<number> {
-    const responce = await fetch (`http://127.0.0.1:3000/engine?id=${id}&status=${status}`, {
+export async function switchDrive(status: string, id: number): Promise<number> {
+    const responce = await fetch(`http://127.0.0.1:3000/engine?id=${id}&status=${status}`, {
         method: 'PATCH'
     })
     return responce.status;  
 }
 
-export async function createWinner (winner: Winner): Promise<void> {
-    await fetch ('http://127.0.0.1:3000/winners', {
+export async function createWinner(winner: Winner): Promise<void> {
+    await fetch('http://127.0.0.1:3000/winners', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -89,14 +89,14 @@ export async function createWinner (winner: Winner): Promise<void> {
     })
 }
 
-export async function getWinner (i: number): Promise<Winner> {
-    const data = await fetch (`http://127.0.0.1:3000/winners/${i}`);
+export async function getWinner(i: number): Promise<Winner> {
+    const data = await fetch(`http://127.0.0.1:3000/winners/${i}`);
     const winner = await data.json();
     return winner;
 }
 
-export async function updateWinner (i: number, winner: Winner): Promise<void> {
-    await fetch (`http://127.0.0.1:3000/winners/${i}`, {
+export async function updateWinner(i: number, winner: Winner): Promise<void> {
+    await fetch(`http://127.0.0.1:3000/winners/${i}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

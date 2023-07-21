@@ -4,7 +4,7 @@ import './winners/winners.css';
 import createGarage from './garage/garage';
 import createWinners from './winners/winners';
 
-function createHeader ():void {
+function createHeader(): void {
     const header = document.createElement('header');
     document.body.appendChild(header);
 
@@ -36,10 +36,10 @@ function createHeader ():void {
     })
 }
 
-async function initRace ():Promise<void> {
-    createHeader ();
-    createGarage ();
-    createWinners ();
+async function initRace(): Promise<void> {
+    createHeader();
+    createGarage();
+    createWinners();
 }
 
-initRace ();
+initRace();
