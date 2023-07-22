@@ -1,18 +1,18 @@
 export const brands = ['Mazda', 'Lada', 'Lancia', 'Opel', 'Tesla', 'BMW', 'Mersedes', 'Ford', 'Porshe', 'Audi', 'Suzuki', 'Toyota', 'Nissan', 'Honda', 'Volvo'];
 export const models = ['Demio', 'Vesta', 'Delta', 'Vectra', 'Model X', 'M3', 'GLC', 'Focus', '911', 'TT', 'Vitara', 'Corolla', 'Juke', 'Civic', 'S40'];
 
-export function generateCarName (arr1: string[], arr2: string[]):string {
+export function generateCarName(arr1: string[], arr2: string[]): string {
     const brand = arr1[Math.floor(Math.random() * arr1.length)];
     const model = arr2[Math.floor(Math.random() * arr2.length)];
     const carName = `${brand} ${model}`;
     return carName;
 }
 
-export function generateColor ():string {
+export function generateColor(): string {
 	return `#${Math.floor(Math.random()*16777215).toString(16)}`;
  }
 
-export function paintCar (color: string): string  {
+export function paintCar(color: string): string  {
     const car = `<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill=${color} stroke="white" stroke-width="5" width="60px" x="0px" y="0px" viewBox="0 110 512.005 262.005" style="enable-background:new 0 0 512.005 512.005;" xml:space="preserve" transform="matrix(-1,0,0,1,0,0)">
     <g>
         <g>
@@ -50,5 +50,6 @@ export function paintCar (color: string): string  {
         </g>
     </g>
     </svg>`;
+
     return car;
 }

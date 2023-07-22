@@ -33,7 +33,7 @@ async function displayCurrentCars(): Promise<Car[]> {
     return cars.slice(start, end);
 }
 
-function movingCar(object: HTMLDivElement, time: number, distance: number): Animation {
+function movingCar(object: HTMLDivElement, time: number, distance: number): Animation {    // moving animation for car
     const car = object;
     const animation =  car.animate(
         [
@@ -46,10 +46,10 @@ function movingCar(object: HTMLDivElement, time: number, distance: number): Anim
             fill: "forwards"
         }
     )
-    return animation;
+    return animation; 
 }
 
-function showWinner(str: string): void {
+function showWinner(str: string): void {    // show string with winner for 2 seconds
     const modal = document.createElement('p');
     modal.classList.add('modal');
     modal.textContent = str;
@@ -65,9 +65,10 @@ function getMinTime(time1: number, time2: number): number {
     return time1;
 }
 
-async function startRace(element: Car): Promise<Animation> {
+async function startRace(element: Car): Promise<Animation> {    // start race mode for 1 car
     const time1 = new Date().getTime();
-    const response = await startStopCar('started', element.id);
+    const response = await startStopCar('started', element.id);    // start engine
+    const time2 = new Date().getTime();    // dates for calculating response delay
 
     let player: Animation = new Animation;
     const car = document.querySelector(`.car-instance${element.id}`) as HTMLDivElement;
@@ -77,11 +78,10 @@ async function startRace(element: Car): Promise<Animation> {
 
     player = movingCar(car, animationTime, animationWidth);
 
-    const time2 = new Date().getTime();
-    const driveMode = await switchDrive('drive', element.id);
+    const driveMode = await switchDrive('drive', element.id);    // switch drive mode
     
-    if (driveMode === 500) player.pause();
-    if (player.playState === 'finished' && !isWinner) {
+    if (driveMode === 500) player.pause();    // check engine broke
+    if (player.playState === 'finished' && !isWinner) {    // check winner 
         isWinner = true;
         const result = ((Number(player.currentTime) + (time2 - time1))/ 1000).toFixed(2);
         showWinner(`${element.name} win with result ${result}s!`);
@@ -89,7 +89,7 @@ async function startRace(element: Car): Promise<Animation> {
         const tableWinner = await getWinner(element.id);
         const winnersContainer = document.querySelector('.winners-container') as HTMLDivElement;
 
-        if (Object.keys(tableWinner).length === 0) {
+        if (Object.keys(tableWinner).length === 0) {    // check winners table for current winner
             const winner = addWinner(element.id, 1, Number(result));
             await createWinner(winner);
             winnersContainer.remove();
@@ -102,11 +102,11 @@ async function startRace(element: Car): Promise<Animation> {
         }
     };
 
-    startStopCar('stopped', element.id);
+    await startStopCar('stopped', element.id);
     return player;
 }
 
-async function raceFunction(button: HTMLButtonElement, arrCars: Car[]): Promise<void> {
+async function raceFunction(button: HTMLButtonElement, arrCars: Car[]): Promise<void> {    // start race for cars on page to click the race-button
     const buttons = document.querySelectorAll('.button');
     const buttonGarage = document.querySelector('.gar');
     const buttonWin = document.querySelector('.win');
@@ -129,7 +129,7 @@ async function raceFunction(button: HTMLButtonElement, arrCars: Car[]): Promise<
     })
 }
 
-async function resetFunction(arrCars: Car[]): Promise<void> {
+async function resetFunction(arrCars: Car[]): Promise<void> {    // cancel animation and stopped cars to click reset-button
     const buttons = document.querySelectorAll('.button');
     const buttonsB = document.querySelectorAll('.b');
     const prev = document.querySelector('.prev');
@@ -180,7 +180,6 @@ async function aButtonFunction(car: Car, track: HTMLDivElement, carInstance: HTM
 
     const driveMode = await switchDrive('drive', car.id);
     if (driveMode === 500) animation.pause();
-    await startStopCar('stopped', car.id);
 }
 
 async function bButtonFunction(car: Car, aButton: HTMLButtonElement, bButton: HTMLButtonElement, i: number): Promise<void> {
@@ -216,7 +215,7 @@ async function drawCreateBlock(wrapper: HTMLDivElement, func: () => Promise<void
 
     const cars = await getCars();
 
-    createButton.addEventListener('click', () => {
+    createButton.addEventListener('click', () => {    // creating car to click
         if (inputCreate.value) {
             const car = addCar(inputCreate.value, colorCreate.value, cars.length + 1);
             createCar(car);
@@ -252,7 +251,7 @@ async function drawCreateBlock(wrapper: HTMLDivElement, func: () => Promise<void
     updateButton.setAttribute('disabled', 'disabled');
     updateBlock.appendChild(updateButton);
 
-    updateButton.addEventListener('click', () => {
+    updateButton.addEventListener('click', () => {    // update car to click
         const car = addCar(inputUpdate.value, colorUpdate.value, Number(updateBlock.id));
         updateCar(Number(updateBlock.id), car);
         const garage = document.querySelector('.garage-container') as HTMLDivElement;
@@ -287,7 +286,7 @@ async function drawButtonsBlock(wrapper: HTMLDivElement, func: () => Promise<voi
 
     const cars = await getCars();
 
-    generateButton.addEventListener('click', () => {
+    generateButton.addEventListener('click', () => {    // generate 100 cars 
         for (let i = 1; i <= 100; i += 1) {
             const car = addCar (generateCarName(brands, models), generateColor(), cars.length + i);
             createCar(car);
@@ -298,11 +297,11 @@ async function drawButtonsBlock(wrapper: HTMLDivElement, func: () => Promise<voi
     })
 
     raceButton.addEventListener('click', async () => {
-        raceFunction(resetButton, cars);
+        await raceFunction(resetButton, cars);
     })
 
     resetButton.addEventListener('click',async () => {
-        resetFunction(cars);
+        await resetFunction(cars);
     })
 }
 
@@ -451,7 +450,7 @@ async function drawPaginationButtons(wrapper: HTMLDivElement, func: () => Promis
 }
 
 export default async function createGarage(): Promise<void> {
-    window.addEventListener('DOMContentLoaded', async () => {
+    window.addEventListener('DOMContentLoaded', async () => {    // change engine-status to stopped before load game
         const currentCars = await displayCurrentCars();
         currentCars.forEach(el => startStopCar('stopped', el.id));
     })
@@ -463,6 +462,6 @@ export default async function createGarage(): Promise<void> {
     drawCreateBlock(garageContainer, createGarage);
     drawUpdateBlock(garageContainer, createGarage);
     drawButtonsBlock(garageContainer, createGarage);
-    await drawGarage(garageContainer, createGarage);
-    await drawPaginationButtons(garageContainer, createGarage);
+    drawGarage(garageContainer, createGarage);
+    drawPaginationButtons(garageContainer, createGarage);
 }

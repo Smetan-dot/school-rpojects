@@ -134,5 +134,5 @@ export default async function createWinners(): Promise<void> {
 
     await drawWinners(winnersContainer);
     await drawPaginationButtons(winnersContainer, createWinners);
-    sortWinners(createWinners)
+    sortWinners(createWinners);
 }
