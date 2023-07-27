@@ -9,8 +9,12 @@ export function generateCarName(arr1: string[], arr2: string[]): string {
 }
 
 export function generateColor(): string {
-	return `#${Math.floor(Math.random()*16777215).toString(16)}`;
+	return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
  }
+
+export function generateId(): number {
+    return Math.floor(Math.random() * (999999 - 100000)) + 100000;
+}
 
 export function paintCar(color: string): string  {
     const car = `<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill=${color} stroke="white" stroke-width="5" width="60px" x="0px" y="0px" viewBox="0 110 512.005 262.005" style="enable-background:new 0 0 512.005 512.005;" xml:space="preserve" transform="matrix(-1,0,0,1,0,0)">

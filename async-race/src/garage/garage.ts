@@ -1,7 +1,7 @@
 import { Car, getCars, createCar, deleteCar, deleteWinner, updateCar, startStopCar, switchDrive, 
     Winner, getWinner, createWinner, updateWinner } from "../server/server";
 import createWinners from "../winners/winners";
-import { paintCar, brands, models, generateCarName, generateColor } from "../car/car";
+import { paintCar, brands, models, generateCarName, generateColor, generateId } from "../car/car";
 
 const carsOnPage = 7; 
 let currentPage = 1;
@@ -213,11 +213,9 @@ async function drawCreateBlock(wrapper: HTMLDivElement, func: () => Promise<void
     createButton.textContent = 'CREATE';
     createBlock.appendChild(createButton);
 
-    const cars = await getCars();
-
-    createButton.addEventListener('click', () => {    // creating car to click
+    createButton.addEventListener('click', async () => {    // creating car to click
         if (inputCreate.value) {
-            const car = addCar(inputCreate.value, colorCreate.value, cars.length + 1);
+            const car = addCar(inputCreate.value, colorCreate.value, generateId());
             createCar(car);
             const garage = document.querySelector('.garage-container') as HTMLDivElement;
             garage.remove();
@@ -288,7 +286,7 @@ async function drawButtonsBlock(wrapper: HTMLDivElement, func: () => Promise<voi
 
     generateButton.addEventListener('click', () => {    // generate 100 cars 
         for (let i = 1; i <= 100; i += 1) {
-            const car = addCar (generateCarName(brands, models), generateColor(), cars.length + i);
+            const car = addCar (generateCarName(brands, models), generateColor(), generateId());
             createCar(car);
         }
         const garage = document.querySelector('.garage-container') as HTMLDivElement;
