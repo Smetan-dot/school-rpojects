@@ -74,7 +74,7 @@ async function startRace(element: Car): Promise<Animation> {    // start race mo
     const car = document.querySelector(`.car-instance${element.id}`) as HTMLDivElement;
     const track = car.parentElement as HTMLDivElement;
     const animationTime = response.distance / response.velocity;
-    const animationWidth = track.clientWidth - car.clientWidth;;
+    const animationWidth = track.clientWidth - car.clientWidth;
 
     player = movingCar(car, animationTime, animationWidth);
 
@@ -93,14 +93,14 @@ async function startRace(element: Car): Promise<Animation> {    // start race mo
             const winner = addWinner(element.id, 1, Number(result));
             await createWinner(winner);
             winnersContainer.remove();
-            createWinners();
+            await createWinners();
         } else {
             const winner = addWinner(element.id, tableWinner.wins + 1, getMinTime(tableWinner.time, Number(result)));
             await updateWinner(element.id, winner);
             winnersContainer.remove();
-            createWinners();
+            await createWinners();
         }
-    };
+    }
 
     await startStopCar('stopped', element.id);
     return player;
@@ -457,9 +457,9 @@ export default async function createGarage(): Promise<void> {
     garageContainer.classList.add('garage-container');
     document.body.appendChild(garageContainer);
 
-    drawCreateBlock(garageContainer, createGarage);
+    await drawCreateBlock(garageContainer, createGarage);
     drawUpdateBlock(garageContainer, createGarage);
-    drawButtonsBlock(garageContainer, createGarage);
-    drawGarage(garageContainer, createGarage);
-    drawPaginationButtons(garageContainer, createGarage);
+    await drawButtonsBlock(garageContainer, createGarage);
+    await drawGarage(garageContainer, createGarage);
+    await drawPaginationButtons(garageContainer, createGarage);
 }

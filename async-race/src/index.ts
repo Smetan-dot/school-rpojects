@@ -38,8 +38,8 @@ function createHeader(): void {
 
 async function initRace(): Promise<void> {
     createHeader();
-    createGarage();
-    createWinners();
+    await createGarage();
+    await createWinners();
 }
 
 initRace();

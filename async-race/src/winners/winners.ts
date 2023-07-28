@@ -77,7 +77,7 @@ async function sortWinners(func: (sort: string, order: string) => Promise<void>)
     timeButton?.addEventListener('click', () => {
         sort = 'time';
 
-        if (timeFlag === false) {
+        if (!timeFlag) {
             order = 'ASC';
             timeFlag = true;
         }
@@ -134,5 +134,5 @@ export default async function createWinners(): Promise<void> {
 
     await drawWinners(winnersContainer);
     await drawPaginationButtons(winnersContainer, createWinners);
-    sortWinners(createWinners);
+    await sortWinners(createWinners);
 }
